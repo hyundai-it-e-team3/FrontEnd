@@ -7,6 +7,11 @@ export default[
   {
     path: "/member/login",
     //lazyloding
-    component: () => import(/* webpackChunkName: "about" */ '../views/member/login.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/member/Login.vue')
+  },
+  {
+    path: "/member/mypage",
+    //lazyloding
+    component: () => import(/* webpackChunkName: "about" */ '../views/member/MyPage.vue')
   },
 ]
