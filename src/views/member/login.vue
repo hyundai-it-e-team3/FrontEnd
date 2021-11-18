@@ -31,6 +31,7 @@
             width=auto
         >로그인</v-btn>
         </v-row>
+        
       </v-card-text>
     </v-card>  
 </template>
