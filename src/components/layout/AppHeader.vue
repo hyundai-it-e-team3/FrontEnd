@@ -8,6 +8,13 @@
       dense
       scroll-target="#scrolling-techniques-7"
     >
+        <v-btn icon>
+            <v-icon>mdi-chevron-left</v-icon>
+        </v-btn>
+        <v-btn icon>
+            <v-icon>mdi-menu</v-icon>
+        </v-btn>
+        <v-spacer></v-spacer>
         <v-toolbar-title>HANDSOME</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn icon>
