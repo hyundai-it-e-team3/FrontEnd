@@ -3,11 +3,12 @@
     <v-app-bar
       color="black"
       dark
-      absolut
+      absolute
       elevate-on-scroll
+      dense
       scroll-target="#scrolling-techniques-7"
     >
-        <v-toolbar-title s>HANDSOME</v-toolbar-title>
+        <v-toolbar-title>HANDSOME</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn icon>
             <v-icon>mdi-magnify</v-icon>

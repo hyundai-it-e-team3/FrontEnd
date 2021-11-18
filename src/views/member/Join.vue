@@ -1,7 +1,8 @@
 <!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
 
-    <v-card>
+    <v-card
+     height="auto">
         <v-card-title>회원 가입</v-card-title>
         <v-divider/>
         <v-card-text>
