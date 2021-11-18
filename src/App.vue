@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import AppHeader from './components/layout/AppHeader.vue';
 
 export default {
   name: 'App',
@@ -58,5 +59,6 @@ export default {
   data: () => ({
     //
   }),
+  computed: { headerFlag() { return this.$store.state.headerFlag; } }
 };
 </script>
