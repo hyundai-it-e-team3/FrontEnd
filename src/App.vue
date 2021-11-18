@@ -1,45 +1,52 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
+<v-app-bar
+      color="black"
+      dense
       dark
     >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
+      <v-toolbar-title >HANDSOME</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-cart-outline</v-icon>
       </v-btn>
     </v-app-bar>
 
     <v-main>
       <router-view/>
     </v-main>
+    <v-footer
+      color="black lighten-1"
+      padless
+    >
+      <v-row
+        justify="center"
+        no-gutters
+      >
+        <v-btn
+          v-for="link in links"
+          :key="link"
+          color="white"
+          text
+          rounded
+          class="my-2"
+        >
+          {{ link }}
+        </v-btn>
+        <v-col
+          class=" lighten-2 py-4 text-center white--text"
+          cols="12"
+        > 
+        </v-col>
+      </v-row>
+    </v-footer>
   </v-app>
 </template>
 
