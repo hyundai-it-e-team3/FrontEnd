@@ -3,11 +3,11 @@
   <v-app>
     <v-list dense nav>
       <v-list-item @click="backUrl">
-        <v-list-item-icon>
+        <v-list-item-icon class="mr-0">
             <v-icon>mdi-chevron-left</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title class="text-h6"> 카테고리 </v-list-item-title>
+          <v-list-item-title class="text-center"> 카테고리 </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-list-group :value="false" prepend-icon="mdi-face-woman" active-class="yellow--text" >
