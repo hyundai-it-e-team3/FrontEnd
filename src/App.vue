@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import Home from './views/Home.vue'
+import AppFooter from './components/layout/AppFooter.vue'
 import AppHeader from './components/layout/AppHeader.vue';
 
 export default {
@@ -26,5 +28,9 @@ export default {
     headerFlag:true
   }),
   computed: { headerFlag() { return this.$store.state.headerFlag; } }
+  components: {
+    Home,
+    AppFooter,
+  },
 };
 </script>
