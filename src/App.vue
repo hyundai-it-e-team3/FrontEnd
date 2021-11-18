@@ -7,9 +7,7 @@
       class="overflow-y-auto"
       max-height="800px"
       >
-        <v-container>
-          <router-view/>
-        </v-container>
+        <router-view/>
       </v-sheet>
     </v-main>
   </v-app>
