@@ -2,11 +2,10 @@
   <v-app>
     <app-header v-if="headerFlag"/>
     <v-main>
-      
       <v-sheet
       id="scrolling-techniques-7"
       class="overflow-y-auto"
-      max-height="600"
+      max-height="800px"
       >
         <v-container>
           <router-view/>
@@ -27,6 +26,5 @@ export default {
     headerFlag:true
   }),
   computed: { headerFlag() { return this.$store.state.headerFlag; } }
-
 };
 </script>
