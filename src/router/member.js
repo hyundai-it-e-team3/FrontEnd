@@ -29,4 +29,9 @@ export default[
     //lazyloding
     component: () => import(/* webpackChunkName: "about" */ '../views/member/MemberCoupon')
   },
+  {
+    path: "/member/cart",
+    //lazyloding
+    component: () => import(/* webpackChunkName: "about" */ '../views/member/cart')
+  },
 ]
