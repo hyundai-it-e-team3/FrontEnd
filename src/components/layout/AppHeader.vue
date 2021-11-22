@@ -8,19 +8,21 @@
       dense
       scroll-target="#scrolling-techniques-7"
     >
-        <v-btn icon>
+        <v-btn icon @click="goBack">
             <v-icon>mdi-chevron-left</v-icon>
         </v-btn>
-        <v-btn icon>
+        <v-btn icon v-if= "headerFlag==1" to="/product/categorymenu">
             <v-icon>mdi-menu</v-icon>
         </v-btn>
         <v-spacer></v-spacer>
-        <v-toolbar-title>HANDSOME</v-toolbar-title>
+        <v-toolbar-title @click="goHome" v-if= "headerFlag==1">HANDSOME</v-toolbar-title>
+        <v-toolbar-title v-if= "headerFlag==2">카테고리</v-toolbar-title>
+        <v-toolbar-title v-if= "headerFlag==3">브랜드</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn icon>
+        <v-btn icon v-if= "headerFlag==1">
             <v-icon>mdi-magnify</v-icon>
         </v-btn>
-        <v-btn icon to="/member/cart">
+        <v-btn icon to="/member/cart" v-if= "headerFlag==1">
             <v-icon>mdi-cart-outline</v-icon>
         </v-btn>
     </v-app-bar>
@@ -40,7 +42,14 @@ export default {
     },
     //컴포넌트 메소드 정의
     methods: {
+        goBack(){
+            this.$router.go(-1);
+        },
+        goHome(){
+            this.$router.push("/");
+        },
     }
+    ,computed: { headerFlag() { return this.$store.state.headerFlag; } },
 }
 </script>
 

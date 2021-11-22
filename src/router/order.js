@@ -7,6 +7,7 @@ export default[
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "order" */ '../views/order/OrderForm')
   },
+  {
     path: "/order/complete",
     //lazyloding
     component: () => import(/* webpackChunkName: "about" */ '../views/order/Complete')

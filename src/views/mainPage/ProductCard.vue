@@ -1,6 +1,6 @@
 <!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-    <v-card class="pa-0 ma-0">
+    <v-card class="pa-0 ma-0" @click="goProduct">
         <v-img width="100%" src="http://newmedia.thehandsome.com/CM/2B/SS/CM2B1KOT032M_DB_W01.jpg/dims/resize/684x1032/">
             <v-icon color="red" dense>mdi-heart</v-icon>
         </v-img>
@@ -9,7 +9,7 @@
             <div>캐시미어 크롭 니트 가디건</div>
             <div>123,000₩</div>
         </v-card-text>
-  </v-card>
+    </v-card>
 </template>
 
 <script>
@@ -25,7 +25,10 @@ export default {
         };
     },
     //컴포넌트 메소드 정의
-    methods: {
+    methods:{
+        goProduct(){
+        this.$router.push("/product/productDetail");
+        }
     }
 }
 </script>

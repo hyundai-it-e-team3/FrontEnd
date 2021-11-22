@@ -2,14 +2,6 @@
 <template>
   <v-app>
     <v-list dense nav>
-      <v-list-item @click="backUrl">
-        <v-list-item-icon class="mr-0">
-            <v-icon>mdi-chevron-left</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title class="text-center"> 카테고리 </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
       <v-list-group :value="false" prepend-icon="mdi-face-woman" active-class="yellow--text" >
         <template v-slot:activator>
           <v-list-item-title class="font-weight-bold">여성</v-list-item-title>
@@ -220,13 +212,15 @@ export default {
     backUrl(){
       this.$router.go(-1);
     }
-  }
-  ,created(){
-    this.$store.commit("setHeaderFlag",false);
   },
-  destroyed(){
-    this.$store.commit("setHeaderFlag",true);
+  mounted(){
+    this.$store.commit("setHeaderFlag",2);
   }
+  ,
+  destroyed(){
+    this.$store.commit("setHeaderFlag",1);
+  },
+  computed: { headerFlag() { return this.$store.state.headerFlag; } },
 }
 </script>
 <!-- 컴포넌트 스타일 정의 -->

@@ -1,6 +1,6 @@
 <template>
-  <v-footer color="black" class="pa-2 pt-3" dark>
-    <v-container absolute>
+  <v-footer color="black footer" class="pa-2 pt-3" dark >
+    <v-container>
       <v-row v-if= "footerFlag == 1">
         <v-col cols="2.4" @click="goCategory">
           <v-row class="d-flex justify-center">
@@ -43,7 +43,7 @@
           </v-row>
         </v-col>
       </v-row>
-      <v-row v-if= "footerFlag == 2" class="d-flex justify-center">
+      <v-row v-if= "footerFlag == 2" class="d-flex justify-center" @click="goComplete">
         <h3>주문하기</h3>
       </v-row>
       <v-row v-if= "footerFlag == 3" class="d-flex justify-center">
@@ -52,7 +52,7 @@
             <v-icon>mdi-cards-heart-outline</v-icon>
           </v-row>
         </v-col>
-        <v-col cols="2" @click="goMyPage" color="blue">
+        <v-col cols="2" @click="goCart" color="blue">
           <v-row class="d-flex justify-center">
             <v-icon>mdi-cart-variant</v-icon>
           </v-row>
@@ -96,8 +96,12 @@ export default {
       this.$router.push("/order/orderForm");
     },
     goCart(){
-      this.$router.push("/order/orderForm");
+      this.$router.push("/member/cart");
+    },
+    goComplete(){
+      this.$router.push("/order/complete");
     }
+
   },
   computed: { footerFlag() { return this.$store.state.footerFlag; } },
 
@@ -108,5 +112,16 @@ export default {
 </script>
 
 <style scoped>
-
+  .footer{
+    position:fixed; 
+    left:0px; 
+    bottom:0px; 
+    width:100%; 
+  }
+  .header{
+    position:fixed; 
+    left:0px; 
+    top:0px; 
+    width:100%;
+  }
 </style>

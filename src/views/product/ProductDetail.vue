@@ -2,7 +2,6 @@
 <template>
   <div>
   <v-card
-    class="mx-auto my-12"
     max-width="374"
   >
     <template slot="progress">
@@ -46,13 +45,30 @@
     <div class="mt-3"  
       >
       <v-container>
-        <v-row dense>
-          <v-col v-for="(colorChip, i) in colorChips"  :key="i" cols="6">
-            <v-img
-              :src="colorChip"
-              width="30px"
-            >
-            </v-img>
+        <v-row>
+          <v-col cols="3" class="d-flex align-center">색상 </v-col>
+          <v-col cols="2" v-for="(colorChip, index) in colorChips" :key="index">
+            <img :src="colorChip" width="30" />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="3" class="d-flex align-center">사이즈</v-col>
+          <v-col cols="2" v-for="(size, index) in size" :key="index">
+            {{size}}
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="3" class="d-flex align-center">수량 </v-col>
+          <v-col>
+            <v-row>
+              <v-col cols="2">
+                <v-icon @click="plusAmount">mdi-plus-circle-outline</v-icon>
+              </v-col>
+              <v-col cols="2" class="text-center">{{amount}}</v-col>
+              <v-col cols="2">
+                <v-icon @click="minusAmount">mdi-minus-circle-outline</v-icon>
+              </v-col>
+            </v-row>        
           </v-col>
         </v-row>
       </v-container>
@@ -87,7 +103,7 @@
       <div><span class="mr-7">카드사 혜택</span> <span>카드사 혜택 상세보기 ></span></div>
     </v-card-text>
     <v-divider/>
-    <v-card>
+    <v-card class="mb-8">
       <v-card-title>함께 코디한 상품</v-card-title>
 
       <v-card-text>
@@ -158,10 +174,29 @@ export default {
       'http://newmedia.thehandsome.com/CM/2B/SS/CM2B0KCD231W_LE_W01.jpg/dims/resize/684x1032/',
       'http://newmedia.thehandsome.com/CM/2B/SS/CM2B0KCD231W_LE_W02.jpg/dims/resize/684x1032/',
       'http://newmedia.thehandsome.com/CM/2B/SS/CM2B0KCD231W_LE_W03.jpg/dims/resize/684x1032/'
-    ]
+    ],
+    size: [
+      "85", "90"
+    ],
+    stock: 5,
+    amount: 1
   }),
   //컴포넌트 메소드 정의
   methods:{
+    plusAmount() {
+      if(this.amount+1 > this.stock) {
+        console.log("재고가 부족합니다.")
+      } else {
+        this.amount += 1
+      }
+    },
+    minusAmount() {
+      if(this.amount-1 <= 0) {
+        console.log("1개 이상 주문하세요.")
+      } else {
+        this.amount -= 1
+      }
+    }
   },
   mounted(){
     this.$store.commit("setFooterFlag",3);
