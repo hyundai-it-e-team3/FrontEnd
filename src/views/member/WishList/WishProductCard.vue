@@ -1,8 +1,8 @@
 <!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-    <v-card class="pa-0 ma-0">
-        <v-img height="200" src="http://newmedia.thehandsome.com/CM/2B/SS/CM2B1KOT032M_DB_W01.jpg/dims/resize/684x1032/">
-            <v-icon color="red" large>mdi-heart</v-icon>
+    <v-card>
+        <v-img height="210" src="http://newmedia.thehandsome.com/CM/2B/SS/CM2B1KOT032M_DB_W01.jpg/dims/resize/684x1032/">
+            <v-icon class="ma-5" color="red" large>mdi-heart</v-icon>
         </v-img>
         <v-card-text>
             <div>the CASHMERE</div>

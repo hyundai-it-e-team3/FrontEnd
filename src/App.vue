@@ -2,7 +2,7 @@
   <v-app>
     <app-header v-if="headerFlag"/>
     
-    <v-main class="pt-10">
+    <v-main class="pt-12">
       <v-sheet
       id="scrolling-techniques-7"
       class="overflow-y-auto"
