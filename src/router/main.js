@@ -7,4 +7,8 @@ export default[
     path: "/mainpage/newitem",
     component: () => import(/* webpackChunkName: "about" */ '../views/mainPage/newItem')
   },
+  {
+    path: "/mainpage/bestitem",
+    component: () => import(/* webpackChunkName: "about" */ '../views/mainPage/bestItem')
+  },
 ]
