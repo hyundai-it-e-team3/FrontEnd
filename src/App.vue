@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <app-header v-if="headerFlag"/>
+    <app-header/>
     
     <v-main class="pt-12">
       <v-sheet
