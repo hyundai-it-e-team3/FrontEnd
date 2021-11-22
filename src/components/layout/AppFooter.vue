@@ -1,6 +1,6 @@
 <template>
   <v-footer color="black" class="pa-2 pt-3" dark>
-    <v-container>
+    <v-container absolute>
       <v-row>
         <v-col cols="2.4">
           <v-row class="d-flex justify-center">
