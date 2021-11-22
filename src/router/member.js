@@ -24,4 +24,9 @@ export default[
     //lazyloding
     component: () => import(/* webpackChunkName: "about" */ '../views/member/MemberLevel')
   },
+  {
+    path: "/member/membercoupon",
+    //lazyloding
+    component: () => import(/* webpackChunkName: "about" */ '../views/member/MemberCoupon')
+  },
 ]
