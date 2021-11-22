@@ -1,11 +1,6 @@
 <template>
   <v-container fluid class="pa-0">
-    <v-col absolut class="pa-0">
-        <v-btn>홈</v-btn>
-        <v-btn>신상품</v-btn>
-        <v-btn>베스트</v-btn>
-        <v-btn>이벤트</v-btn>
-    </v-col>
+    <navi />
 
     <v-row class="mt-2">
       <v-col class="pa-0">
@@ -53,11 +48,13 @@
 </template>
 
 <script>
+import Navi from './Navi.vue';
 import ProductCard from './ProductCard.vue';
 
 export default {
   name: "mainPage",
   components: {
+    Navi,
     ProductCard
   },
   data() {
