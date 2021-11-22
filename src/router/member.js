@@ -14,10 +14,14 @@ export default[
     //lazyloding
     component: () => import(/* webpackChunkName: "about" */ '../views/member/MyPage.vue')
   },
-  
   {
     path: "/member/wishList",
     //lazyloding
     component: () => import(/* webpackChunkName: "about" */ '../views/member/WishList')
+  },
+  {
+    path: "/member/memberlevel",
+    //lazyloding
+    component: () => import(/* webpackChunkName: "about" */ '../views/member/MemberLevel')
   },
 ]
