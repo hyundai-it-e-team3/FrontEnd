@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import main from './main'
 import member from './member'
+import order from './order'
 import product from './product'
 
 Vue.use(VueRouter)
@@ -15,7 +16,8 @@ const routes = [
   },
   ...member,
   ...product,
-  ...main
+  ...main,
+  ...order,
 ]
 
 const router = new VueRouter({

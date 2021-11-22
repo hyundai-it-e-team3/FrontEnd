@@ -1,9 +1,10 @@
 <template>
-  <main-page />
+  <main-page/>
 </template>
 
 <script>
-  import MainPage from './mainPage'
+  import MainPage from './mainPage/index.vue'
+  
 
   export default {
     name: 'Home',

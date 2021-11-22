@@ -1,39 +1,128 @@
 <!-- 컴포넌트 UI 정의 -->
 <template>
-  <v-sheet
-    class="mx-auto"
-    elevation="8"
-    max-width="800"
+  <div>
+  <v-card
+    class="mx-auto my-12"
+    max-width="374"
   >
-    <v-slide-group
-      class="pa-4"
-      mandatory
-      show-arrows
+    <template slot="progress">
+      <v-progress-linear
+        color="deep-purple"
+        height="10"
+        indeterminate
+      ></v-progress-linear>
+    </template>
+
+    <v-carousel
+      cycle
+      height="400"
+      hide-delimiter-background
+      show-arrows-on-hover
     >
-      <v-slide-item
+      <v-carousel-item
+        v-for="(slide, i) in slides"
+        :key="i"
       >
-        <v-card
-          class="ma-4"
-          height="200"
-          width="100"
+        <v-sheet
+          height="100%"
         >
           <v-row
             class="fill-height"
             align="center"
             justify="center"
           >
-            <v-scale-transition>
-              <v-icon
-                color="white"
-                size="48"
-                v-text="'mdi-close-circle-outline'"
-              ></v-icon>
-            </v-scale-transition>
+            
+          <v-img
+            :src="img[i]"
+            class="white--text align-end"
+            width="100%"
+          ></v-img>
+            
           </v-row>
-        </v-card>
-      </v-slide-item>
-    </v-slide-group>
-  </v-sheet>
+        </v-sheet>
+      </v-carousel-item>
+    </v-carousel>
+    <v-card-title>캐시미어 크롭 니트 가디건</v-card-title>
+    <div class="mt-3"  
+      >
+      <v-container>
+        <v-row dense>
+          <v-col v-for="(colorChip, i) in colorChips"  :key="i" cols="6">
+            <v-img
+              :src="colorChip"
+              width="30px"
+            >
+            </v-img>
+          </v-col>
+        </v-row>
+      </v-container>
+    </div>
+    <v-card-text>
+      <v-row
+        align="center"
+        class="mx-0"
+      >
+
+        <div class="grey--text">
+          395,000₩
+        </div>
+      </v-row>
+
+      <div class="my-4 text-subtitle-1">
+        WOMAN>OUTER>Cardigen/Vest
+      </div>
+
+      <div>품번: CM2BOKCD230W</div>
+    </v-card-text>
+    <v-card-text class="text--primary grey lighten-3">
+      <div>트렌디한 크롭 길이감이 매력적인 니트 가디건으로 우아한 컷과 세련된 텍스처가 돋보입니다. 넥라인과 여밈에 보다 성글게 짜여진 텍스처가 눈길을 끕니다. 촉감마저 부드러운 100% 캐시미어 소재를 사용하여 고급스럽게 완성도를 높였습니다.</div>
+    </v-card-text>
+    
+    <v-divider></v-divider>
+
+    <v-card-text>
+      <div><span class="mr-4">한섬 마일리지</span> <span>6,750P(5%)</span></div>
+      <div><span class="mr-11">H.Point</span> <span>135P (0.1%)</span></div>
+      <div><span class="mr-14">배송비</span> <span>30,000원 이상 무료배송(실결제 기준)</span></div>
+      <div><span class="mr-7">카드사 혜택</span> <span>카드사 혜택 상세보기 ></span></div>
+    </v-card-text>
+    <v-divider/>
+    <v-card>
+      <v-card-title>함께 코디한 상품</v-card-title>
+
+      <v-card-text>
+        <div class="text-subtitle-1">
+          캐시미어 니트 가디건
+        </div>
+        <v-item-group>
+          <v-container>
+            <v-row>
+              <v-col
+                cols="4"
+                md="4"
+                v-for="(refProduct, i) in refProducts"
+                :key="i"    
+              >
+                <v-item>
+                  <v-card
+                    class="d-flex align-center"
+                    height="100%"
+                  >
+                    <v-img
+                      :src="refProduct"
+                      width="30px"
+                    >
+                    </v-img>
+                  </v-card>
+                </v-item>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-item-group>
+      </v-card-text>
+    </v-card>
+  </v-card>
+  </div>
 </template>
 
 <script>
@@ -45,6 +134,31 @@ export default {
   },
   //컴포넌트 데이터를 정의
   data:()=>({
+    colors:[
+      'indigo',
+      'warning',
+      'pink darken-2',
+    ]
+    ,
+    img: [
+          'http://newmedia.thehandsome.com/CM/2B/SS/CM2B0KCD230W_PK_W01.jpg/dims/resize/684x1032/',
+          'http://newmedia.thehandsome.com/CM/2B/SS/CM2B0KCD230W_PK_W02.jpg/dims/resize/684x1032/',
+          'http://newmedia.thehandsome.com/CM/2B/SS/CM2B0KCD230W_PK_W03.jpg/dims/resize/684x1032/',
+        ],
+    slides: [
+          'First',
+          'Second',
+          'Third',
+    ],
+    colorChips:[
+      'http://newmedia.thehandsome.com/CM/2B/SS/CM2B0KCD230W_PK_C01.jpg',
+      'http://newmedia.thehandsome.com/CM/2B/SS/CM2B0KCD230W_CP_C01.jpg'
+    ],
+    refProducts:[
+      'http://newmedia.thehandsome.com/CM/2B/SS/CM2B0KCD231W_LE_W01.jpg/dims/resize/684x1032/',
+      'http://newmedia.thehandsome.com/CM/2B/SS/CM2B0KCD231W_LE_W02.jpg/dims/resize/684x1032/',
+      'http://newmedia.thehandsome.com/CM/2B/SS/CM2B0KCD231W_LE_W03.jpg/dims/resize/684x1032/'
+    ]
   }),
   //컴포넌트 메소드 정의
   methods:{

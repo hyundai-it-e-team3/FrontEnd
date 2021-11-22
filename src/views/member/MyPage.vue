@@ -2,27 +2,33 @@
 <template>
     <v-card>
       <v-list class="ma-3">
-        <v-list-item link>
+        <v-list-item link to="/member/update">
           <v-list-item-content>
             <v-list-item-title class="text-h6">
               홍길동
             </v-list-item-title>
-            <v-list-item-subtitle>lv.5</v-list-item-subtitle>
           </v-list-item-content>
 
           <v-list-item-action>
             <v-icon>mdi-chevron-right</v-icon>
           </v-list-item-action>
         </v-list-item>
+
+        <v-list-item link to="/member/memberlevel">
+            <v-list-item-subtitle>
+                lv.5
+            </v-list-item-subtitle>
+          </v-list-item>
       </v-list>
       
+
       
       <v-divider></v-divider>
 
       <v-container>
         
         <v-row class="ma-1">
-          <v-col cols="4">
+          <v-col cols="4" @click="goOrderList">
             <v-row class="d-flex justify-center">
               <v-icon large>mdi-clipboard-list-outline</v-icon> 
             </v-row>
@@ -30,7 +36,7 @@
               <span class="text-overline">주문 내역</span>
             </v-row>
           </v-col>
-          <v-col cols="4">
+          <v-col cols="4" @click="goMemberCoupon">
             <v-row class="d-flex justify-center">
               <v-icon large>mdi-ticket-percent-outline</v-icon>
             </v-row>
@@ -38,7 +44,7 @@
               <span class="text-overline">쿠폰</span>
             </v-row>
           </v-col>
-          <v-col cols="4">
+          <v-col cols="4" @click="goMemberPoint">
             <v-row class="d-flex justify-center">
               <v-icon large>mdi-alpha-p-circle-outline</v-icon>
             </v-row>
@@ -83,6 +89,15 @@ export default {
     },
     //컴포넌트 메소드 정의
     methods: {
+      goMemberCoupon() {
+        this.$router.push("/member/membercoupon");
+      },
+      goMemberPoint() {
+        this.$router.push("/member/memberpoint");
+      },
+      goOrderList() {
+        this.$router.push("/order/orderlist");
+      }
     }
 }
 </script>

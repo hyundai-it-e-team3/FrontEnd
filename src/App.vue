@@ -1,13 +1,12 @@
 <template>
   <v-app>
-    <app-header v-if="headerFlag"/>
+    <app-header/>
     
     <v-main class="pt-12">
       <v-sheet
       id="scrolling-techniques-7"
       class="overflow-y-auto"
       max-height="800px"
-      mt-5
       >
         <router-view/>
       </v-sheet>
@@ -27,10 +26,7 @@ export default {
     AppFooter 
   },
   name: 'App',
-
   data: () => ({
-    headerFlag:true
   }),
-  computed: { headerFlag() { return this.$store.state.headerFlag; } }
 };
 </script>

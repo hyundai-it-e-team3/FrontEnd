@@ -34,4 +34,14 @@ export default[
     //lazyloding
     component: () => import(/* webpackChunkName: "about" */ '../views/member/cart')
   },
+  {
+    path: "/member/memberpoint",
+    //lazyloding
+    component: () => import(/* webpackChunkName: "about" */ '../views/member/MemberPoint')
+  },
+  {
+    path: "/member/update",
+    //lazyloding
+    component: () => import(/* webpackChunkName: "about" */ '../views/member/Update')
+  },
 ]
