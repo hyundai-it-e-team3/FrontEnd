@@ -1,7 +1,8 @@
 <template>
   <v-app>
-    <app-header v-if="headerFlag"/>
-    <v-main class="pt-10">
+    <!-- <app-header v-if="headerFlag"/> -->
+    
+    <v-main>
       <v-sheet
       id="scrolling-techniques-7"
       class="overflow-y-auto"
@@ -11,17 +12,18 @@
         <router-view/>
       </v-sheet>
     </v-main>
+    
     <app-footer/>
   </v-app>
 </template>
 
 <script>
 import AppFooter from './components/layout/AppFooter.vue';
-import AppHeader from './components/layout/AppHeader.vue';
+// import AppHeader from './components/layout/AppHeader.vue';
 
 export default {
   components: { 
-    AppHeader,
+    // AppHeader,
     AppFooter 
   },
   name: 'App',
