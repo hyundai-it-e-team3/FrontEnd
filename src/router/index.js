@@ -17,7 +17,7 @@ const routes = [
   ...member,
   ...product,
   ...main,
-  ...order,
+  ...order
 ]
 
 const router = new VueRouter({

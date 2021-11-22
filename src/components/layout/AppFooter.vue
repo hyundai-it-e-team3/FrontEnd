@@ -1,7 +1,7 @@
 <template>
   <v-footer color="black" class="pa-2 pt-3" dark>
     <v-container absolute>
-      <v-row>
+      <v-row v-if= "footerFlag == 1">
         <v-col cols="2.4" @click="goCategory">
           <v-row class="d-flex justify-center">
             <v-icon>mdi-format-list-bulleted</v-icon> 
@@ -43,6 +43,26 @@
           </v-row>
         </v-col>
       </v-row>
+      <v-row v-if= "footerFlag == 2" class="d-flex justify-center">
+        <h3>주문하기</h3>
+      </v-row>
+      <v-row v-if= "footerFlag == 3" class="d-flex justify-center">
+        <v-col cols="2" @click="goWishList">
+          <v-row class="d-flex justify-center">
+            <v-icon>mdi-cards-heart-outline</v-icon>
+          </v-row>
+        </v-col>
+        <v-col cols="2" @click="goMyPage" color="blue">
+          <v-row class="d-flex justify-center">
+            <v-icon>mdi-cart-variant</v-icon>
+          </v-row>
+        </v-col>
+        <v-col cols="8" @click="goOrderForm">
+          <v-row class="d-flex justify-center">
+            <h3>구매하기</h3>
+          </v-row>
+        </v-col>
+      </v-row>
     </v-container>
   </v-footer>
 </template>
@@ -71,8 +91,19 @@ export default {
     },
     goHome(){
       this.$router.push("/");
+    },
+    goOrderForm(){
+      this.$router.push("/order/orderForm");
+    },
+    goCart(){
+      this.$router.push("/order/orderForm");
     }
-  }
+  },
+  computed: { footerFlag() { return this.$store.state.footerFlag; } },
+
+  created(){
+    console.log(this.$store.state.footerFlag);
+  },
 }
 </script>
 

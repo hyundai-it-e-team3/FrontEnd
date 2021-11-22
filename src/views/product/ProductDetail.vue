@@ -162,7 +162,15 @@ export default {
   }),
   //컴포넌트 메소드 정의
   methods:{
+  },
+  mounted(){
+    this.$store.commit("setFooterFlag",3);
   }
+  ,
+  destroyed(){
+    this.$store.commit("setFooterFlag",1);
+  },
+  computed: { footerFlag() { return this.$store.state.footerFlag; } },
 }
 </script>
 <!-- 컴포넌트 스타일 정의 -->
