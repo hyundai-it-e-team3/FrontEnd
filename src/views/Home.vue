@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  import MainPage from './mainPage/Index.vue'
+  import MainPage from './mainPage'
 
   export default {
     name: 'Home',

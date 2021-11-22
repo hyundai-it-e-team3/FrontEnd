@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import main from './main'
 import member from './member'
 import product from './product'
 
@@ -13,7 +14,8 @@ const routes = [
     component: Home
   },
   ...member,
-  ...product
+  ...product,
+  ...main
 ]
 
 const router = new VueRouter({
