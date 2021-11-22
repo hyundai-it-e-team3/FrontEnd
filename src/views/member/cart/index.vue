@@ -27,12 +27,6 @@
                :size=product.size
                :amount=product.amount />
     </v-row>
-
-    <v-row>
-      <v-col class="text-center blue">
-        주문하기
-      </v-col>
-    </v-row>
   </v-container>
 </template>
 
@@ -73,7 +67,15 @@ export default {
     };
   },
   methods: {
+  },
+  mounted(){
+    this.$store.commit("setFooterFlag",2);
   }
+  ,
+  destroyed(){
+    this.$store.commit("setFooterFlag",1);
+  }
+  ,computed: { footerFlag() { return this.$store.state.footerFlag; } },
 }
 </script>
 

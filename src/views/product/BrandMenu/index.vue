@@ -2,14 +2,6 @@
 <template>
   <v-app>
     <v-list dense nav>
-      <v-list-item @click="backUrl">
-        <v-list-item-icon>
-            <v-icon>mdi-chevron-left</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title class="text-h6"> 브랜드 목록</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
       <v-list-item @click="favClick">
         <v-list-item-icon>
         </v-list-item-icon>
@@ -58,13 +50,15 @@ export default {
       this.favBrandShow=false;
     },
 
-  }
-  ,created(){
-    this.$store.commit("setHeaderFlag",false);
   },
-  destroyed(){
-    this.$store.commit("setHeaderFlag",true);
+  mounted(){
+    this.$store.commit("setHeaderFlag",3);
   }
+  ,
+  destroyed(){
+    this.$store.commit("setHeaderFlag",1);
+  },
+  computed: { headerFlag() { return this.$store.state.headerFlag; } },
 }
 </script>
 <!-- 컴포넌트 스타일 정의 -->
