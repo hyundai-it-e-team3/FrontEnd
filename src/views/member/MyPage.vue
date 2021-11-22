@@ -28,7 +28,7 @@
       <v-container>
         
         <v-row class="ma-1">
-          <v-col cols="4">
+          <v-col cols="4" @click="goOrderList">
             <v-row class="d-flex justify-center">
               <v-icon large>mdi-clipboard-list-outline</v-icon> 
             </v-row>
@@ -95,6 +95,9 @@ export default {
       goMemberPoint() {
         this.$router.push("/member/memberpoint");
       },
+      goOrderList() {
+        this.$router.push("/order/orderlist");
+      }
     }
 }
 </script>
