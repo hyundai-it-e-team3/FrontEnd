@@ -2,7 +2,7 @@
   <v-footer color="black" class="pa-2 pt-3" dark>
     <v-container>
       <v-row>
-        <v-col cols="2.4">
+        <v-col cols="2.4" @click="goCategory">
           <v-row class="d-flex justify-center">
             <v-icon>mdi-format-list-bulleted</v-icon> 
           </v-row>
@@ -10,7 +10,7 @@
             <span class="text-overline">Category</span>
           </v-row>
         </v-col>
-        <v-col cols="2.4">
+        <v-col cols="2.4" @click="goBrand">
           <v-row class="d-flex justify-center">
             <v-icon>mdi-tag-outline</v-icon>
           </v-row>
@@ -57,6 +57,12 @@ export default {
     };
   },
   methods: {
+    goCategory(){
+      this.$router.push("/product/categorymenu");
+    },
+    goBrand(){
+      this.$router.push("/product/brandmenu");
+    }
   }
 }
 </script>

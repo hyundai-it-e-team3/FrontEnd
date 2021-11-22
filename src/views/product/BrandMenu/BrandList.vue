@@ -1,18 +1,11 @@
 <!-- 컴포넌트 UI 정의 -->
 <template>
     <v-list dense nav>
-      <v-list-item>
+      <v-list-item to="/product/brand">
         <v-list-item-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>TIME</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item>
-        <v-list-item-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>MINE</v-list-item-title>
+          <v-list-item-title>the CASHMERE</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>
