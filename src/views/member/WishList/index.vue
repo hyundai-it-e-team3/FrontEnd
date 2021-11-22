@@ -25,7 +25,7 @@
 import WishProductCard from './WishProductCard.vue';
 export default {
     //컴포넌트의 대표이름 (devtools에 나오는 이름)
-    name: "",
+    name: "wishList",
     //추가하고 싶은 컴포넌트 등록
     components: {
         WishProductCard
