@@ -28,8 +28,6 @@ export default {
   name: 'App',
 
   data: () => ({
-    headerFlag:true
   }),
-  computed: { headerFlag() { return this.$store.state.headerFlag; } }
 };
 </script>
