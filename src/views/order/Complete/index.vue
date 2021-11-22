@@ -4,7 +4,10 @@
       <v-card-title>No.202112101137500001</v-card-title>
       <v-card-subtitle>2021.11.10. 11:25</v-card-subtitle>
       <v-divider/>
-      <product-component/>
+      <product-component :propA="{pname:'캐시미어 레드'}"/>
+      <product-component :propA="{pname:'캐시미어 블루'}"/>
+      <product-component :propA="{pname:'캐시미어 블랙'}"/>
+      <product-component :propA="{pname:'캐시미어 레드'}"/>
       <v-expansion-panels accordion flat>
         <v-expansion-panel>
             <v-expansion-panel-header class="pa-0 pl-4 pr-2">
@@ -31,7 +34,6 @@
             </v-expansion-panel-content>
         </v-expansion-panel>
     </v-expansion-panels>
-
 
     <v-expansion-panels flat>
         <v-expansion-panel>

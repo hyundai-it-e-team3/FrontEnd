@@ -16,6 +16,10 @@
             <coupon-component/>
             <coupon-component/>
             <coupon-component/>
+            <coupon-component/>
+            <coupon-component/>
+            <coupon-component/>
+            <coupon-component/>
         </v-expansion-panels>
     </v-card>  
 </template>
