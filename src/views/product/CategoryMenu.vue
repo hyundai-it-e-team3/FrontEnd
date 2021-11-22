@@ -14,42 +14,42 @@
         <template v-slot:activator>
           <v-list-item-title class="font-weight-bold">여성</v-list-item-title>
         </template>
-        <v-list-item to="/" color="white">
+        <v-list-item to="/product/productList" color="white">
           <v-list-item-icon>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>OUTER</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item to="/" color="white">
+        <v-list-item to="/product/productList" color="white">
           <v-list-item-icon>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>DRESS</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item to="/" color="white">
+        <v-list-item to="/product/productList" color="white">
           <v-list-item-icon>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>TOP</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item to="/" color="white">
+        <v-list-item to="/product/productList" color="white">
           <v-list-item-icon>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>PANTS</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item to="/" color="white">
+        <v-list-item to="/product/productList" color="white">
           <v-list-item-icon>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>FASHION ACC</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item to="/" color="white">
+        <v-list-item to="/product/productList" color="white">
           <v-list-item-icon>
           </v-list-item-icon>
           <v-list-item-content>

@@ -1,22 +1,34 @@
 <!-- 컴포넌트 UI 정의 -->
 <template>
   <v-card>
-    <v-menu offset-y>
-      <template v-slot>
-        <v-btn
-          color="primary"
-          dark
-        >
-          Dropdown
-        </v-btn>
-      </template>
-      <v-list>
-        <v-list-item>
-          <v-list-item-title>신상품순</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
     <v-container fluid>
+      <v-row dense>
+        <v-col cols="6">
+          <div class="text-h6 ">여성>상의</div>
+        </v-col>
+        <v-col cols="6">
+          <v-menu offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                color="black"
+                dark
+                v-bind="attrs"
+                v-on="on"
+              >
+                정렬 기준
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item
+                v-for="(item, index) in items"
+                :key="index"
+              >
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-col>
+      </v-row>
       <v-row dense>
         <v-col cols="6" @click="goProduct">
           <v-card>
@@ -132,6 +144,12 @@ export default {
   },
   //컴포넌트 데이터를 정의
   data:()=>({
+    items: [
+      { title: '신상품순' },
+      { title: 'BEST' },
+      { title: '높은 가격순' },
+      { title: '낮은 가격순' },
+    ],
   }),
   //컴포넌트 메소드 정의
   methods:{
