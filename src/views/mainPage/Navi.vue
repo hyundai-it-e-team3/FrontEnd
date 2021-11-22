@@ -3,7 +3,7 @@
         <v-btn to="/">홈</v-btn>
         <v-btn to="/mainpage/newitem">신상품</v-btn>
         <v-btn to="/mainpage/bestitem">베스트</v-btn>
-        <v-btn>이벤트</v-btn>
+        <v-btn to="/mainpage/eventpage">이벤트</v-btn>
   </v-col>
 </template>
 
