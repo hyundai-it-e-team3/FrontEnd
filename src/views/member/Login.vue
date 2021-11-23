@@ -21,15 +21,15 @@
         ></v-text-field>
 
         <v-row
-        justify="center"
+        class="justify-space-around mt-2"
+
         >
         <v-btn
-            depressed
-            tile
             color="black"
             dark
             width=auto
         >로그인</v-btn>
+        <img src="@/assets/images/kakao_login.png" height="38px"/>
         </v-row>
         
       </v-card-text>

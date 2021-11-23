@@ -2,11 +2,25 @@
 <template>
   <v-card>
     <v-container fluid>
-      <v-row dense>
-        <v-col cols="6">
-          <div class="text-h6 ">여성>상의</div>
+      <v-row align="center" dense>
+        <v-col  cols="2" class="text-h6">
+            여성
         </v-col>
-        <v-col cols="6">
+        <v-col class="mt-7" cols="3.5">
+          <v-select
+              :items="gbn1"
+              label="OUTER"
+              solo>
+          </v-select>
+        </v-col>
+        <v-col class="mt-7" cols="3.5">
+          <v-select
+              :items="gbn2"
+              label="가디건"
+              solo>
+          </v-select>
+        </v-col>
+        <v-col cols="3">
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
@@ -150,6 +164,8 @@ export default {
       { title: '높은 가격순' },
       { title: '낮은 가격순' },
     ],
+    gbn1: ['OUTER', 'DRESS', 'PANTS', 'FASHION ACC','SKIRT'],
+    gbn2: ['재킷', '점퍼', '가디건', '코트'],
   }),
   //컴포넌트 메소드 정의
   methods:{

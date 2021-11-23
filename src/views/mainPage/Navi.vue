@@ -1,10 +1,12 @@
 <template>
-  <v-col absolut class="pa-0">
-        <v-btn to="/">홈</v-btn>
-        <v-btn to="/mainpage/newitem">신상품</v-btn>
-        <v-btn to="/mainpage/bestitem">베스트</v-btn>
-        <v-btn to="/mainpage/eventpage">이벤트</v-btn>
-  </v-col>
+  <div class="d-flex justify-center">
+    <div absolut class="pa-0 mt-2">
+          <v-btn class="mr-2" dark color="black" to="/">홈</v-btn>
+          <v-btn class="mr-2" dark color="black" to="/mainpage/newitem">신상품</v-btn>
+          <v-btn class="mr-2" dark color="black" to="/mainpage/bestitem">베스트</v-btn>
+          <v-btn class="mr-2" dark color="black" to="/mainpage/eventpage">이벤트</v-btn>
+    </div>
+  </div>
 </template>
 
 <script>

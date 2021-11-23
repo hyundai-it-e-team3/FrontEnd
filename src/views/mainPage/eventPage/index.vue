@@ -1,8 +1,6 @@
 <template>
-  <v-container>
-    <v-col class="pa-1">
-      <navi />
-    </v-col>
+  <v-container class="pt-0">
+    <navi />
 
     <v-col class="mt-1 mb-2">
       <v-row>
