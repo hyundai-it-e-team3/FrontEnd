@@ -112,16 +112,19 @@ export default {
 </script>
 
 <style scoped>
-  .footer{
-    position:fixed; 
-    left:0px; 
-    bottom:0px; 
-    width:100%; 
-  }
   .header{
     position:fixed; 
     left:0px; 
     top:0px; 
     width:100%;
+  }
+  @media (max-width: 991px) {
+      .footer {
+          position: fixed;
+          left: 0px;
+          bottom: 0px;
+          z-index: 9999;
+          width: 100%;
+      }
   }
 </style>
