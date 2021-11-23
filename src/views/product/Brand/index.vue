@@ -1,6 +1,6 @@
 <!-- 컴포넌트 UI 정의 -->
 <template>
-  <v-card>
+  <v-card class="mb-12">
     <v-card
       class="mx-auto grey lighten-2"    
     >
