@@ -9,7 +9,8 @@
         src="http://newmedia.thehandsome.com/CM/2B/SS/CM2B0KVT203W_OW_W01.jpg/dims/resize/684x1032/"
         height="330"
       >
-        <v-icon right dark large>mdi-heart-outline</v-icon>
+      <v-icon v-if= "heartFlag==0" right dark large @click="heartClick()">mdi-heart-outline</v-icon>
+      <v-icon v-if= "heartFlag==1" right color="red" large @click="heartClick()">mdi-heart</v-icon>
       </v-img>
 
       <v-card-subtitle class="pb-0 black--text text-h6" >
@@ -31,7 +32,6 @@
         </v-toolbar>
         <v-banner
           single-line
-          :sticky="sticky"
         >
           이곳은 브랜드 MD가 선택한 제품들이 전시됐습니다.
         </v-banner>
@@ -196,14 +196,22 @@ export default {
   },
   //컴포넌트 데이터를 정의
   data:()=>({
-
+    heartFlag : 0,
   }),
   //컴포넌트 메소드 정의
   methods:{
     goProduct(){
       this.$router.push("/product/productDetail");
+    },
+    heartClick(){
+      if(this.heartFlag ==0){
+        this.heartFlag = 1;
+      }else{
+        this.heartFlag = 0;
+      }
     }
-  }
+  },
+  watch: { heartFlag() { return this.heartFlag; } },
 }
 </script>
 <!-- 컴포넌트 스타일 정의 -->

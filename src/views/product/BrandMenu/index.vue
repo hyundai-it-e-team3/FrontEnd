@@ -2,20 +2,22 @@
 <template>
   <v-app>
     <v-list dense nav>
-      <v-list-item @click="favClick">
-        <v-list-item-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>선호 브랜드</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item @click="brandClick">
-        <v-list-item-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>브랜드</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
+      <div class="d-flex justify-space-around">
+        <v-list-item @click="favClick">
+          <v-list-item-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>선호 브랜드</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item @click="brandClick">
+          <v-list-item-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>브랜드</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </div>
       <fav-brand-list v-if="!favBrandShow"/>
       <brand-list v-if="favBrandShow"/>
     </v-list>
