@@ -2,8 +2,11 @@
 <template>
     <v-card>
       <v-card-title @click="goDetail">
-            2021.11.11
+          2014503219232
       </v-card-title>
+      <v-card-subtitle>
+          20121.11.11 12:32:20
+      </v-card-subtitle>
       <v-divider/>
       <product-component/>
       <product-component/>
