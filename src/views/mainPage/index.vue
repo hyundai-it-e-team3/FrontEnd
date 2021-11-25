@@ -1,6 +1,5 @@
 <template>
   <v-container fluid class="pa-0">
-    <navi />
     <v-row class="mt-2">
       <v-col class="pa-0">
         <v-layout color="#385F73" dark>
@@ -44,13 +43,11 @@
 </template>
 
 <script>
-import Navi from './Navi.vue';
 import ProductCard from './ProductCard.vue';
 
 export default {
   name: "mainPage",
   components: {
-    Navi,
     ProductCard
   },
   data() {
