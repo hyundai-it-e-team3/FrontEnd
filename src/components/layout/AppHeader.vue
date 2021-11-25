@@ -4,27 +4,43 @@
       color="black"
       dark
       absolute
-      elevate-on-scroll
-      dense
-      scroll-target="#scrolling-techniques-7"
+      hide-on-scroll
+      scroll-target="#scrolling-techniques-5"
+      height="50px"
     >
-        <v-btn icon @click="goBack">
-            <v-icon>mdi-chevron-left</v-icon>
+        <template heigth="50px">
+        <v-btn icon  @click="goBack">
+            <v-icon small >mdi-chevron-left</v-icon>
         </v-btn>
         <v-btn icon v-if= "headerFlag==1" to="/product/categorymenu">
-            <v-icon>mdi-menu</v-icon>
+            <v-icon small>mdi-menu</v-icon>
         </v-btn>
         <v-spacer></v-spacer>
-        <v-toolbar-title @click="goHome" v-if= "headerFlag==1">HANDSOME</v-toolbar-title>
+        <v-toolbar-title v-if= "headerFlag==1">THE HANSOME</v-toolbar-title>
         <v-toolbar-title v-if= "headerFlag==2">카테고리</v-toolbar-title>
         <v-toolbar-title v-if= "headerFlag==3">브랜드</v-toolbar-title>
         <v-spacer></v-spacer>
+        
         <v-btn icon v-if= "headerFlag==1">
-            <v-icon>mdi-magnify</v-icon>
+            <v-icon small>mdi-magnify</v-icon>
         </v-btn>
         <v-btn icon to="/member/cart" v-if= "headerFlag==1">
-            <v-icon>mdi-cart-outline</v-icon>
+            <v-icon small>mdi-cart-minus</v-icon>
         </v-btn>
+        </template>
+
+        <template v-slot:extension>
+        <v-tabs 
+            show-arrows-on-hover
+            align-with-title
+            color="grey"
+        >
+          <v-tab to="/">HOME</v-tab>
+          <v-tab to="/mainpage/newitem">NEW</v-tab>
+          <v-tab to="/mainpage/bestitem">BEST</v-tab>
+          <v-tab to="/mainpage/eventpage">EVENT</v-tab>
+        </v-tabs>
+      </template>
     </v-app-bar>
 </template>
 
