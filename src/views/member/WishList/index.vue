@@ -1,20 +1,9 @@
 <!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-    <v-card class="mt-3">
-        <v-row>
-            <v-col cols="6" class="pa-0">
-                <wish-product-card/>
-            </v-col>
-            <v-col cols="6" class="pa-0">
-                <wish-product-card/>
-            </v-col>
-            <v-col cols="6" class="pa-0">
-                <wish-product-card/>
-            </v-col>
-            <v-col cols="6" class="pa-0">
-                <wish-product-card/>
-            </v-col>
-        </v-row>
+    <v-card class="mt-15 mb-14">
+        <wish-product-card/>
+        <wish-product-card/>
+        <wish-product-card/>
     </v-card>
 
 </template>
