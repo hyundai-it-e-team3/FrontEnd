@@ -22,6 +22,13 @@ export default {
         return {
         };
     },
+     mounted(){
+    this.$store.commit("setHeaderFlag",4);
+    }
+    ,
+    destroyed(){
+        this.$store.commit("setHeaderFlag",1);
+    },
     //컴포넌트 메소드 정의
     methods: {
     }

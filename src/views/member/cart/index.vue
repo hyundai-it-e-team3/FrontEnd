@@ -1,4 +1,5 @@
 <template>
+  <v-card>
   <v-container>
     <v-row>
       <v-col cols="1">
@@ -28,15 +29,23 @@
                :amount=product.amount />
     </v-row>
   </v-container>
+  <alert-dialog v-if="alertDialog"
+              :loading="loading"
+              :message="alertDialogMessage"
+              @close="alertDialog=false"/>
+  </v-card>
 </template>
 
 <script>
+import cartAPI from "@/apis/cart";
 import Product from '../cart/Product.vue';
+import AlertDialog from "@/components/alert/AlertDialog"
 
 export default {
   name:"cart",
   components: {
-    Product
+    Product,
+    AlertDialog
   },
   data() {
     return {
@@ -64,9 +73,37 @@ export default {
           amount: 1
         },
       ],
+      alertDialog: false,
+      alertDialogMessage: "",
+      loading: false,
     };
   },
   methods: {
+    getCartList() {
+      this.loading = true;
+      this.alertDialog = true;
+      cartAPI.getCartList()
+        .then(response => {
+          console.log(response.data);
+          this.loading = false;
+          this.alertDialog = false;
+        }).catch(error => {
+          if(error.response) {
+              if(error.response.status === 403) {
+                  this.loading = false;
+                  this.alertDialog = false;
+                  this.$router.push("/menu07/auth/jwtauth")
+              }
+          } else {
+              this.loading = false;
+              this.alertDialogMessage = "네트워크 통신 오류";
+          }
+      });
+    },
+
+  },
+  created() {
+    this.getCartList();
   },
   mounted(){
     this.$store.commit("setFooterFlag",2);

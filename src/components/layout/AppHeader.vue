@@ -19,6 +19,7 @@
         <v-toolbar-title v-if= "headerFlag==1">THE HANSOME</v-toolbar-title>
         <v-toolbar-title v-if= "headerFlag==2">카테고리</v-toolbar-title>
         <v-toolbar-title v-if= "headerFlag==3">브랜드</v-toolbar-title>
+        <v-toolbar-title v-if= "headerFlag==4">좋아요</v-toolbar-title>
         <v-spacer></v-spacer>
         
         <v-btn icon v-if= "headerFlag==1">
@@ -29,8 +30,8 @@
         </v-btn>
         </template>
 
-        <template v-slot:extension>
-        <v-tabs 
+        <template v-slot:extension v-if="headerFlag === 1 || headerFlag === 4">
+        <v-tabs v-if= "headerFlag===1"
             show-arrows-on-hover
             align-with-title
             color="grey"
@@ -40,7 +41,16 @@
           <v-tab to="/mainpage/bestitem">BEST</v-tab>
           <v-tab to="/mainpage/eventpage">EVENT</v-tab>
         </v-tabs>
+        <v-tabs v-if= "headerFlag===4"
+            show-arrows-on-hover
+            align-with-title
+            color="grey"
+        >
+          <v-tab to="/">상품</v-tab>
+          <v-tab to="/">브랜드</v-tab>
+        </v-tabs>
       </template>
+
     </v-app-bar>
 </template>
 
