@@ -1,21 +1,21 @@
 <!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-    <v-card class="mt-15 mb-14">
-        <wish-product-card/>
-        <wish-product-card/>
-        <wish-product-card/>
-    </v-card>
-
+    <div>
+        <main-header v-if="pageFlag==='main'"/>
+        <product-header v-if="pageFlag==='product'"/>
+    </div>
 </template>
 
 <script>
-import WishProductCard from './WishProductCard.vue';
+import MainHeader from './MainHeader.vue';
+import ProductHeader from './ProductHeader.vue';
 export default {
     //컴포넌트의 대표이름 (devtools에 나오는 이름)
-    name: "wishList",
+    name: "AppHeader",
     //추가하고 싶은 컴포넌트 등록
     components: {
-        WishProductCard
+        MainHeader,
+        ProductHeader
     },
     //컴포넌트 데이터 정의
     data: function() {
@@ -24,7 +24,12 @@ export default {
     },
     //컴포넌트 메소드 정의
     methods: {
-    }
+    },
+    computed: { 
+        pageFlag() {
+            return this.$store.state.pageFlag;
+        }
+    },
 }
 </script>
 

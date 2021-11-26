@@ -53,14 +53,6 @@ export default {
     },
 
   },
-  mounted(){
-    this.$store.commit("setHeaderFlag",3);
-  }
-  ,
-  destroyed(){
-    this.$store.commit("setHeaderFlag",1);
-  },
-  computed: { headerFlag() { return this.$store.state.headerFlag; } },
 }
 </script>
 <!-- 컴포넌트 스타일 정의 -->

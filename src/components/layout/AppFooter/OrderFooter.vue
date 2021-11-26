@@ -1,21 +1,22 @@
 <!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-    <v-card class="mt-15 mb-14">
-        <wish-product-card/>
-        <wish-product-card/>
-        <wish-product-card/>
-    </v-card>
-
+    <v-container>
+        <v-row class="d-flex justify-center">
+            <v-col cols="12" @click="goComplete">
+            <v-row class="d-flex justify-center">
+                <h3>구매하기</h3>
+            </v-row>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script>
-import WishProductCard from './WishProductCard.vue';
 export default {
     //컴포넌트의 대표이름 (devtools에 나오는 이름)
-    name: "wishList",
+    name: "",
     //추가하고 싶은 컴포넌트 등록
     components: {
-        WishProductCard
     },
     //컴포넌트 데이터 정의
     data: function() {
@@ -24,6 +25,9 @@ export default {
     },
     //컴포넌트 메소드 정의
     methods: {
+        goComplete(){
+            this.$router.push("/order/complete");
+        },
     }
 }
 </script>

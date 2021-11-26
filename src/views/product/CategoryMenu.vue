@@ -213,14 +213,6 @@ export default {
       this.$router.go(-1);
     }
   },
-  mounted(){
-    this.$store.commit("setHeaderFlag",2);
-  }
-  ,
-  destroyed(){
-    this.$store.commit("setHeaderFlag",1);
-  },
-  computed: { headerFlag() { return this.$store.state.headerFlag; } },
 }
 </script>
 <!-- 컴포넌트 스타일 정의 -->

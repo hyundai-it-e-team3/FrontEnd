@@ -5,23 +5,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    headerFlag:1,
-    footerFlag:1
+    pageFlag:'main'
   },
   getters:{
-    getHeaderFlag(state){
-      return state.headerFlag;
-    },
-    getFooterFlag(state){
-      return state.footerFlag;
+    getPageFlag(state){
+      return state.pageFlag;
     }
   },
   mutations: {
-    setHeaderFlag(state,payload){
-      state.headerFlag = payload;
-    },
-    setFooterFlag(state,payload){
-      state.footerFlag = payload;
+    setPageFlag(state,payload){
+      state.pageFlag = payload
     }
   },
   actions: {

@@ -196,13 +196,8 @@ export default {
     methods: {
     },
     mounted(){
-    this.$store.commit("setFooterFlag",2);
+        this.$store.commit("setPageFlag",'orderForm');
     }
-    ,
-    destroyed(){
-    this.$store.commit("setFooterFlag",1);
-    }
-    ,computed: { footerFlag() { return this.$store.state.footerFlag; } },
 }
 </script>
 
