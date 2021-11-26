@@ -4,9 +4,9 @@
     
     <v-main class="pt-12">
       <v-sheet
-      id="scrolling-techniques-3"
-      class="overflow-y-auto"
-      max-height="800px"
+        id="scrolling-techniques-3"
+        class="overflow-y-auto"
+        max-height="730px"
       >
         <router-view/>
       </v-sheet>
@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import AppFooter from './components/layout/AppFooter.vue';
-import AppHeader from './components/layout/AppHeader.vue';
+import AppFooter from './components/layout/AppFooter';
+import AppHeader from './components/layout/AppHeader';
 
 export default {
   components: { 

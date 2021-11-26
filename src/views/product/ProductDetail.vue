@@ -64,7 +64,7 @@
               <v-col cols="2">
                 <v-icon @click="plusAmount">mdi-plus-circle-outline</v-icon>
               </v-col>
-              <v-col cols="2" class="text-center">{{amount}}</v-col>
+              <v-col cols="2" class="text-center">{{product.amount}}</v-col>
               <v-col cols="2">
                 <v-icon @click="minusAmount">mdi-minus-circle-outline</v-icon>
               </v-col>
@@ -142,6 +142,7 @@
 </template>
 
 <script>
+import cartAPI from "@/apis/cart";
 export default {
   //컴포넌트의 대표이름(devtools에 나오는 이름이다.) 이름을 정하지 않으면 파일명으로
   name:"",
@@ -179,33 +180,54 @@ export default {
       "85", "90"
     ],
     stock: 5,
-    amount: 1
+    product : {
+      product_detail_id: "temp2",
+      psize : "L",
+      amount : "1",
+      stock : "3",
+    },
   }),
   //컴포넌트 메소드 정의
   methods:{
     plusAmount() {
-      if(this.amount+1 > this.stock) {
+      if(this.product.amount+1 > this.stock) {
         console.log("재고가 부족합니다.")
       } else {
-        this.amount += 1
+        this.product.amount += 1
       }
     },
     minusAmount() {
-      if(this.amount-1 <= 0) {
+      if(this.product.amount-1 <= 0) {
         console.log("1개 이상 주문하세요.")
       } else {
-        this.amount -= 1
+        this.product.amount -= 1
       }
+    },
+    insertCart() {
+      this.loading = true;
+      this.alertDialog = true;
+      cartAPI().insertCart(this.product)
+        .then(response => {
+          console.log(response.data);
+          this.loading = false;
+          this.alertDialog = false;
+        }).catch(error => {
+          if(error.response) {
+              if(error.response.status === 403) {
+                  this.loading = false;
+                  this.alertDialog = false;
+                  this.$router.push("/menu07/auth/jwtauth")
+              }
+          } else {
+              this.loading = false;
+              this.alertDialogMessage = "네트워크 통신 오류";
+          }
+      });
     }
   },
   mounted(){
-    this.$store.commit("setFooterFlag",3);
+    this.$store.commit("setPageFlag",'product');
   }
-  ,
-  destroyed(){
-    this.$store.commit("setFooterFlag",1);
-  },
-  computed: { footerFlag() { return this.$store.state.footerFlag; } },
 }
 </script>
 <!-- 컴포넌트 스타일 정의 -->

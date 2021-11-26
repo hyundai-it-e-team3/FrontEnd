@@ -4,8 +4,17 @@ function getCartList() {
     return cartAxios.get("/cart");
 }
 
-function createCart() {
-    return cartAxios.post("/cart");
+function createCart(product) {
+    return cartAxios.post(
+        "/cart",
+            {
+                "mid" : product.id,
+                "mname" : product.name,
+                "mpassword" : product.password,
+                "mrole" : product.role,
+                "memail" : product.email
+            }
+        );
 }
 
 function updateCart() {

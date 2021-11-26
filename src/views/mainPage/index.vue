@@ -54,6 +54,9 @@ export default {
     return {};
   },
   methods: {},
+  mounted() {
+    this.$store.commit("setPageFlag",'main');
+  }
 };
 </script>
 
