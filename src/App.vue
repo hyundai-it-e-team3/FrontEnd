@@ -2,11 +2,11 @@
   <v-app>
     <app-header/>
     
-    <v-main class="pt-12">
+    <v-main class="pt-13">
       <v-sheet
         id="scrolling-techniques-3"
-        class="overflow-y-auto"
-        max-height="730px"
+        class="overflow-y-auto gray"
+        max-height="750px"
       >
         <router-view/>
       </v-sheet>
@@ -30,3 +30,13 @@ export default {
   }),
 };
 </script>
+
+<style>
+* {
+	/* Default Font & Text */
+	font-family: "Apple SD Gothic Neo", Roboto, "Noto Sans KR", sans-serif;
+	font-size: 12px;
+  padding : 0;
+  margin : 0;
+}
+</style>
