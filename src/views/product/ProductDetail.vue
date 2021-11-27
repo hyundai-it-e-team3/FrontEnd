@@ -41,7 +41,10 @@
         </v-sheet>
       </v-carousel-item>
     </v-carousel>
-    <v-card-title>캐시미어 크롭 니트 가디건</v-card-title>
+
+
+
+    <v-card-title>{{product.productName}}</v-card-title>
     <div class="mt-3"  
       >
       <v-container>
@@ -85,10 +88,10 @@
       </v-row>
 
       <div class="my-4 text-subtitle-1">
-        WOMAN>OUTER>Cardigen/Vest
+        {{product.category}}
       </div>
 
-      <div>품번: CM2BOKCD230W</div>
+      <div>품번: {{product.produtDetailId}}</div>
     </v-card-text>
     <v-card-text class="text--primary grey lighten-3">
       <div>트렌디한 크롭 길이감이 매력적인 니트 가디건으로 우아한 컷과 세련된 텍스처가 돋보입니다. 넥라인과 여밈에 보다 성글게 짜여진 텍스처가 눈길을 끕니다. 촉감마저 부드러운 100% 캐시미어 소재를 사용하여 고급스럽게 완성도를 높였습니다.</div>
@@ -102,7 +105,16 @@
       <div><span class="mr-14">배송비</span> <span>30,000원 이상 무료배송(실결제 기준)</span></div>
       <div><span class="mr-7">카드사 혜택</span> <span>카드사 혜택 상세보기 ></span></div>
     </v-card-text>
+    
+    
+    
+    
     <v-divider/>
+
+
+
+
+
     <v-card class="mb-8">
       <v-card-title>함께 코디한 상품</v-card-title>
 
@@ -142,7 +154,7 @@
 </template>
 
 <script>
-import cartAPI from "@/apis/cart";
+
 export default {
   //컴포넌트의 대표이름(devtools에 나오는 이름이다.) 이름을 정하지 않으면 파일명으로
   name:"",
@@ -181,14 +193,23 @@ export default {
     ],
     stock: 5,
     product : {
-      product_detail_id: "temp2",
+      productDetailId: "temp2",
       psize : "L",
       amount : "1",
       stock : "3",
+      category : "WOMAN>OUTER>Cardigen/Vest",
+      productName : "캐시미어 크롭 니트 가디건"
     },
   }),
   //컴포넌트 메소드 정의
   methods:{
+    getProductDetail() {
+      //product API 호출
+
+
+      //호출 결과를 store에 등록 (주문/카트/좋아요에 사용)
+      this.$store.commit("product/setProduct", this.product);
+    },
     plusAmount() {
       if(this.product.amount+1 > this.stock) {
         console.log("재고가 부족합니다.")
@@ -203,30 +224,12 @@ export default {
         this.product.amount -= 1
       }
     },
-    insertCart() {
-      this.loading = true;
-      this.alertDialog = true;
-      cartAPI().insertCart(this.product)
-        .then(response => {
-          console.log(response.data);
-          this.loading = false;
-          this.alertDialog = false;
-        }).catch(error => {
-          if(error.response) {
-              if(error.response.status === 403) {
-                  this.loading = false;
-                  this.alertDialog = false;
-                  this.$router.push("/menu07/auth/jwtauth")
-              }
-          } else {
-              this.loading = false;
-              this.alertDialogMessage = "네트워크 통신 오류";
-          }
-      });
-    }
   },
   mounted(){
     this.$store.commit("setPageFlag",'product');
+  },
+  created() {
+    this.$store.commit("product/setProduct", this.product);
   }
 }
 </script>

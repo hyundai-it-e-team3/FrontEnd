@@ -1,16 +1,21 @@
 <template>
-  <v-card>
+  <v-card class="mt-13">
   <v-container>
     <v-row>
       <v-col cols="1">
         <v-icon class="d-flex">mdi-check-circle-outline</v-icon>
       </v-col>
-      <v-col cols="3">
-        전체선택
+      <v-col cols="2">
+        전체 {{productDetail.length}}개
       </v-col>
-      <v-col cols="3">
+      <v-col cols="5">
+      </v-col>
+      <v-col cols="2">
         선택삭제
       </v-col>    
+      <v-col cols="2">
+        품절삭제
+      </v-col> 
     </v-row>
 
     <v-row>
@@ -100,19 +105,14 @@ export default {
           }
       });
     },
+    deleteCart() {
+      this
+    }
 
   },
   created() {
     this.getCartList();
-  },
-  mounted(){
-    this.$store.commit("setFooterFlag",2);
   }
-  ,
-  destroyed(){
-    this.$store.commit("setFooterFlag",1);
-  }
-  ,computed: { footerFlag() { return this.$store.state.footerFlag; } },
 }
 </script>
 

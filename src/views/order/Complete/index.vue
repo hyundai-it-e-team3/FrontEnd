@@ -89,6 +89,9 @@ export default {
     },
     //컴포넌트 메소드 정의
     methods: {
+    },
+    mounted(){
+        this.$store.commit("setPageFlag",'title');
     }
 }
 </script>

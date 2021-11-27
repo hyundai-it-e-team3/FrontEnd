@@ -1,33 +1,29 @@
-import cartAxios from "axios";
+import axios from "axios";
+
+const cartAPI = axios.create({
+    baseURL: 'http://kosa1.iptime.org:50214'
+  });
 
 function getCartList() {
-    return cartAxios.get("/cart");
+    return axios.get("/cart");
 }
 
-function createCart(product) {
-    return cartAxios.post(
-        "/cart",
-            {
-                "mid" : product.id,
-                "mname" : product.name,
-                "mpassword" : product.password,
-                "mrole" : product.role,
-                "memail" : product.email
-            }
-        );
+function insertCart(multipartFormData) {
+    return axios.post(
+        "/cart",multipartFormData);
 }
 
-function updateCart() {
-    return cartAxios.update("/cart");
+function updateCart(multipartFormData) {
+    return axios.update("/cart", multipartFormData);
 }
 
-function deleteCart() {
-    return cartAxios.delete("/cart");
+function deleteCart(cartno) {
+    return axios.delete(`/cart/${cartno}`);
 }
 
 export default {
     getCartList,
-    createCart,
+    insertCart,
     updateCart,
     deleteCart
 }
