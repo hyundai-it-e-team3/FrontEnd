@@ -19,7 +19,7 @@
 <script>
 import AppFooter from './components/layout/AppFooter.vue';
 import AppHeader from './components/layout/AppHeader.vue';
-
+import  axios  from 'axios'
 export default {
   components: { 
     AppHeader,
@@ -28,5 +28,32 @@ export default {
   name: 'App',
   data: () => ({
   }),
+  beforeCreate(){
+    axios.get(`http://localhost:8081/category`)
+      .then(response => {
+        console.log(response);
+        console.log(response.data);
+        this.$store.commit("category/setCategory",response.data);
+                      //document.querySelector("#content").innerHTML = response.data;
+                      //$("#content").html(response.data);
+        console.log(this.$store.getters["category/getCategory"])
+      })
+      .catch(response =>{
+        console.log(response);
+      })
+    axios.get(`http://localhost:8081/category/brand`)
+      .then(response => {
+        console.log(response);
+        console.log(response.data);
+        this.$store.commit("category/setBrandCategory",response.data);
+                      //document.querySelector("#content").innerHTML = response.data;
+                      //$("#content").html(response.data);
+        console.log(this.$store.getters["category/getBrandCategory"])
+      })
+      .catch(response =>{
+        console.log(response);
+      })
+    
+  }
 };
 </script>

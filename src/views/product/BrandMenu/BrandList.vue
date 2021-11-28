@@ -1,14 +1,16 @@
 <!-- 컴포넌트 UI 정의 -->
 <template>
-    <v-list dense nav>
-      <v-list-item to="/product/brand">
+  <v-app>
+    <v-list v-for="(brand,index) in brandMenuList" v-bind:key="brand.name" dense nav>
+      <v-list-item @click="goBrand(brand.brandName,index)">
         <v-list-item-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>the CASHMERE</v-list-item-title>
+          <v-list-item-title>{{brand.brandName}}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>
+  </v-app>
 </template>
 
 <script>
@@ -17,12 +19,21 @@ export default {
   name:"",
   // 추가하고 싶은 컴포넌트를 등록
   components: {
+    
   },
   //컴포넌트 데이터를 정의
   data:()=>({
+    brandMenuList:[]
   }),
   //컴포넌트 메소드 정의
   methods:{
+    goBrand(brandName,index){
+      console.log(brandName,index);
+      this.$router.push(`/product/brand?brandName=${brandName}&index=${index}`).catch(()=>{});
+    }
+  },
+  beforeMount(){
+    this.brandMenuList = this.$store.getters["category/getBrandCategory"];
   }
 }
 </script>

@@ -1,199 +1,46 @@
 <!-- 컴포넌트 UI 정의 -->
 <template>
-  <v-app>
-    <v-list dense nav>
-      <v-list-group :value="false" prepend-icon="mdi-face-woman" active-class="yellow--text" >
-        <template v-slot:activator>
-          <v-list-item-title class="font-weight-bold">여성</v-list-item-title>
-        </template>
-        <v-list-item to="/product/productList" color="white">
-          <v-list-item-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>OUTER</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item to="/product/productList" color="white">
-          <v-list-item-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>DRESS</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item to="/product/productList" color="white">
-          <v-list-item-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>TOP</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item to="/product/productList" color="white">
-          <v-list-item-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>PANTS</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item to="/product/productList" color="white">
-          <v-list-item-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>FASHION ACC</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item to="/product/productList" color="white">
-          <v-list-item-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>SKIRT</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-group>
-      <v-list-group :value="false" prepend-icon="mdi-face-man" active-class="yellow--text">
-        <template v-slot:activator>
-          <v-list-item-title class="font-weight-bold">남성</v-list-item-title>
-        </template>
-        <v-list-item to="/" color="white">
-          <v-list-item-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>OUTER</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item to="/" color="white">
-          <v-list-item-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>DRESS</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item to="/" color="white">
-          <v-list-item-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>TOP</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item to="/" color="white">
-          <v-list-item-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>PANTS</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item to="/" color="white">
-          <v-list-item-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>FASHION ACC</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item to="/" color="white">
-          <v-list-item-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>SKIRT</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-group>
-<v-list-group :value="false" prepend-icon="mdi-baby-face" active-class="yellow--text">
-        <template v-slot:activator>
-          <v-list-item-title class="font-weight-bold">키즈</v-list-item-title>
-        </template>
-        <v-list-item to="/" color="white">
-          <v-list-item-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>OUTER</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item to="/" color="white">
-          <v-list-item-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>DRESS</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item to="/" color="white">
-          <v-list-item-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>TOP</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item to="/" color="white">
-          <v-list-item-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>PANTS</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item to="/" color="white">
-          <v-list-item-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>FASHION ACC</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item to="/" color="white">
-          <v-list-item-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>SKIRT</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-group>
-      <v-list-group :value="false" prepend-icon="mdi-home" active-class="yellow--text">
-        <template v-slot:activator>
-          <v-list-item-title class="font-weight-bold">라이프스타일</v-list-item-title>
-        </template>
-        <v-list-item to="/" color="white">
-          <v-list-item-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>OUTER</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item to="/" color="white">
-          <v-list-item-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>DRESS</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item to="/" color="white">
-          <v-list-item-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>TOP</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item to="/" color="white">
-          <v-list-item-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>PANTS</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item to="/" color="white">
-          <v-list-item-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>FASHION ACC</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item to="/" color="white">
-          <v-list-item-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>SKIRT</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-group>
-    </v-list>
-    
-  </v-app>
+  <v-card>
+    <v-card-title>ddddd</v-card-title>
+    <v-card-text >
+      <v-list dense v-for="(mainList) in menuList" v-bind:key="mainList.name">
+        <v-list-group
+          :value="true"
+          prepend-icon="mdi-account-circle"
+        >
+          <template v-slot:activator>
+            <v-list-item-title>{{mainList.name}}</v-list-item-title>
+          </template>
+          <v-list-group
+            :value="true"
+            no-action
+            sub-group
+            v-for="(middleList) in mainList.categoryList" v-bind:key="middleList.name">
+            <template v-slot:activator>
+              <v-list-item-content>
+                <v-list-item-title>{{middleList.name}}</v-list-item-title>
+              </v-list-item-content>
+            </template>
+
+            <v-list-item
+              v-for="(subList) in middleList.categoryList" v-bind:key="subList.name"
+              link
+            >
+              <v-list-item-title @click="goList(subList.categoryId)">{{subList.name}}</v-list-item-title>
+              <v-list-item-icon>
+              </v-list-item-icon>
+            </v-list-item>
+          </v-list-group>
+        </v-list-group>
+      </v-list>
+    </v-card-text>
+  </v-card>
+
 </template>
+
+<style scoped>
+
+</style>
 
 <script>
 export default {
@@ -205,16 +52,27 @@ export default {
   },
   //컴포넌트 데이터를 정의
   data:()=>({
-
+    menuList:[]
   }),
   //컴포넌트 메소드 정의
   methods:{
     backUrl(){
       this.$router.go(-1);
+    },
+    goList(categoryId){
+      console.log(categoryId);
+      this.$router.push(`/product/categoryProduct?categoryId=${categoryId}`).catch(()=>{});
     }
   },
+  beforeCreate(){
+    
+    
+  }
+  ,
   mounted(){
     this.$store.commit("setHeaderFlag",2);
+    this.menuList = this.$store.getters["category/getCategory"];
+    console.log(this.menuList);
   }
   ,
   destroyed(){

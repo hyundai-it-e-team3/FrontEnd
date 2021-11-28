@@ -15,7 +15,7 @@
             <v-icon>mdi-menu</v-icon>
         </v-btn>
         <v-spacer></v-spacer>
-        <v-toolbar-title @click="goHome" v-if= "headerFlag==1">HANDSOME</v-toolbar-title>
+        <v-toolbar-title @click="getCategory" v-if= "headerFlag==1">HANDSOME</v-toolbar-title>
         <v-toolbar-title v-if= "headerFlag==2">카테고리</v-toolbar-title>
         <v-toolbar-title v-if= "headerFlag==3">브랜드</v-toolbar-title>
         <v-spacer></v-spacer>
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import  axios  from 'axios'
 export default {
     //컴포넌트의 대표이름 (devtools에 나오는 이름)
     name: "AppHeader",
@@ -45,8 +46,8 @@ export default {
         goBack(){
             this.$router.go(-1);
         },
-        goHome(){
-            this.$router.push("/");
+        getCategory(){
+
         },
     }
     ,computed: { headerFlag() { return this.$store.state.headerFlag; } },
