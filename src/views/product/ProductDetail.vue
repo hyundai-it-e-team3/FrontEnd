@@ -19,8 +19,8 @@
       show-arrows-on-hover
     >
       <v-carousel-item
-        v-for="(slide, i) in slides"
-        :key="i"
+        v-for="(img, index) in productDetail.imgList"
+        :key="index"
       >
         <v-sheet
           height="100%"
@@ -32,7 +32,7 @@
           >
             
           <v-img
-            :src="img[i]"
+            :src="img.img"
             class="white--text align-end"
             width="100%"
           ></v-img>
@@ -41,20 +41,20 @@
         </v-sheet>
       </v-carousel-item>
     </v-carousel>
-    <v-card-title>캐시미어 크롭 니트 가디건</v-card-title>
+    <v-card-title>{{product.name}}</v-card-title>
     <div class="mt-3"  
       >
       <v-container>
         <v-row>
           <v-col cols="3" class="d-flex align-center">색상 </v-col>
           <v-col cols="2" v-for="(colorChip, index) in colorChips" :key="index">
-            <img :src="colorChip" width="30" />
+            <img :src="colorChip" width="30" @click="goProductDetail(index)"/>
           </v-col>
         </v-row>
         <v-row>
           <v-col cols="3" class="d-flex align-center">사이즈</v-col>
-          <v-col cols="2" v-for="(size, index) in size" :key="index">
-            {{size}}
+          <v-col cols="2" v-for="(stock, index) in productDetail.stockList" :key="index">
+            {{stock.psize}}
           </v-col>
         </v-row>
         <v-row>
@@ -62,11 +62,11 @@
           <v-col>
             <v-row>
               <v-col cols="2">
-                <v-icon @click="plusAmount">mdi-plus-circle-outline</v-icon>
+                <v-icon >mdi-plus-circle-outline</v-icon>
               </v-col>
               <v-col cols="2" class="text-center">{{amount}}</v-col>
               <v-col cols="2">
-                <v-icon @click="minusAmount">mdi-minus-circle-outline</v-icon>
+                <v-icon>mdi-minus-circle-outline</v-icon>
               </v-col>
             </v-row>        
           </v-col>
@@ -80,7 +80,7 @@
       >
 
         <div class="grey--text">
-          395,000₩
+          {{product.price}}₩
         </div>
       </v-row>
 
@@ -88,10 +88,10 @@
         WOMAN>OUTER>Cardigen/Vest
       </div>
 
-      <div>품번: CM2BOKCD230W</div>
+      <div>품번: {{productDetail.productDetailId}}</div>
     </v-card-text>
     <v-card-text class="text--primary grey lighten-3">
-      <div>트렌디한 크롭 길이감이 매력적인 니트 가디건으로 우아한 컷과 세련된 텍스처가 돋보입니다. 넥라인과 여밈에 보다 성글게 짜여진 텍스처가 눈길을 끕니다. 촉감마저 부드러운 100% 캐시미어 소재를 사용하여 고급스럽게 완성도를 높였습니다.</div>
+      <div>{{product.content}}</div>
     </v-card-text>
     
     <v-divider></v-divider>
@@ -105,10 +105,9 @@
     <v-divider/>
     <v-card class="mb-8">
       <v-card-title>함께 코디한 상품</v-card-title>
-
       <v-card-text>
         <div class="text-subtitle-1">
-          캐시미어 니트 가디건
+          {{productDetail.withProduct}}
         </div>
         <v-item-group>
           <v-container>
@@ -116,7 +115,7 @@
               <v-col
                 cols="4"
                 md="4"
-                v-for="(refProduct, i) in refProducts"
+                v-for="(refProduct, i) in productDetail.withImgList"
                 :key="i"    
               >
                 <v-item>
@@ -125,7 +124,7 @@
                     height="100%"
                   >
                     <v-img
-                      :src="refProduct"
+                      :src="refProduct.img"
                       width="30px"
                     >
                     </v-img>
@@ -142,6 +141,7 @@
 </template>
 
 <script>
+import product from "@/apis/product";
 export default {
   //컴포넌트의 대표이름(devtools에 나오는 이름이다.) 이름을 정하지 않으면 파일명으로
   name:"",
@@ -154,32 +154,11 @@ export default {
       'indigo',
       'warning',
       'pink darken-2',
-    ]
-    ,
-    img: [
-          'http://newmedia.thehandsome.com/CM/2B/SS/CM2B0KCD230W_PK_W01.jpg/dims/resize/684x1032/',
-          'http://newmedia.thehandsome.com/CM/2B/SS/CM2B0KCD230W_PK_W02.jpg/dims/resize/684x1032/',
-          'http://newmedia.thehandsome.com/CM/2B/SS/CM2B0KCD230W_PK_W03.jpg/dims/resize/684x1032/',
-        ],
-    slides: [
-          'First',
-          'Second',
-          'Third',
     ],
-    colorChips:[
-      'http://newmedia.thehandsome.com/CM/2B/SS/CM2B0KCD230W_PK_C01.jpg',
-      'http://newmedia.thehandsome.com/CM/2B/SS/CM2B0KCD230W_CP_C01.jpg'
-    ],
-    refProducts:[
-      'http://newmedia.thehandsome.com/CM/2B/SS/CM2B0KCD231W_LE_W01.jpg/dims/resize/684x1032/',
-      'http://newmedia.thehandsome.com/CM/2B/SS/CM2B0KCD231W_LE_W02.jpg/dims/resize/684x1032/',
-      'http://newmedia.thehandsome.com/CM/2B/SS/CM2B0KCD231W_LE_W03.jpg/dims/resize/684x1032/'
-    ],
-    size: [
-      "85", "90"
-    ],
-    stock: 5,
-    amount: 1
+    product:"",
+    productDetail:"",
+    colorChips:[],
+    amount:0
   }),
   //컴포넌트 메소드 정의
   methods:{
@@ -196,10 +175,24 @@ export default {
       } else {
         this.amount -= 1
       }
+    },
+    goProductDetail(index){
+      this.productDetail = this.product.productDetailList[index];
     }
   },
   mounted(){
     this.$store.commit("setFooterFlag",3);
+  },
+  async beforeMount(){
+    let productId = this.$route.query.productId;
+    let response = await product.getProdct(productId);
+    this.product = response.data; 
+    this.productDetail = this.product.productDetailList[0];
+
+    for(let i = 0; i < this.product.productDetailList.length; i++){
+      this.colorChips.push(this.product.productDetailList[i].colorChip);
+    }
+    console.log(this.productDetail);
   }
   ,
   destroyed(){
