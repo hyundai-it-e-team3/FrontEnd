@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const productAPI = axios.create({
-  baseURL: 'http://localhost:8081'
+  baseURL: 'http://kosa1.iptime.org:50203'
 });
 
 function getProdct(productId){

@@ -8,9 +8,11 @@
           <v-col cols="7" class="pa-1 pl-2">
             <v-row>
               <v-col class="pa-4">
-                <div class="font-weight-bold">the CASHMERE</div>
-                <div>캐시미어 크롭 니트 가디건</div>
-                <div> 배송 준비중 </div>
+                <div class="font-weight-bold">{{product.brandName}}</div>
+                <div>{{product.productName}}</div>
+                <div> {{product.state}} </div>
+                <div> {{product.psize}} </div>
+                <div> {{product.price}} </div>
               </v-col>
             </v-row>
           </v-col>
@@ -33,7 +35,10 @@ export default {
     //컴포넌트 메소드 정의
     methods: {
         
-    }
+    },
+    props: [
+      "product"
+    ]
 }
 </script>
 

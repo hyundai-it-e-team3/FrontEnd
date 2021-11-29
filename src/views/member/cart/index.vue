@@ -6,7 +6,7 @@
         <v-icon class="d-flex">mdi-check-circle-outline</v-icon>
       </v-col>
       <v-col cols="2">
-        전체 {{productDetail.length}}개
+        전체 N개
       </v-col>
       <v-col cols="5">
       </v-col>
@@ -21,18 +21,12 @@
     <v-row>
       <v-divider class="ml-2 mr-2 mb-2"/>
     </v-row>
-
-    <v-row v-for="(product) in productDetail" :key="product.productDetailId">
-      <product :productDetailI=product.productDetailId
-               :productImg=product.productImg
-               :colorCode=product.colorCode
-               :productId=product.productId
-               :name=product.name
-               :price=product.price
-               :brandName=product.brandName
-               :size=product.size
-               :amount=product.amount />
-    </v-row>
+    <v-row v-for="(cart) in cartList" :key="cart.cartId">
+      <cart-component   :productDetailId=cart.productDetailId
+                        :psize=cart.psize
+                        :amount=cart.amount
+                        :cartId=cart.cartId />
+   </v-row>
   </v-container>
   <alert-dialog v-if="alertDialog"
               :loading="loading"
@@ -43,53 +37,32 @@
 
 <script>
 import cartAPI from "@/apis/cart";
-import Product from '../cart/Product.vue';
+import CartComponent from './CartComponent.vue';
 import AlertDialog from "@/components/alert/AlertDialog"
 
 export default {
   name:"cart",
   components: {
-    Product,
+    CartComponent,
     AlertDialog
   },
   data() {
     return {
-      productDetail: [
-        {
-          productDetailId: "CM2B0KCD230WPK",
-          productImg: "http://newmedia.thehandsome.com/CM/2B/SS/CM2B0KCD230W_PK_W01.jpg/dims/resize/684x1032/",
-          colorCode: "PK",
-          productId: "CM2B0KCD230W",
-          name: "캐시미어 크롭 니트 가디건",
-          price: "495000",
-          brandName: "the CASHMERE",
-          size: "85",
-          amount: 1
-        },
-        {
-          productDetailId: "CM2B0KJC210WOW",
-          productImg: "http://newmedia.thehandsome.com/CM/2B/SS/CM2B0KJC210W_OW_W01.jpg/dims/resize/684x1032/",
-          colorCode: "OW",
-          productId: "CM2B0KJC210W",
-          name: "벨티드 니트 재킷",
-          price: "595000",
-          brandName: "the CASHMERE",
-          size: "85",
-          amount: 1
-        },
-      ],
+      cartList: null,
       alertDialog: false,
       alertDialogMessage: "",
       loading: false,
+      cartLength: null
     };
   },
   methods: {
-    getCartList() {
+    handleCartList() {
       this.loading = true;
       this.alertDialog = true;
-      cartAPI.getCartList()
+      cartAPI.getCartList(this.$store.state.memberId)
         .then(response => {
           console.log(response.data);
+          this.cartList = response.data;
           this.loading = false;
           this.alertDialog = false;
         }).catch(error => {
@@ -104,14 +77,11 @@ export default {
               this.alertDialogMessage = "네트워크 통신 오류";
           }
       });
-    },
-    deleteCart() {
-      this
     }
 
   },
   created() {
-    this.getCartList();
+    this.handleCartList();
   }
 }
 </script>

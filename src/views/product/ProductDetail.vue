@@ -54,7 +54,9 @@
         <v-row>
           <v-col cols="3" class="d-flex align-center">사이즈</v-col>
           <v-col cols="2" v-for="(stock, index) in productDetail.stockList" :key="index">
-            {{stock.psize}}
+            <v-btn small v-if="sizeIdx==index" color="success" dark>{{stock.psize}}</v-btn>
+            <v-btn small v-else-if="productDetail.stockList[index].amount==0" color="secondary" dark>{{stock.psize}}</v-btn>
+            <v-btn small v-else-if="sizeIdx!=index" @click="selectSize(index)">{{stock.psize}}</v-btn>
           </v-col>
         </v-row>
         <v-row>
@@ -62,13 +64,42 @@
           <v-col>
             <v-row>
               <v-col cols="2">
-                <v-icon >mdi-plus-circle-outline</v-icon>
+                <v-icon @click="plusAmount()" >mdi-plus-circle-outline</v-icon>
               </v-col>
-              <v-col cols="2" class="text-center">{{product.amount}}</v-col>
+              <v-col cols="2" class="text-center">{{cart.amount}}</v-col>
               <v-col cols="2">
-                <v-icon>mdi-minus-circle-outline</v-icon>
+                <v-icon @click="minusAmount()">mdi-minus-circle-outline</v-icon>
               </v-col>
             </v-row>        
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="3"></v-col>
+          <v-col cols="7">
+            <v-alert
+              v-if="alertFlag==1"
+              dense
+              outlined
+              type="error"
+            >
+              <strong>재고가 부족합니다.</strong>
+            </v-alert>
+            <v-alert
+              v-else-if="alertFlag==2"
+              dense
+              outlined
+              type="error"
+            >
+              <strong>1개 이상 선택하세요.</strong>
+            </v-alert>
+            <v-alert
+              v-else-if="alertFlag==3"
+              dense
+              outlined
+              type="error"
+            >
+              <strong>사이즈를 선택하세요.</strong>
+            </v-alert>
           </v-col>
         </v-row>
       </v-container>
@@ -166,39 +197,59 @@ export default {
     product:"",
     productDetail:"",
     colorChips:[],
-    amount:0,
-    stock: 5,
+    stock:-1,
+    sizeIdx:-1,
     cart : {
-      productDetailId: "temp2",
-      psize : "L",
-      amount : "1",
-      stock : "3",
-      category : "WOMAN>OUTER>Cardigen/Vest",
-      productName : "캐시미어 크롭 니트 가디건"
+      productDetailId: "",
+      psize : "-1",
+      amount : "0"
     },
+    alertFlag:0
   }),
   //컴포넌트 메소드 정의
   methods:{
     getProductDetail() {
       //호출 결과를 store에 등록 (주문/카트/좋아요에 사용)
-      this.$store.commit("product/setProduct", this.cart);
+      //this.$store.commit("product/setProduct", this.cart);
     },
     plusAmount() {
-      if(this.product.amount+1 > this.stock) {
-        console.log("재고가 부족합니다.")
+      if(this.sizeIdx==-1){
+        this.alertFlag = 3;
+      }
+      else if(Number(this.cart.amount)+1 > this.stock) {
+        console.log("재고가 부족합니다.");
+        console.log(Number(this.cart.amount)+1);
+        this.alertFlag = 1;
       } else {
-        this.product.amount += 1
+        this.cart.amount = Number(this.cart.amount)+1;
+        this.alertFlag = 0;
       }
     },
     minusAmount() {
-      if(this.product.amount-1 <= 0) {
-        console.log("1개 이상 주문하세요.")
+      if(this.sizeIdx==-1){
+        this.alertFlag = 3;
+      }
+      else if(Number(this.cart.amount)-1 <= 0) {
+        console.log("1개 이상 주문하세요.");
+        this.alertFlag = 2;
       } else {
-        this.product.amount -= 1
+        this.cart.amount = Number(this.cart.amount)-1;
+        this.alertFlag = 0;
       }
     },
     goProductDetail(index){
       this.productDetail = this.product.productDetailList[index];
+      this.sizeIdx = -1;
+      this.cart.productDetailId = this.productDetail.productDetailId;
+      this.alertFlag = 0;
+    },
+    selectSize(index){
+      this.sizeIdx = index;
+      this.stock = this.productDetail.stockList[index].amount;
+      this.cart.psize = this.productDetail.stockList[index].psize;
+      this.cart.amount = 0;
+      console.log(this.stock);
+      this.alertFlag = 0;
     }
   },
   async beforeMount(){
@@ -206,6 +257,7 @@ export default {
     let response = await product.getProdct(productId);
     this.product = response.data; 
     this.productDetail = this.product.productDetailList[0];
+    this.cart.productDetailId = this.productDetail.productDetailId;
 
     for(let i = 0; i < this.product.productDetailList.length; i++){
       this.colorChips.push(this.product.productDetailList[i].colorChip);
@@ -216,7 +268,7 @@ export default {
     this.$store.commit("setPageFlag",'product');
   },
   created() {
-    this.$store.commit("product/setProduct", this.cart);
+    //this.$store.commit("product/setProduct", this.cart);
   }
 }
 </script>
