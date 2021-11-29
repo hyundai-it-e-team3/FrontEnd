@@ -124,10 +124,13 @@ export default {
   ],
   methods: {
     async onIntersect (entries, observer,isIntersecting) {
+        
         if(isIntersecting==true){
+          console.log("----------------------");
           let startRow = this.$store.getters["pager/getRowCount"];
+          console.log(startRow,this.sortId);
           try{
-            const response = await pager.getProdctList(this.listType,this.categoryId,startRow,3,0,this.sortId);
+            const response = await pager.getProdctList(this.listType,this.categoryId,startRow,3,this.sortId);
             if(this.$store.getters["pager/getRowCount"]==1){
                 this.newList = response.data;
             }else{
@@ -160,6 +163,7 @@ export default {
       try{
         const response = await pager.getProdctList(this.listType,this.categoryId,1,10,this.sortId);
         this.newList = response.data;
+        this.$store.commit("pager/resetRowCount");
         this.$store.commit("pager/plusRowCount",11);
         console.log(this.newList);
       }
