@@ -8,9 +8,9 @@
           <v-col cols="8" class="pa-1 pl-2">
             <v-row>
               <v-col class="pa-4">
-                <div class="font-weight-bold">the CASHMERE</div>
-                <div>캐시미어 크롭 니트 가디건</div>
-                <div> BE / L / 1개 </div>
+                <div class="font-weight-bold">{{product.brandName}}</div>
+                <div>{{product.productName}}</div>
+                <div> {{product.colorCode}} / {{product.psize}} / {{product.amount}}개 </div>
               </v-col>
             </v-row>
             <v-expansion-panels accordion flat >
@@ -19,7 +19,7 @@
                         <v-row>
                         <v-col cols="6">주문 금액</v-col>
                         <v-spacer></v-spacer>
-                        <v-col cols="6" class="text-right">354,000원</v-col>
+                        <v-col cols="6" class="text-right">{{product.price}}원</v-col>
                         </v-row>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
@@ -62,6 +62,12 @@ export default {
     },
     //컴포넌트 메소드 정의
     methods: {
+    },
+    props: [
+      "product"
+    ],
+    created() {
+      //정보 불러오기
     }
 }
 </script>

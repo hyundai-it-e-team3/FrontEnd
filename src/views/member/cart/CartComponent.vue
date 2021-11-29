@@ -72,6 +72,7 @@
 <script>
 import ChangeOption from './ChangeOption.vue';
 import cartAPI from "@/apis/cart";
+import productAPI from "@/apis/product";
 export default {
   name:"CartComponent",
   components: {
@@ -93,6 +94,7 @@ export default {
           amount: 1
         },
       ],
+      product: null,
     };
   },
   props: [
@@ -148,7 +150,14 @@ export default {
                 }
             }
         }
+    },
+    async handleProductInfo() {
+      //let response = await productAPI.getProdct(productId);
+      //this.product = response.data; 
     }
+  },
+  created() {
+    this.handleProductInfo();
   }
 }
 </script>

@@ -5,20 +5,20 @@ const orderAPI = axios.create({
   });
 
 function getOrderList(memberId) {
-    return axios.get("/order/list", {params:{memberId}});
+    return orderAPI.get("/order/list", {params:{memberId}});
 }
 
 function getOrderDetailList(orderId) {
-    return axios.get(`/order/${orderId}/list`)
+    return orderAPI.get(`/order/${orderId}/list`)
 }
 
 function insertOrder(multipartFormData) {
-    return axios.post(
+    return orderAPI.post(
         "/order",multipartFormData);
 }
 
 function getOrder(orderId) {
-    return axios.get(`/order/${orderId}`);
+    return orderAPI.get(`/order/${orderId}`);
 }
 
 export default {
