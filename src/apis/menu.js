@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const menuAPI = axios.create({
-  baseURL: 'http://localhost:8081'
+  baseURL: 'http://kosa1.iptime.org:50203'
 });
 
 function getCategory(){
