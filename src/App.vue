@@ -28,7 +28,7 @@ export default {
   name: 'App',
   data: () => ({
   }),
-  async beforeCreate(){
+  async beforeCreate() {
     const categoryResponse = await Menu.getCategory();
     console.log(categoryResponse);
     console.log(categoryResponse.data);
@@ -40,6 +40,9 @@ export default {
     console.log(brandResponse.data);
     this.$store.commit("category/setBrandCategory",brandResponse.data);
     console.log(this.$store.getters["category/getBrandCategory"])
+  },
+  created() {
+    this.$store.dispatch("loadAuth");
   }
 };
 </script>
