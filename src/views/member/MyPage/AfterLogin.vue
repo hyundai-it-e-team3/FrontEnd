@@ -60,9 +60,9 @@
 
       <v-list dense>
         <v-list-item-group color="primary">
-          <v-list-item to="/member/login">
+          <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>로그아웃</v-list-item-title>
+              <v-list-item-title @click="handleLogout">로그아웃</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-list-item>
@@ -97,7 +97,10 @@ export default {
       },
       goOrderList() {
         this.$router.push("/order/orderlist");
-      }
+      },
+      handleLogout() {
+      this.$store.dispatch("deleteAuth");
+    }
     }
 }
 </script>

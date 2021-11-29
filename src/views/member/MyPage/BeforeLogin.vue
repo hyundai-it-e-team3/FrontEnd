@@ -7,7 +7,7 @@
       <v-col class="col-12 pl-5 pr-5 pb-0">
         <validation-provider name="memberId" rules="memberIdRequired" v-slot="{ errors }">
           <v-text-field label="아이디 입력"
-                        v-model="memberId"
+                        v-model="member.memberId"
                         outlined
                         hide-details>
           </v-text-field>
@@ -17,7 +17,7 @@
       <v-col class="col-12 pl-5 pr-5 pt-0 mb-4">
         <validation-provider name="password" rules="passwordRequired" v-slot="{ errors }">
           <v-text-field label="비밀번호 입력"
-                        v-model="password"
+                        v-model="member.password"
                         type="password"
                         @click:append="passwordIconShow = !passwordIconShow"
                         oninput="javascript: this.value = this.value.replace(/[\s]/g, '' );"
@@ -29,19 +29,26 @@
       </v-col>
     </v-row>
     <v-row class="justify-center ma-0">
-        <v-btn class="" width="165" depressed large color="black" dark>로그인</v-btn>
+        <v-btn class="black white--text" width="165" depressed large color="black" :disabled="disableButton" @click="handleLogin">로그인</v-btn>
         <v-btn class="ml-2" width="165" depressed large color="#fae100">카카오로 로그인</v-btn>
     </v-row>
     <v-divider class="ma-4" />
     <v-row class="justify-center border">
       <v-btn class="grey--text" plain to="/member/join">회원가입</v-btn>
     </v-row>
+
+    <alert-dialog :message="alertDialogMessage"
+                  :loading="loading"
+                  v-if="alertDialog"
+                  @close ="alertDialog=false" />
   </v-container>
 </template>
 
 <script>
 import { extend } from 'vee-validate';
 import { required } from 'vee-validate/dist/rules';
+import member from '@/apis/member';
+import AlertDialog from "@/components/alert/AlertDialog.vue";
 
 extend('memberIdRequired', {
   ...required,
@@ -54,15 +61,52 @@ extend('passwordRequired', {
 
 export default {
   name: "Login",
-  components: {},
+  components: {
+    AlertDialog
+  },
   data: function () {
     return {
+      member: {
         memberId:  '',
         password:  ''
+      },
+      alertDialog: false,
+      alertDialogMessage: "",
+      loading: false,
+      disableButten: true
     };
   },
   methods: {
+    async handleLogin() {
+      try {
+        const response = await member.login(this.member);
+        console.log(response);
+        
+        this.$store.dispatch("saveAuth", 
+         {
+            memberId: response.data.memberId,
+            authToken: response.data.jwt
+          }
+        )
+      } catch (error) {
+        try {
+          if(error.response.status === 401) {
+            this.alertDialog = true;
+            this.alertDialogMessage = "아이디 또는 패스워드가 틀립니다.";
+          }
+        } catch(err) {
+          this.alertDialog = true;
+          this.alertDialogMessage = "네트워크 에러";
+        }
+      }
+    }
   },
+  computed: {
+    disableButton() {
+      let result = this.member.memberId === "" || this.member.password === "";
+      return result;
+    }
+  }
 };
 </script>
 

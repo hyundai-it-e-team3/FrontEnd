@@ -180,7 +180,7 @@
 </template>
 
 <script>
-import product from "@/apis/product";
+import productAPI from "@/apis/product";
 export default {
   //컴포넌트의 대표이름(devtools에 나오는 이름이다.) 이름을 정하지 않으면 파일명으로
   name:"",
@@ -254,7 +254,7 @@ export default {
   },
   async beforeMount(){
     let productId = this.$route.query.productId;
-    let response = await product.getProdct(productId);
+    let response = await productAPI.getProdct(productId);
     this.product = response.data; 
     this.productDetail = this.product.productDetailList[0];
     this.cart.productDetailId = this.productDetail.productDetailId;

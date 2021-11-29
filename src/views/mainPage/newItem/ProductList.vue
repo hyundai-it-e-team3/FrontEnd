@@ -104,7 +104,7 @@
 </template>
 
 <script>
-import pager from "@/apis/pager";
+import pagerAPI from "@/apis/pager";
 import Navi from '../Navi.vue';
 export default {
   name:"productList",
@@ -124,10 +124,13 @@ export default {
   ],
   methods: {
     async onIntersect (entries, observer,isIntersecting) {
+        
         if(isIntersecting==true){
+          console.log("----------------------");
           let startRow = this.$store.getters["pager/getRowCount"];
+          console.log(startRow,this.sortId);
           try{
-            const response = await pager.getProdctList(this.listType,this.categoryId,startRow,3,0,this.sortId);
+            const response = await pagerAPI.getProdctList(this.listType,this.categoryId,startRow,3,this.sortId);
             if(this.$store.getters["pager/getRowCount"]==1){
                 this.newList = response.data;
             }else{
@@ -158,8 +161,9 @@ export default {
       else if(sort=="고가순")
         this.sortId = 2;
       try{
-        const response = await pager.getProdctList(this.listType,this.categoryId,1,10,this.sortId);
+        const response = await pagerAPI.getProdctList(this.listType,this.categoryId,1,10,this.sortId);
         this.newList = response.data;
+        this.$store.commit("pager/resetRowCount");
         this.$store.commit("pager/plusRowCount",11);
         console.log(this.newList);
       }
@@ -169,7 +173,7 @@ export default {
     }
   },
   async beforeMount(){
-    const response = await pager.getProdctList(this.listType,this.categoryId,1,10,this.sortId);
+    const response = await pagerAPI.getProdctList(this.listType,this.categoryId,1,10,this.sortId);
     console.log(response.data);
     this.newList = response.data;
     this.$store.commit("pager/plusRowCount",11);
