@@ -5,14 +5,14 @@ export default[
     component: () => import(/* webpackChunkName: "about" */ '../views/member/Join.vue')
   },
   {
-    path: "/member/login",
-    //lazyloding
-    component: () => import(/* webpackChunkName: "about" */ '../views/member/Login.vue')
-  },
-  {
     path: "/member/mypage",
     //lazyloding
-    component: () => import(/* webpackChunkName: "about" */ '../views/member/MyPage.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/member/MyPage')
+  },
+  {
+    path: "/member/update",
+    //lazyloding
+    component: () => import(/* webpackChunkName: "about" */ '../views/member/MyPage/Update.vue')
   },
   {
     path: "/member/wishList",
@@ -38,10 +38,5 @@ export default[
     path: "/member/memberpoint",
     //lazyloding
     component: () => import(/* webpackChunkName: "about" */ '../views/member/MemberPoint')
-  },
-  {
-    path: "/member/update",
-    //lazyloding
-    component: () => import(/* webpackChunkName: "about" */ '../views/member/Update')
   },
 ]
