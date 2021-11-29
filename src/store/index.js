@@ -2,9 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import pager from './pager';
 import category from './category';
-
-
-
 import product from "./product";
 
 Vue.use(Vuex)
@@ -32,7 +29,8 @@ export default new Vuex.Store({
   //루트가 아닌 자식 상태를 정의한 모듈을 가져오기
   modules: {
     pager,
-    category
+    category,
+    product
   }
   
 })

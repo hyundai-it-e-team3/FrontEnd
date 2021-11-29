@@ -4,8 +4,8 @@
       <v-card-title></v-card-title>
       <v-card-subtitle></v-card-subtitle>
       <v-divider/>
-      <product-component/>
-
+        <product-component 
+                    :product=product />
     <v-expansion-panels flat>
         <v-expansion-panel>
             <v-expansion-panel-header>
@@ -90,7 +90,7 @@
                 </v-row>
 
                 <v-row height="50px">
-                <v-col cols="4" class="d-flex align-center" >전화번호</v-col>
+                <v-col cols="4" class="d-flex align-center">전화번호</v-col>
                 <v-spacer></v-spacer>
                 <v-col cols="8" class="text-right">        
                     <v-text-field
@@ -159,7 +159,9 @@
         </v-expansion-panel>
     </v-expansion-panels>
     
-    
+    <v-card-actions>
+        <v-btn width="100%">주문하기</v-btn>
+    </v-card-actions>
    
 
     </v-card>  
@@ -191,12 +193,21 @@ export default {
         { text: '설날 이벤트 쿠폰', rate: '5,500₩' },
         { text: '생일 쿠폰', rate: '15%' }
         ],
+        member: null,
+        product: null,
     }),
     //컴포넌트 메소드 정의
     methods: {
     },
     mounted(){
         this.$store.commit("setPageFlag",'order');
+    },
+    created() {
+        const linkKey = this.$route.query.link;
+        if(linkKey === 'product') {
+            this.product = this.$store.getters["product/getProduct"];
+            console.log("LinkKey = product : ", this.product);
+        }
     }
 }
 </script>
