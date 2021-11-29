@@ -59,7 +59,7 @@ export default {
     handleCartList() {
       this.loading = true;
       this.alertDialog = true;
-      cartAPI.getCartList()
+      cartAPI.getCartList(this.$store.state.memberId)
         .then(response => {
           console.log(response.data);
           this.cartList = response.data;

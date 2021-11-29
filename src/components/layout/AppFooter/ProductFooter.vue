@@ -57,7 +57,7 @@ export default {
                 multipartFormData.append("productDetailId", product.productDetailId);
                 multipartFormData.append("psize", product.psize);
                 multipartFormData.append("amount", product.amount);
-                multipartFormData.append("memberId", this.$store.state.userId);
+                multipartFormData.append("memberId", this.$store.state.memberId);
                 //multipartFormData.append("memberId", 'user1');
                 console.log(multipartFormData);
 

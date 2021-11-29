@@ -11,12 +11,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    userId: "user1",
+    memberId: "user1",
     pageFlag:'main'
   },
   getters:{
-    getUserId(state) {
-      return state.userId;
+    getMemberId(state) {
+      return state.memberId;
     },
     getPageFlag(state){
       return state.pageFlag;

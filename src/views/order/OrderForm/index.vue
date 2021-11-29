@@ -196,7 +196,7 @@ export default {
     methods: {
     },
     mounted(){
-        this.$store.commit("setPageFlag",'orderForm');
+        this.$store.commit("setPageFlag",'order');
     }
 }
 </script>
