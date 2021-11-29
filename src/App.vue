@@ -19,7 +19,7 @@
 <script>
 import AppFooter from './components/layout/AppFooter';
 import AppHeader from './components/layout/AppHeader';
-
+import Menu from "@/apis/menu";
 export default {
   components: { 
     AppHeader,
@@ -28,6 +28,19 @@ export default {
   name: 'App',
   data: () => ({
   }),
+  async beforeCreate(){
+    const categoryResponse = await Menu.getCategory();
+    console.log(categoryResponse);
+    console.log(categoryResponse.data);
+    this.$store.commit("category/setCategory",categoryResponse.data);
+    console.log(this.$store.getters["category/getCategory"]);
+
+    const brandResponse = await Menu.getBrand();
+    console.log(brandResponse);
+    console.log(brandResponse.data);
+    this.$store.commit("category/setBrandCategory",brandResponse.data);
+    console.log(this.$store.getters["category/getBrandCategory"])
+  }
 };
 </script>
 
