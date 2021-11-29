@@ -4,8 +4,8 @@ const pagerAPI = axios.create({
   baseURL: 'http://localhost:8081'
 });
 
-function getProdctList(listType,categoryType,startRow,endRow){
-  return pagerAPI.get(`/product/${listType}/${categoryType}/${startRow}/${endRow}`
+function getProdctList(listType,categoryType,startRow,endRow,sortId){
+  return pagerAPI.get(`/product/${listType}/${categoryType}/${startRow}/${endRow}/${sortId}`
   )
 }
 
