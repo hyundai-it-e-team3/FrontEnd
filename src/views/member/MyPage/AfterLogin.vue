@@ -1,111 +1,85 @@
-<!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-    <v-card>
-      <v-list class="ma-3">
-        <v-list-item link to="/member/update">
-          <v-list-item-content>
-            <v-list-item-title class="text-h6">
-              홍길동
-            </v-list-item-title>
-          </v-list-item-content>
-
-          <v-list-item-action>
-            <v-icon>mdi-chevron-right</v-icon>
-          </v-list-item-action>
-        </v-list-item>
-
-        <v-list-item link to="/member/memberlevel">
-            <v-list-item-subtitle>
-                lv.5
-            </v-list-item-subtitle>
-          </v-list-item>
-      </v-list>
-      
-
-      
-      <v-divider></v-divider>
-
-      <v-container>
-        
-        <v-row class="ma-1">
-          <v-col cols="4" @click="goOrderList">
-            <v-row class="d-flex justify-center">
-              <v-icon large>mdi-clipboard-list-outline</v-icon> 
-            </v-row>
-            <v-row class="d-flex justify-center">
-              <span class="text-overline">주문 내역</span>
-            </v-row>
-          </v-col>
-          <v-col cols="4" @click="goMemberCoupon">
-            <v-row class="d-flex justify-center">
-              <v-icon large>mdi-ticket-percent-outline</v-icon>
-            </v-row>
-            <v-row class="d-flex justify-center">
-              <span class="text-overline">쿠폰</span>
-            </v-row>
-          </v-col>
-          <v-col cols="4" @click="goMemberPoint">
-            <v-row class="d-flex justify-center">
-              <v-icon large>mdi-alpha-p-circle-outline</v-icon>
-            </v-row>
-            <v-row class="d-flex justify-center">
-              <span class="text-overline">포인트</span>
-            </v-row>
-          </v-col>
+  <v-container fluid>
+    <v-row>
+      <v-col>
+        <v-row class="ml-1 mt-1">
+          <v-col class="memberName d-flex pb-0 text-center">홍길동 <span class="pt-1 pl-1"><v-icon class="align-center" size="40">mdi-chevron-right</v-icon></span></v-col>
         </v-row>
-      </v-container>
+        <v-row class="ml-1 mb-2">
+          <v-col class="level d-flex pl-4 pt-0 pr-0">1 Lv. <span class="pt-1 pl-1"><v-icon size="21">mdi-information-outline</v-icon></span></v-col>
+        </v-row>
+      </v-col>
+    </v-row>
 
+    <v-divider class="mb-4" />
 
-      <v-divider></v-divider>
+    <v-row class="d-flex pl-4 pr-4">
+      <v-col class="col-4 d-flex flex-column" @click="goOrderList">
+        <v-icon size="50" color="black">mdi-truck-outline</v-icon>
+        <v-row class="menu3">주문내역</v-row>
+      </v-col>
+      <v-col class="col-4 d-flex flex-column" @click="goMemberCoupon">
+        <v-icon size="50" color="black">mdi-ticket-percent-outline</v-icon>
+        <v-row class="menu3">쿠폰</v-row>
+      </v-col>
+      <v-col class="col-4 d-flex flex-column" @click="goMemberPoint">
+        <v-icon size="50" color="black">mdi-alpha-p-circle-outline</v-icon>
+        <v-row class="menu3">포인트</v-row>
+      </v-col>
+    </v-row>
 
-      <v-list dense>
-        <v-list-item-group color="primary">
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title @click="handleLogout">로그아웃</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>회원탈퇴</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-    </v-card>
+    <v-divider class="mt-4 mb-4"/>
+    
+    <v-row class="memberMenu ma-2" @click="handleLogout">
+      로그아웃
+    </v-row>
+    <v-row class="memberMenu ma-2">
+      회원탈퇴
+    </v-row>
+  </v-container>
 </template>
 
 <script>
 export default {
-    //컴포넌트의 대표이름 (devtools에 나오는 이름)
-    name: "myPage",
-    //추가하고 싶은 컴포넌트 등록
-    components: {
+  name: "AfterLogin",
+  components: {
+  },
+  data: function() {
+      return {
+      };
+  },
+  methods: {
+    goOrderList() {
+      this.$router.push("/order/orderlist");
     },
-    //컴포넌트 데이터 정의
-    data: function() {
-        return {
-        };
+    goMemberCoupon() {
+      this.$router.push("/member/membercoupon");
     },
-    //컴포넌트 메소드 정의
-    methods: {
-      goMemberCoupon() {
-        this.$router.push("/member/membercoupon");
-      },
-      goMemberPoint() {
-        this.$router.push("/member/memberpoint");
-      },
-      goOrderList() {
-        this.$router.push("/order/orderlist");
-      },
-      handleLogout() {
+    goMemberPoint() {
+      this.$router.push("/member/memberpoint");
+    },
+    handleLogout() {
       this.$store.dispatch("deleteAuth");
     }
-    }
+  }
 }
 </script>
 
-<!-- 컴포넌트 스타일 정의 -->
 <style scoped>
-
+.memberName {
+  font-size: 30px;
+  font-weight: 550;
+}
+.level {
+  font-size:20px;
+}
+.menu3 {
+  color: black;
+  justify-content: center;
+  padding: 12px 10px 15px 10px;
+}
+.memberMenu {
+  color: black;
+  font-size: 15px;
+}
 </style>
