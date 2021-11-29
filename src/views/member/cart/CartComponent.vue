@@ -8,7 +8,7 @@
           <v-col cols="10">
           </v-col>
           <v-col cols="1" class="pa-2">
-            <v-icon class="d-flex">mdi-close</v-icon>
+            <v-icon class="d-flex" @click="handleDelete()">mdi-close</v-icon>
           </v-col>    
         </v-row>
 
@@ -20,6 +20,7 @@
             <v-row>
               <v-col class="pa-4">
                 <div >[{{brandName}}]</div>
+                <div>{{productDetailId}} 정보 불러와서 넣기</div>
                 <div>{{name}}</div>
                 <div class="font-weight-bold">{{price}}원</div>
               </v-col>
@@ -70,15 +71,28 @@
 
 <script>
 import ChangeOption from './ChangeOption.vue';
-
+import cartAPI from "@/apis/cart";
 export default {
-  name:"Product",
+  name:"CartComponent",
   components: {
     ChangeOption
   },
   data() {
     return {
-      changeFlag: false
+      changeFlag: false,
+      productDetail: [
+        {
+          productDetailId: "CM2B0KCD230WPK",
+          productImg: "http://newmedia.thehandsome.com/CM/2B/SS/CM2B0KCD230W_PK_W01.jpg/dims/resize/684x1032/",
+          colorCode: "PK",
+          productId: "CM2B0KCD230W",
+          name: "캐시미어 크롭 니트 가디건",
+          price: "495000",
+          brandName: "the CASHMERE",
+          size: "85",
+          amount: 1
+        },
+      ],
     };
   },
   props: [
@@ -90,7 +104,8 @@ export default {
     "price",
     "brandName",
     "size",
-    "amount"
+    "amount",
+    "cartId"
   ],
   methods: {
     changeDetail() {
@@ -109,6 +124,30 @@ export default {
       } else {
         this.amount -= 1
       }
+    },
+    async handleDelete() {
+        try {
+            this.loading = true;
+            this.alertDialog = true;
+            const response = await cartAPI.deleteCart(this.cartId);
+            console.log(response);
+            this.loading = false;
+            this.alertDialog = false;
+            this.$destroy();
+            this.$el.parentNode.removeChild(this.$el);
+
+        } catch(error) {
+            if(error.response) {
+                if(error.response.status === 403) {
+                    this.loading = false;
+                    this.alertDialog = false;
+                    this.$router.push("/menu07/auth/jwtauth")
+                } else {
+                    this.loading = false;
+                    this.alertDialogMessage = "네트워크 통신 오류";
+                }
+            }
+        }
     }
   }
 }
