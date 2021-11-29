@@ -151,7 +151,7 @@ export default {
     async sortSelect(sort){
       console.log(sort);
       this.sortSheet = false;
-      if(sort=="신상품")
+      if(sort=="신상품순")
         this.sortId = 0;
       else if(sort=="저가순")
         this.sortId = 1;
