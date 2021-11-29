@@ -1,8 +1,9 @@
 <!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-    <v-card>
-      <v-card-title>No.202112101137500001</v-card-title>
-      <v-card-subtitle>2021.11.10. 11:25</v-card-subtitle>
+    <v-card class="mt-14 mb-12 ml-1 mr-1" flat>
+      <v-card-title>결제 완료</v-card-title>
+      <v-card-subtitle>No.202112101137500001</v-card-subtitle>
+      <v-card-text>2021.11.10. 11:25</v-card-text>
       <v-divider/>
       <product-component :propA="{pname:'캐시미어 레드'}"/>
       <product-component :propA="{pname:'캐시미어 블루'}"/>
@@ -56,10 +57,19 @@
                     <v-spacer></v-spacer>
                     <v-col cols="8" class="text-right">서울특별시 송파구</v-col>
                 </v-row>
+                <v-row >
+                     <v-col>배송 메세지</v-col>
+                     <v-col>안전하게 배송해주세요</v-col>
+                </v-row>
+                
 
             </v-expansion-panel-content>
         </v-expansion-panel>
     </v-expansion-panels>
+    <v-card-actions>
+        <v-btn tile width="70%">배송지 수정</v-btn>
+        <v-btn tile width="30%">주문 취소</v-btn>
+    </v-card-actions>
     </v-card>  
 </template>
 
@@ -79,6 +89,9 @@ export default {
     },
     //컴포넌트 메소드 정의
     methods: {
+    },
+    mounted(){
+        this.$store.commit("setPageFlag",'title');
     }
 }
 </script>

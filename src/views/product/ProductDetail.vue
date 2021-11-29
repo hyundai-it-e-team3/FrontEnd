@@ -64,7 +64,7 @@
               <v-col cols="2">
                 <v-icon >mdi-plus-circle-outline</v-icon>
               </v-col>
-              <v-col cols="2" class="text-center">{{amount}}</v-col>
+              <v-col cols="2" class="text-center">{{product.amount}}</v-col>
               <v-col cols="2">
                 <v-icon>mdi-minus-circle-outline</v-icon>
               </v-col>
@@ -85,9 +85,8 @@
       </v-row>
 
       <div class="my-4 text-subtitle-1">
-        WOMAN>OUTER>Cardigen/Vest
+        {{product.category}}
       </div>
-
       <div>품번: {{productDetail.productDetailId}}</div>
     </v-card-text>
     <v-card-text class="text--primary grey lighten-3">
@@ -102,7 +101,16 @@
       <div><span class="mr-14">배송비</span> <span>30,000원 이상 무료배송(실결제 기준)</span></div>
       <div><span class="mr-7">카드사 혜택</span> <span>카드사 혜택 상세보기 ></span></div>
     </v-card-text>
+    
+    
+    
+    
     <v-divider/>
+
+
+
+
+
     <v-card class="mb-8">
       <v-card-title>함께 코디한 상품</v-card-title>
       <v-card-text>
@@ -158,30 +166,40 @@ export default {
     product:"",
     productDetail:"",
     colorChips:[],
-    amount:0
+    amount:0,
+    stock: 5,
+    cart : {
+      productDetailId: "temp2",
+      psize : "L",
+      amount : "1",
+      stock : "3",
+      category : "WOMAN>OUTER>Cardigen/Vest",
+      productName : "캐시미어 크롭 니트 가디건"
+    },
   }),
   //컴포넌트 메소드 정의
   methods:{
+    getProductDetail() {
+      //호출 결과를 store에 등록 (주문/카트/좋아요에 사용)
+      this.$store.commit("product/setProduct", this.cart);
+    },
     plusAmount() {
-      if(this.amount+1 > this.stock) {
+      if(this.product.amount+1 > this.stock) {
         console.log("재고가 부족합니다.")
       } else {
-        this.amount += 1
+        this.product.amount += 1
       }
     },
     minusAmount() {
-      if(this.amount-1 <= 0) {
+      if(this.product.amount-1 <= 0) {
         console.log("1개 이상 주문하세요.")
       } else {
-        this.amount -= 1
+        this.product.amount -= 1
       }
     },
     goProductDetail(index){
       this.productDetail = this.product.productDetailList[index];
     }
-  },
-  mounted(){
-    this.$store.commit("setFooterFlag",3);
   },
   async beforeMount(){
     let productId = this.$route.query.productId;
@@ -193,12 +211,13 @@ export default {
       this.colorChips.push(this.product.productDetailList[i].colorChip);
     }
     console.log(this.productDetail);
-  }
-  ,
-  destroyed(){
-    this.$store.commit("setFooterFlag",1);
   },
-  computed: { footerFlag() { return this.$store.state.footerFlag; } },
+  mounted(){
+    this.$store.commit("setPageFlag",'product');
+  },
+  created() {
+    this.$store.commit("product/setProduct", this.cart);
+  }
 }
 </script>
 <!-- 컴포넌트 스타일 정의 -->

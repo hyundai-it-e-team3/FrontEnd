@@ -7,6 +7,10 @@ import axios from './apis/axiosConfig'
 
 Vue.config.productionTip = false
 
+//Axios 설정 파일을 가져오면서 실행하기
+//axios.defaults.baseURL을 먼저 적용
+import axiosConfig from "./apis/axiosConfig"
+
 new Vue({
   router,
   store,

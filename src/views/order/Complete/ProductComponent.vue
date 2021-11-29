@@ -3,7 +3,7 @@
     <v-card>
       <v-row>
           <v-col cols="5" class="pa-0 pl-2 pb-2">
-            <v-img max-height="130" src="http://newmedia.thehandsome.com/CM/2B/SS/CM2B1KOT032M_DB_W01.jpg/dims/resize/684x1032/"/>
+            <v-img max-height="170" src="http://newmedia.thehandsome.com/CM/2B/SS/CM2B1KOT032M_DB_W01.jpg/dims/resize/684x1032/"/>
           </v-col>
           <v-col cols="7" class="pa-1 pl-2">
             <v-row>
@@ -11,6 +11,7 @@
                 <div class="font-weight-bold">the CASHMERE</div>
                 <div>{{propA.pname}}</div>
                 <div> BE / L / 1개 </div>
+                <div> 출고 준비중 </div>
               </v-col>
             </v-row>
             <v-expansion-panels accordion flat>

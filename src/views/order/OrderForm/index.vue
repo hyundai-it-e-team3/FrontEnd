@@ -5,6 +5,73 @@
       <v-card-subtitle></v-card-subtitle>
       <v-divider/>
       <product-component/>
+
+    <v-expansion-panels flat>
+        <v-expansion-panel>
+            <v-expansion-panel-header>
+                쿠폰 선택
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+
+            <v-card width="100%" flat>
+                <v-divider></v-divider>
+                <v-list
+                    nav
+                    dense
+                >
+                    <v-list-item-group
+                    v-model="selectedItem"
+                    color="primary"
+                    >
+                    <v-list-item
+                        v-for="(item, i) in items"
+                        :key="i"
+                    >
+
+                        <v-list-item-content>
+                        <v-row>
+                            <v-col cols="8" v-text="item.text"></v-col>
+                            <v-spacer></v-spacer>
+                            <v-col cols="4" class="text-right" v-text="item.rate"></v-col>
+                        </v-row>
+                        </v-list-item-content>
+                    </v-list-item>
+                    </v-list-item-group>
+                </v-list>
+            </v-card>
+
+            </v-expansion-panel-content>
+        </v-expansion-panel>
+    </v-expansion-panels>
+
+
+
+
+     <v-expansion-panels flat>
+        <v-expansion-panel>
+            <v-expansion-panel-header>
+                포인트 사용
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+                <v-row>
+                    <v-col cols="8">
+                        <v-text-field
+                            label="Point"
+                        ></v-text-field> 
+                    </v-col>
+                    <v-spacer></v-spacer>
+                    <v-col cols="4" class="text-right d-flex align-center">
+                        <v-btn
+                        color="black" dark
+                        >적용</v-btn>
+                    </v-col>
+                </v-row>
+            </v-expansion-panel-content>
+        </v-expansion-panel>
+    </v-expansion-panels>
+
+
+
       <v-expansion-panels accordion flat>
         <v-expansion-panel>
             <v-expansion-panel-header>
@@ -91,67 +158,9 @@
             </v-expansion-panel-content>
         </v-expansion-panel>
     </v-expansion-panels>
-        <v-expansion-panels flat>
-        <v-expansion-panel>
-            <v-expansion-panel-header>
-                쿠폰 선택
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-
-            <v-card width="100%" flat>
-                <v-divider></v-divider>
-                <v-list
-                    nav
-                    dense
-                >
-                    <v-list-item-group
-                    v-model="selectedItem"
-                    color="primary"
-                    >
-                    <v-list-item
-                        v-for="(item, i) in items"
-                        :key="i"
-                    >
-
-                        <v-list-item-content>
-                        <v-row>
-                            <v-col cols="8" v-text="item.text"></v-col>
-                            <v-spacer></v-spacer>
-                            <v-col cols="4" class="text-right" v-text="item.rate"></v-col>
-                        </v-row>
-                        </v-list-item-content>
-                    </v-list-item>
-                    </v-list-item-group>
-                </v-list>
-                </v-navigation-drawer>
-            </v-card>
-
-            </v-expansion-panel-content>
-        </v-expansion-panel>
-    </v-expansion-panels>
-    </v-expansion-panels>
-        <v-expansion-panels flat>
-        <v-expansion-panel>
-            <v-expansion-panel-header>
-                포인트 사용
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-                <v-row>
-                    <v-col cols="8">
-                        <v-text-field
-                            label="Point"
-                        ></v-text-field> 
-                    </v-col>
-                    <v-spacer></v-spacer>
-                    <v-col cols="4" class="text-right d-flex align-center">
-                        <v-btn
-                        color="black" dark
-                        >적용</v-btn>
-                    </v-col>
-                </v-row>
-            </v-expansion-panel-content>
-        </v-expansion-panel>
-    </v-expansion-panels>
+    
+    
+   
 
     </v-card>  
 </template>
@@ -187,13 +196,8 @@ export default {
     methods: {
     },
     mounted(){
-    this.$store.commit("setFooterFlag",2);
+        this.$store.commit("setPageFlag",'orderForm');
     }
-    ,
-    destroyed(){
-    this.$store.commit("setFooterFlag",1);
-    }
-    ,computed: { footerFlag() { return this.$store.state.footerFlag; } },
 }
 </script>
 

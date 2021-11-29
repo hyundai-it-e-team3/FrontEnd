@@ -12,20 +12,6 @@
           {{size}}
         </v-col>
       </v-row>
-      <v-row>
-        <v-col cols="3" class="d-flex align-center">수량 </v-col>
-        <v-col>
-          <v-row>
-            <v-col cols="2">
-              <v-icon @click="plusAmount">mdi-plus-circle-outline</v-icon>
-            </v-col>
-            <v-col cols="2" class="text-center">{{amount}}</v-col>
-            <v-col cols="2">
-              <v-icon @click="minusAmount">mdi-minus-circle-outline</v-icon>
-            </v-col>
-          </v-row>        
-        </v-col>
-      </v-row>
     </v-col>
 </template>
 
@@ -49,20 +35,6 @@ export default {
     }
   },
   methods: {
-    plusAmount() {
-      if(this.amount+1 > this.stock) {
-        console.log("재고가 부족합니다.")
-      } else {
-        this.amount += 1
-      }
-    },
-    minusAmount() {
-      if(this.amount-1 <= 0) {
-        console.log("1개 이상 주문하세요.")
-      } else {
-        this.amount -= 1
-      }
-    }
   }
 }
 </script>
