@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
+import { ValidationProvider, ValidationObserver } from 'vee-validate';
 
 Vue.config.productionTip = false
 
@@ -16,3 +17,7 @@ new Vue({
   vuetify,
   render: h => h(App)
 }).$mount('#app')
+
+// Register it globally
+Vue.component('ValidationProvider', ValidationProvider);
+Vue.component('ValidationObserver', ValidationObserver);
