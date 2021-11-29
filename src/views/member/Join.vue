@@ -33,14 +33,15 @@
           <span>{{ errors[0] }}</span>
         </validation-provider>
 
-        
-        <v-col>닉네임</v-col>
-        <v-text-field placeholder="닉네임"
-                      v-model="member.nickname"
-                      class="mb-4"
-                      outlined
-                      hide-details>
-        </v-text-field>
+        <validation-provider name="member.nickname" rules="nicknameMin:10" v-slot="{ errors }">
+          <v-col>닉네임</v-col>
+          <v-text-field placeholder="닉네임"
+                        v-model="member.nickname"
+                        outlined
+                        hide-details>
+          </v-text-field>
+          <span>{{ errors[0] }}</span>
+        </validation-provider>
 
         <validation-provider name="member.email" rules="emailRequired|emailType" v-slot="{ errors }">
           <v-col>이메일<span class="red--text">*</span></v-col>
@@ -100,7 +101,7 @@
 
 <script>
 import { extend } from 'vee-validate';
-import { required, alpha_num, min, email } from 'vee-validate/dist/rules';
+import { required, alpha_num, min, max, email } from 'vee-validate/dist/rules';
 import memberAPI from '@/apis/member';
 import AlertDialog from "@/components/alert/AlertDialog.vue";
 
@@ -127,6 +128,10 @@ extend('passwordMin', {
 extend('nameRequired', {
   ...required,
   message: '이름을 입력하세요.'
+});
+extend('nicknameMin', {
+  ...max,
+  message: '최대 10자만 입력 가능합니다.'
 });
 extend('emailRequired', {
   ...required,
