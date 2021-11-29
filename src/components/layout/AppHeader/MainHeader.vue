@@ -21,7 +21,7 @@
         </v-btn>
         </template>
 
-        <template v-slot:extension>
+    <template v-slot:extension >
         <v-tabs
             show-arrows-on-hover
             align-with-title
