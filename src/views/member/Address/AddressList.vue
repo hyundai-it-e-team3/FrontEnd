@@ -43,7 +43,6 @@ export default {
     deleteAddress(addressSeq) {
       memberAPI.deleteAddress(addressSeq)
         .then(response =>  {
-          console.log(response);
           this.$el.parentNode.removeChild(this.$el);
         })
         .catch(error => {
