@@ -3,15 +3,15 @@
     <v-card>
       <v-row>
           <v-col cols="5" class="pa-0 pl-2 pb-2">
-            <v-img max-height="170" src="http://newmedia.thehandsome.com/CM/2B/SS/CM2B1KOT032M_DB_W01.jpg/dims/resize/684x1032/"/>
+            <v-img max-height="170" :src="productDetail.thumbnail"/>
           </v-col>
           <v-col cols="7" class="pa-1 pl-2">
             <v-row>
               <v-col class="pa-4">
-                <div class="font-weight-bold">the CASHMERE</div>
-                <div>{{propA.pname}}</div>
-                <div> BE / L / 1개 </div>
-                <div> 출고 준비중 </div>
+                <div class="font-weight-bold">{{orderDetail.brandName}}</div>
+                <div>{{orderDetail.productName}}</div>
+                <div> {{orderDetail.productDetailId}} / {{orderDetail.psize}} / {{orderDetail.amounts}}개 </div>
+                <div> 처리 상태 : {{orderDetail.state}} </div>
               </v-col>
             </v-row>
             <v-expansion-panels accordion flat>
@@ -20,28 +20,10 @@
                         <v-row>
                         <v-col cols="3" class="pa-0 text-left">금액</v-col>
                         <v-spacer></v-spacer>
-                        <v-col cols="9" class="pa-0 text-right pr-4">354,000원</v-col>
+                        <v-col cols="9" class="pa-0 text-right pr-4">{{orderDetail.price}}원</v-col>
                         </v-row>
                     </v-expansion-panel-header>
-                    <v-expansion-panel-content class="pa-0">
-                        <v-row>
-                            <v-col cols="6" class="pa-0 body-2">상품 금액</v-col>
-                            <v-spacer></v-spacer>
-                            <v-col cols="6" class="pa-0 text-right body-2">454,000원</v-col>
-
-                            <v-col cols="6" class="pa-0 body-2">상품 할인</v-col>
-                            <v-spacer></v-spacer>
-                            <v-col cols="6" class="pa-0 text-right red--text body-2">-80,000원</v-col>
-
-                            <v-col cols="6" class="pa-0 body-2">쿠폰 할인</v-col>
-                            <v-spacer></v-spacer>
-                            <v-col cols="6" class="pa-0 text-right red--text body-2">-15,000원</v-col>
-
-                            <v-col cols="6" class="pa-0 body-2">포인트 사용</v-col>
-                            <v-spacer></v-spacer>
-                            <v-col cols="6" class="pa-0 text-right red--text body-2">-5,000원</v-col>
-                        </v-row>
-                    </v-expansion-panel-content>
+                   
                 </v-expansion-panel>
             </v-expansion-panels>
           </v-col>
@@ -50,6 +32,7 @@
 </template>
 
 <script>
+import productAPI from "@/apis/product";
 export default {
     //컴포넌트의 대표이름 (devtools에 나오는 이름)
     name: "productComponent",
@@ -59,14 +42,41 @@ export default {
     //컴포넌트 데이터 정의
     data: function() {
         return {
+          productDetail : null,
         };
     },
     //컴포넌트 메소드 정의
     methods: {
+      handleProductInfo() {
+          this.loading = true;
+          this.alertDialog = true;
+          const response = productAPI.getCartProduct(this.orderDetail.productDetailId).then(response => {
+              console.log(response.data);
+              this.productDetail = response.data; 
+              this.loading = false;
+              this.alertDialog = false;
+              }).catch(error => {
+              if(error.response) {
+                  if(error.response.status === 403) {
+                      this.loading = false;
+                      this.alertDialog = false;
+                      this.$router.push("/menu07/auth/jwtauth")
+                  }
+              } else {
+                  this.loading = false;
+                  this.alertDialogMessage = "네트워크 통신 오류";
+              }
+          });
+          this.loading = false;
+          this.alertDialog = false;
+      } 
     },
     props: [
-        "propA"
-    ]
+        "orderDetail"
+    ],
+    created() {
+      this.handleProductInfo();
+    }
 }
 </script>
 
