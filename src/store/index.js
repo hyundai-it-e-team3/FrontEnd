@@ -3,6 +3,9 @@ import Vuex from 'vuex'
 import pager from './pager';
 import category from './category';
 import axiosConfig from '@/apis/axiosConfig';
+import orderAPI from '@/apis/order';
+import memberAPI from '@/apis/member';
+import productAPI from '@/apis/product';
 import product from "./product";
 
 Vue.use(Vuex)
@@ -56,6 +59,10 @@ export default new Vuex.Store({
       sessionStorage.setItem("authToken", payload.authToken);
 
       axiosConfig.addAuthHeader(payload.authToken);
+      orderAPI.addAuthHeader(payload.authToken);
+      productAPI.addAuthHeader(payload.authToken);
+      memberAPI.addAuthHeader(payload.authToken);
+      
     },
     loadAuth(context, payload) {
       context.commit("setMemberId", sessionStorage.getItem("memberId") || "");
