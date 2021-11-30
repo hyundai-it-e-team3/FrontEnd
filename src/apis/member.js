@@ -58,7 +58,7 @@ function updateAddress(address) {
     address2: address.address2,
     tel: address.tel,
     memberId : address.memberId,
-    dafaultAddress: address.defaultaddress
+    defaultAddress: address.defaultAddress
   })
 }
 

@@ -77,6 +77,11 @@
           <v-btn class="ml-1 black white--text" large depressed tile :disabled="invalid" type="submit">추가</v-btn>
         </v-row>
       </form>
+
+      <alert-dialog :message="alertDialogMessage"
+                    :loading="loading"
+                    v-if="alertDialog"
+                    @close="goAccountList" />
     </validation-observer>
   </v-container>
 </template>
@@ -85,6 +90,7 @@
 import { extend } from 'vee-validate';
 import { required, integer } from 'vee-validate/dist/rules';
 import memberAPI from '@/apis/member';
+import AlertDialog from "@/components/alert/AlertDialog.vue";
 
 extend('required', {
   ...required,
@@ -104,8 +110,9 @@ extend('integer', {
 
 
 export default {
-  name:"AddressUpdate",
+  name:"AddressInsert",
   components: {
+    AlertDialog
   },
   data() {
     return {
@@ -118,24 +125,27 @@ export default {
         tel: '',
         defaultAddress: null,
         memberId: this.$store.getters.getMemberId
-      }
+      },
+      alertDialog: false,
+      alertDialogMessage: "",
+      loading: false,
     };
   },
   methods: {
     goBack(){
       this.$router.go(-1);
     },
-    async handleInsert() {
+    handleInsert() {
       this.$refs.observer.validate();
 
       if(this.$refs.observer.validate()) {
         memberAPI.insertAddress(this.address)
           .then(response => {
             this.$router.push("/member/address")
-            console.log(response)
           })
           .catch(error =>  {
-            console.log(error);
+            this.alertDialog = true;
+            this.alertDialogMessage = `실패: ${error.message}`;
           });
       }
     },
