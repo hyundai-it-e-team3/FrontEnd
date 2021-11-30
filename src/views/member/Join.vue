@@ -208,9 +208,7 @@ export default {
           this.loading = true;
           this.alertDialog = true;
           
-          console.log(this.member.birthday)
           const response = await memberAPI.joinMember(this.member);
-          console.log(response);
 
           this.loading = false;
           if(response.data === "success") {

@@ -54,4 +54,19 @@ export default[
     //lazyloding
     component: () => import(/* webpackChunkName: "about" */ '../views/member/Address/AddressInsert')
   },
+  {
+    path: "/member/account",
+    //lazyloding
+    component: () => import(/* webpackChunkName: "about" */ '../views/member/Account')
+  },
+  {
+    path: "/member/account/insert",
+    //lazyloding
+    component: () => import(/* webpackChunkName: "about" */ '../views/member/Account/AccountInsert')
+  },
+  {
+    path: "/member/account/password",
+    //lazyloding
+    component: () => import(/* webpackChunkName: "about" */ '../views/member/Account/InsertPassword')
+  },
 ]

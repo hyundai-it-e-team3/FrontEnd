@@ -35,8 +35,8 @@
     <v-row class="memberMenu ma-2" @click="goMemberAddress">
       주소록 관리
     </v-row>
-    <v-row class="memberMenu ma-2" @click="handleMemberAccount">
-      계좌 관리
+    <v-row class="memberMenu ma-2" @click="goMemberAccount">
+      결제수단 관리
     </v-row>
     
     <v-divider class="mt-4 mb-4"/>
@@ -98,8 +98,8 @@ export default {
     goMemberAddress() {
       this.$router.push("/member/address");
     },
-    handleMemberAccount() {
-
+    goMemberAccount() {
+      this.$router.push("/member/account");
     },
     handleLogout() {
       this.$store.dispatch("deleteAuth");

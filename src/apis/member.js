@@ -78,6 +78,34 @@ function insertAddress(address) {
   })
 }
 
+function getAccount(memberId) {
+  return memberAPI.get(`/account/${memberId}`)
+}
+
+function insertAccount(account) {
+  return memberAPI.post('/account', {
+    accountNo: account.accountNo,
+    bank: account.bank,
+    payType: account.payType,
+    memberId: account.memberId
+  })
+}
+
+function deleteAccount(accountNo) {
+  return memberAPI.delete('/account', {
+    params: {
+      accountNo
+    }
+  })
+}
+
+function updateAccountPassword(member) {
+  return memberAPI.post('/member/oneclickpayPassword', {
+    memberId: member.memberId,
+    oneclickpayPassword: member.oneclickpayPassword
+  })
+}
+
 export default {
   joinMember,
   login,
@@ -88,5 +116,9 @@ export default {
   deleteAddress,
   getAddress,
   updateAddress,
-  insertAddress
+  insertAddress,
+  getAccount,
+  insertAccount,
+  deleteAccount,
+  updateAccountPassword
 };
