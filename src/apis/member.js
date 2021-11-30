@@ -23,13 +23,28 @@ function joinMember(member) {
 
 function login(member) {
   return memberAPI.patch("/member/login", {
-      memberId: member.memberId,
-      password: member.password
+    memberId: member.memberId,
+    password: member.password
   });
+}
+
+function getMember(memberId) {
+  return memberAPI.get(`/member/${memberId}`)
+}
+
+function updateMember(member) {
+  return memberAPI.patch("/member", {
+    memberId: member.memberId,
+    password: member.password,
+    nickname: member.nickname,
+    tel: member.tel
+  })
 }
 
 export default {
   joinMember,
   login,
+  getMember,
+  updateMember,
   addAuthHeader,
 };

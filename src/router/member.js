@@ -12,7 +12,7 @@ export default[
   {
     path: "/member/update",
     //lazyloding
-    component: () => import(/* webpackChunkName: "about" */ '../views/member/MyPage/Update.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/member/MyPage/MemberUpdate.vue')
   },
   {
     path: "/member/wishList",
