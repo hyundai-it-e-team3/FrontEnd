@@ -1,7 +1,7 @@
 <!-- 컴포넌트 UI 정의 -->
 <template>
   <v-card>
-    <v-card-title>ddddd</v-card-title>
+    <v-card-title></v-card-title>
     <v-card-text >
       <v-list dense v-for="(mainList) in menuList" v-bind:key="mainList.name">
         <v-list-group
