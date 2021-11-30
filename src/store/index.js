@@ -68,6 +68,8 @@ export default new Vuex.Store({
       
       if(context.state.authToken !== "") {
         axiosConfig.addAuthHeader(context.state.authToken);
+        orderAPI.addAuthHeader(context.state.authToken);
+        productAPI.addAuthHeader(context.state.authToken);
       }
     },
     deleteAuth(context, payload) {
