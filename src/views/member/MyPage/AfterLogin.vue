@@ -3,12 +3,12 @@
     <v-row>
       <v-col>
         <v-row class="ml-1 mt-1">
-          <v-col class="memberName d-flex pb-0 text-center">홍길동 
+          <v-col class="memberName d-flex pb-0 text-center">{{member.name}} 
             <span class="pt-1 pl-1" @click="goMemberUpdate"><v-icon class="align-center" size="40">mdi-chevron-right</v-icon></span>
           </v-col>
         </v-row>
         <v-row class="ml-1 mb-2">
-          <v-col class="level d-flex pl-4 pt-0 pr-0">1 Lv. <span class="pt-1 pl-1"><v-icon size="21">mdi-information-outline</v-icon></span></v-col>
+          <v-col class="level d-flex pl-4 pt-0 pr-0">{{member.memberLevel}} Lv. <span class="pt-1 pl-1"><v-icon size="21">mdi-information-outline</v-icon></span></v-col>
         </v-row>
       </v-col>
     </v-row>
@@ -26,7 +26,7 @@
       </v-col>
       <v-col class="col-4 d-flex flex-column" @click="goMemberPoint">
         <v-icon size="50" color="black">mdi-alpha-p-circle-outline</v-icon>
-        <v-row class="menu3">포인트</v-row>
+        <v-row class="menu3">{{member.point}} 점</v-row>
       </v-col>
     </v-row>
 
@@ -35,20 +35,28 @@
     <v-row class="memberMenu ma-2" @click="handleLogout">
       로그아웃
     </v-row>
-    <v-row class="memberMenu ma-2">
+    <v-row class="memberMenu ma-2" @click="handleMemberDelete">
       회원탈퇴
     </v-row>
   </v-container>
 </template>
 
 <script>
+import memberAPI from '@/apis/member';
+
 export default {
   name: "AfterLogin",
   components: {
   },
   data: function() {
-      return {
-      };
+    return {
+      member: {
+        memberId: '',
+        name: '',
+        memberLevel: '',
+        point: ''
+      }
+    };
   },
   methods: {
     goMemberUpdate() {
@@ -65,8 +73,20 @@ export default {
     },
     handleLogout() {
       this.$store.dispatch("deleteAuth");
+    },
+    async handleMemberDelete() {
+      try {
+        const response = await memberAPI.deleteMember(this.member.memberId);
+        this.$store.dispatch("deleteAuth");
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }
+  },
+  async beforeMount() {
+    const response = await memberAPI.getMember(this.$store.getters.getMemberId);
+    this.member = response.data;
+  },
 }
 </script>
 

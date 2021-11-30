@@ -81,22 +81,25 @@ export default {
       try {
         const response = await member.login(this.member);
         console.log(response);
-      
-        this.$store.dispatch("saveAuth", 
-         {
+
+        if(response.data.result === 'success') {
+          this.$store.dispatch("saveAuth", {
             memberId: response.data.memberId,
             authToken: response.data.jwt
-          }
-        )
+          });
+        } else if(response.data.result === 'disabledMember') {
+          this.alertDialog = true;
+          this.alertDialogMessage = "탈퇴한 회원의 계정입니다.";
+        }
       } catch (error) {
         try {
           if(error.response.status === 401) {
             this.alertDialog = true;
             this.alertDialogMessage = "아이디 또는 패스워드가 틀립니다.";
-          }
-        } catch(err) {
+          } 
+        } catch(error) {
           this.alertDialog = true;
-          this.alertDialogMessage = "네트워크 에러";
+          this.alertDialogMessage = error;
         }
       }
     }
