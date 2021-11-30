@@ -1,23 +1,6 @@
 <template>
-    <v-col>
-      <v-row>
-        <v-col cols="3" class="d-flex align-center">색상 </v-col>
-        <v-col cols="2" v-for="(colorChip, index) in colorChip" :key="index">
-          <img :src="colorChip" width="30" />
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="3" class="d-flex align-center">사이즈</v-col>
-        <v-col cols="1" v-for="(size, index) in size" :key="index">
-          {{size}}
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
-          <v-btn  @click="handleUpdate" >변경하기</v-btn>
-        </v-col>
-      </v-row>
-    </v-col>
+    <v-card>
+    </v-card>
 </template>
 
 <script>
