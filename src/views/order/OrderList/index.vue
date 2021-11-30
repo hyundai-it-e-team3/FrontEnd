@@ -1,6 +1,6 @@
 <!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-    <v-card class="mt-13 mb-13">
+    <v-card>
         <v-row v-for="(order) in orderList" :key="order.orderId">
             <order-component :orderId=order.orderId           
                             :orderDate=order.orderDate
