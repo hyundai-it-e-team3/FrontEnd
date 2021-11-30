@@ -31,7 +31,16 @@
     </v-row>
 
     <v-divider class="mt-4 mb-4"/>
+
+    <v-row class="memberMenu ma-2" @click="goMemberAddress">
+      주소록 관리
+    </v-row>
+    <v-row class="memberMenu ma-2" @click="handleMemberAccount">
+      계좌 관리
+    </v-row>
     
+    <v-divider class="mt-4 mb-4"/>
+
     <v-row class="memberMenu ma-2" @click="handleLogout">
       로그아웃
     </v-row>
@@ -59,6 +68,21 @@ export default {
     };
   },
   methods: {
+    getMember(memberId) {
+      memberAPI.getMember(memberId)
+        .then(response => {
+          this.member = response.data;
+        })
+        .catch(error => {
+          if(error.response) {
+            if(error.response.status === 403) {
+              this.$router.push("/member/mypage");
+            }
+          } else {
+            console.log(error);
+          }
+        })
+    },
     goMemberUpdate() {
       this.$router.push("/member/update")
     },
@@ -70,6 +94,12 @@ export default {
     },
     goMemberPoint() {
       this.$router.push("/member/memberpoint");
+    },
+    goMemberAddress() {
+      this.$router.push("/member/address");
+    },
+    handleMemberAccount() {
+
     },
     handleLogout() {
       this.$store.dispatch("deleteAuth");
@@ -83,9 +113,9 @@ export default {
       }
     }
   },
-  async beforeMount() {
-    const response = await memberAPI.getMember(this.$store.getters.getMemberId);
-    this.member = response.data;
+  created() {
+    let memberId = this.$store.getters.getMemberId;
+    this.getMember(memberId);
   },
 }
 </script>

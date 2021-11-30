@@ -80,7 +80,6 @@ export default {
     async handleLogin() {
       try {
         const response = await member.login(this.member);
-        console.log(response);
 
         if(response.data.result === 'success') {
           this.$store.dispatch("saveAuth", {
