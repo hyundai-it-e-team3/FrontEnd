@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import cartAPI from "@/apis/cart";
+import orderAPI from "@/apis/order";
 export default {
     //컴포넌트의 대표이름 (devtools에 나오는 이름)
     name: "ProductFooter",
@@ -63,7 +63,7 @@ export default {
                 //multipartFormData.append("memberId", 'user1');
                 console.log(multipartFormData);
 
-                const response = await cartAPI.insertCart(multipartFormData);
+                const response = await orderAPI.insertCart(multipartFormData);
                 console.log(response);
                 this.loading = false;
                 this.alertDialog = false;

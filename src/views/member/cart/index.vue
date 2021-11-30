@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import cartAPI from "@/apis/cart";
+import orderAPI from "@/apis/order";
 import CartComponent from './CartComponent.vue';
 import AlertDialog from "@/components/alert/AlertDialog"
 
@@ -59,7 +59,7 @@ export default {
     handleCartList() {
       this.loading = true;
       this.alertDialog = true;
-      cartAPI.getCartList(this.$store.state.memberId)
+      orderAPI.getCartList(this.$store.state.memberId)
         .then(response => {
           console.log(response.data);
           this.cartList = response.data;
