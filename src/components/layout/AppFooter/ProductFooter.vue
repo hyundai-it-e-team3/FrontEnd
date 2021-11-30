@@ -16,7 +16,7 @@
                 <v-icon>mdi-cart-variant</v-icon>
             </v-row>
             </v-col>
-            <v-col cols="8" @click="goOrderForm">
+            <v-col cols="8" @click="handleOrder">
             <v-row class="d-flex justify-center">
                 <h3>구매하기</h3>
             </v-row>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import cartAPI from "@/apis/cart";
+import orderAPI from "@/apis/order";
 export default {
     //컴포넌트의 대표이름 (devtools에 나오는 이름)
     name: "ProductFooter",
@@ -46,22 +46,24 @@ export default {
             //root 상태가 아닌 하위 상태일 때는 무조건 아래와 같은 형태로 써야한다.
             return this.$store.getters["product/getProduct"];
         },
-        async handleInsertCart() {
-            
-            let product = this.$store.getters["product/getProduct"];
+        handleOrder() {
+            this.$router.push("/order/orderForm?link=product");
+        },
+        async handleInsertCart() { 
+            let cart = this.$store.getters["product/getProduct"];
             this.loading = true;
             this.alertDialog = true;
-            console.log(product);
+            console.log(cart);
             try {
                 const multipartFormData = new FormData();
-                multipartFormData.append("productDetailId", product.productDetailId);
-                multipartFormData.append("psize", product.psize);
-                multipartFormData.append("amount", product.amount);
+                multipartFormData.append("productDetailId", cart.productDetailId);
+                multipartFormData.append("psize", cart.psize);
+                multipartFormData.append("amount", cart.amount);
                 multipartFormData.append("memberId", this.$store.state.memberId);
                 //multipartFormData.append("memberId", 'user1');
                 console.log(multipartFormData);
 
-                const response = await cartAPI.insertCart(multipartFormData);
+                const response = await orderAPI.insertCart(multipartFormData);
                 console.log(response);
                 this.loading = false;
                 this.alertDialog = false;

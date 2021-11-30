@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import cartAPI from "@/apis/cart";
+import orderAPI from "@/apis/order";
 export default {
   name:"",
   components: {
@@ -59,7 +59,7 @@ export default {
 
             this.loading = true;
             this.alertDialog = true;
-            const response = await cartAPI.updateCart(multipartFormData);
+            const response = await orderAPI.updateCart(multipartFormData);
             console.log(response);
             this.loading = false;
             this.alertDialog = false;

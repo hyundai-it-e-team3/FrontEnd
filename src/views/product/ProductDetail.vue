@@ -66,7 +66,7 @@
               <v-col cols="2">
                 <v-icon @click="plusAmount()" >mdi-plus-circle-outline</v-icon>
               </v-col>
-              <v-col cols="2" class="text-center">{{cart.amount}}</v-col>
+              <v-col cols="2" class="text-center"><input type="text" v-model="cart.amount"/></v-col>
               <v-col cols="2">
                 <v-icon @click="minusAmount()">mdi-minus-circle-outline</v-icon>
               </v-col>
@@ -268,7 +268,16 @@ export default {
     this.$store.commit("setPageFlag",'product');
   },
   created() {
-    //this.$store.commit("product/setProduct", this.cart);
+    this.$store.commit("product/setProduct", this.cart);
+  },
+  watch:{
+    cart: {
+      deep: true,
+      handler: function (val) {
+          console.log(this.cart);
+          this.$store.commit("product/setProduct", this.cart);
+      }
+    }
   }
 }
 </script>
