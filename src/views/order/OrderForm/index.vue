@@ -4,8 +4,10 @@
       <v-card-title></v-card-title>
       <v-card-subtitle></v-card-subtitle>
       <v-divider/>
-        <product-component 
-                    :product=product />
+        <v-row v-for="(orderDetail, i) in orderDetailList" :key="i">
+            <product-component 
+                        :product=orderDetail />
+        </v-row>
     <v-expansion-panels flat>
         <v-expansion-panel>
             <v-expansion-panel-header>
@@ -43,10 +45,6 @@
             </v-expansion-panel-content>
         </v-expansion-panel>
     </v-expansion-panels>
-
-
-
-
      <v-expansion-panels flat>
         <v-expansion-panel>
             <v-expansion-panel-header>
@@ -69,10 +67,21 @@
             </v-expansion-panel-content>
         </v-expansion-panel>
     </v-expansion-panels>
-
-
-
-      <v-expansion-panels accordion flat>
+    <v-expansion-panels flat>
+        <v-expansion-panel>
+            <v-expansion-panel-header>
+                총 결제 금액
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+                <v-row>
+                   총 상품 금액 : {{order.totalPrice}}
+                   총 할인 금액 : {{order.discountPrice}}
+                   총 결제 금액 : {{order.totalPrice - order.discountPrices}}
+                </v-row>
+            </v-expansion-panel-content>
+        </v-expansion-panel>
+    </v-expansion-panels>
+    <v-expansion-panels accordion flat>
         <v-expansion-panel>
             <v-expansion-panel-header>
                 주문자 정보
@@ -86,18 +95,14 @@
                 <v-row height="50px">
                 <v-col cols="4" class="d-flex align-center">이름</v-col>
                 <v-spacer></v-spacer>
-                <v-col cols="8" class="text-right"><v-text-field :rules="rules" label="Name" value="김정우"></v-text-field></v-col>
+                <v-col cols="8" class="text-right">회원명</v-col>
                 </v-row>
 
                 <v-row height="50px">
                 <v-col cols="4" class="d-flex align-center">전화번호</v-col>
                 <v-spacer></v-spacer>
                 <v-col cols="8" class="text-right">        
-                    <v-text-field
-                    label="Phone Number"
-                    required
-                    value="010-1234-5678"
-                    ></v-text-field>
+                    회원 전화번호
                 </v-col>
                 </v-row>
 
@@ -125,7 +130,7 @@
                 <v-row>
                     <v-col cols="4" class="d-flex align-center">받으시는 분</v-col>
                     <v-spacer></v-spacer>
-                    <v-col cols="8" class="text-right"><v-text-field :rules="rules" label="Name" value="김정우"></v-text-field></v-col>
+                    <v-col cols="8" class="text-right"><v-text-field :rules="rules" label="Name" :value=order.recName></v-text-field></v-col>
                 </v-row>
                 <v-row>
                     <v-col cols="4" class="d-flex align-center">연락처</v-col>
@@ -144,13 +149,13 @@
                     <v-col cols="8">
                         <div>
                             <v-text-field
-                            label="우편번호" value="67639"
+                            label="우편번호" :value=order.zipCode
                             ></v-text-field>        
                             <v-text-field
                             label="주소"
-                            value="서울시 송파구 가락동"
+                            :value=order.address1
                             ></v-text-field>
-                            <v-text-field label="상세주소" value="12-xx 1xx호"></v-text-field>
+                            <v-text-field label="상세주소" :value=order.address2></v-text-field>
                         </div>
                     </v-col>
                 </v-row>
@@ -160,7 +165,7 @@
     </v-expansion-panels>
     
     <v-card-actions>
-        <v-btn width="100%">주문하기</v-btn>
+        <v-btn width="100%" @click="handleInsertOrder">주문하기</v-btn>
     </v-card-actions>
    
 
@@ -168,6 +173,8 @@
 </template>
 
 <script>
+import orderAPI from "@/apis/order"
+import productAPI from "@/apis/product";
 import ProductComponent from './ProductComponent.vue';
 export default {
     //컴포넌트의 대표이름 (devtools에 나오는 이름)
@@ -194,10 +201,183 @@ export default {
         { text: '생일 쿠폰', rate: '15%' }
         ],
         member: null,
+        cart: null,
         product: null,
+        linkKey: null,
+        order: {
+            totalPrice: 100000,
+            discountPrice: 10000,
+            state: 1,
+            request: "배송 빨리 해주세요",
+            zipCode: "15032",
+            address1: "경기도 용인시",
+            address2: "수지구 상현동",
+            tel: "010-3243-1231",
+            recName: "홍길동",
+            couponId: null,
+            orderId: null,
+        },
+        orderDetailList : [
+            {
+                orderId: null,
+                productDetailId: "O22B5WSC943W_KK",
+                psize: "64",
+                amount: "1",
+                price: 100000,
+                state: 1,
+                brandName: "System",
+                productName: "name"
+            },
+            {
+                orderId: null,
+                productDetailId: "O22B5WSC943W_KK",
+                psize: "66",
+                amount: "1",
+                price: 100000,
+                state: 1,
+                brandName: "System",
+                productName: "name"
+            }
+        ],
+        paymentList : [
+            {
+                type: 1,
+                price: 10000,
+                state: 1,
+                accountNo: null,
+                bank: null,
+                installment: 0,
+            }
+        ]
     }),
     //컴포넌트 메소드 정의
     methods: {
+        async handleProductInfo() { 
+            try {
+                this.loading = true;
+                this.alertDialog = true;
+                const response = await productAPI.getCartProduct(this.cart.productDetailId);
+                console.log("handleProductInfo", response);
+                this.product = response.data; 
+                this.loading = false;
+                this.alertDialog = false;
+            } catch(error) {
+                if(error.response) {
+                    if(error.response.status === 403) {
+                        this.loading = false;
+                        this.alertDialog = false;
+                        this.$router.push("/menu07/auth/jwtauth")
+                    } else {
+                        this.loading = false;
+                        this.alertDialogMessage = "네트워크 통신 오류";
+                    }
+                }
+            }
+        },
+         async handleInsertOrder() { 
+            this.loading = true;
+            this.alertDialog = true;
+            try {
+                const multipartFormData = new FormData();
+
+                multipartFormData.append("memberId", "chenjae");
+                multipartFormData.append("totalPrice", this.order.totalPrice);
+                multipartFormData.append("discountPrice", this.order.discountPrice);
+                multipartFormData.append("state", 1);
+                multipartFormData.append("request", this.order.request);
+                multipartFormData.append("zipCode", this.order.zipCode);
+                multipartFormData.append("address1", this.order.address1);
+                multipartFormData.append("address2", this.order.address2);
+                multipartFormData.append("tel", this.order.tel);
+                multipartFormData.append("recName", this.order.recName);
+                multipartFormData.append("couponId", this.order.couponId);
+
+                console.log(multipartFormData);
+                const response = await orderAPI.insertOrder(multipartFormData);
+                this.order.orderId = response.data;
+                this.loading = false;
+                this.alertDialog = false;
+            }   catch(error) {
+                if(error.response) {
+                    if(error.response.status === 403) {
+                        this.loading = false;
+                        this.alertDialog = false;
+                        this.$router.push("/menu07/auth/jwtauth")
+                    } else {
+                        this.loading = false;
+                        this.alertDialogMessage = "네트워크 통신 오류";
+                    }
+                }
+            }
+
+            for(let i=0; i<this.orderDetailList.length; i++) {
+                console.log(this.orderDetailList[i]);
+                try {
+                    const multipartFormData = new FormData();
+
+                    multipartFormData.append("productDetailId", this.orderDetailList[i].productDetailId);
+                    multipartFormData.append("psize", this.orderDetailList[i].psize);
+                    multipartFormData.append("orderId", this.order.orderId);
+                    multipartFormData.append("amount", this.orderDetailList[i].amount);
+                    multipartFormData.append("price", this.orderDetailList[i].price);
+                    multipartFormData.append("state", this.orderDetailList[i].state);
+                    multipartFormData.append("productName", this.orderDetailList[i].productName);
+                    multipartFormData.append("brandName", this.orderDetailList[i].brandName);
+
+
+                    console.log(multipartFormData);
+                    const response = await orderAPI.insertOrderDetail(multipartFormData);
+                    this.loading = false;
+                    this.alertDialog = false;
+                }   catch(error) {
+                    if(error.response) {
+                        if(error.response.status === 403) {
+                            this.loading = false;
+                            this.alertDialog = false;
+                            this.$router.push("/menu07/auth/jwtauth")
+                        } else {
+                            this.loading = false;
+                            this.alertDialogMessage = "네트워크 통신 오류";
+                        }
+                    }
+                }
+                    
+                    
+            }
+
+            for(let i=0; i<this.paymentList.length; i++) {
+                console.log(this.paymentList[i]);
+                try {
+                    const multipartFormData = new FormData();
+
+                    multipartFormData.append("type", this.paymentList[i].type);
+                    multipartFormData.append("price", this.paymentList[i].price);
+                    multipartFormData.append("accountNo", this.paymentList[i].accountNo);
+                    multipartFormData.append("bank", this.paymentList[i].bank);
+                    multipartFormData.append("installment", this.paymentList[i].installment);
+                    multipartFormData.append("state", this.paymentList[i].state);
+                    multipartFormData.append("orderId", this.order.orderId);
+
+                    console.log(multipartFormData);
+                    const response = await orderAPI.insertOrderPayment(multipartFormData);
+                    this.loading = false;
+                    this.alertDialog = false;
+                }   catch(error) {
+                    if(error.response) {
+                        if(error.response.status === 403) {
+                            this.loading = false;
+                            this.alertDialog = false;
+                            this.$router.push("/menu07/auth/jwtauth")
+                        } else {
+                            this.loading = false;
+                            this.alertDialogMessage = "네트워크 통신 오류";
+                        }
+                    }
+                }
+                    
+                    
+            }
+        },
     },
     mounted(){
         this.$store.commit("setPageFlag",'order');
@@ -205,8 +385,11 @@ export default {
     created() {
         const linkKey = this.$route.query.link;
         if(linkKey === 'product') {
-            this.product = this.$store.getters["product/getProduct"];
-            console.log("LinkKey = product : ", this.product);
+            this.cart = this.$store.getters["product/getProduct"];
+            console.log("LinkKey = product : ", this.cart);
+        } else if(linkKey === 'cart') {
+            //cart에서 가져와서 오더로
+            this.handleProductInfo();
         }
     }
 }

@@ -20,5 +20,5 @@ function getCartProduct(productDetailId){
 export default{
   getProdct,
   getCartProduct,
-  
+  addAuthHeader
 }
