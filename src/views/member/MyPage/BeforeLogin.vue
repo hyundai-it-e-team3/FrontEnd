@@ -67,8 +67,8 @@ export default {
   data: function () {
     return {
       member: {
-        memberId:  '',
-        password:  ''
+        memberId: '',
+        password: ''
       },
       alertDialog: false,
       alertDialogMessage: "",
@@ -81,7 +81,7 @@ export default {
       try {
         const response = await member.login(this.member);
         console.log(response);
-        
+      
         this.$store.dispatch("saveAuth", 
          {
             memberId: response.data.memberId,
