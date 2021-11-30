@@ -21,6 +21,14 @@ function insertOrder(multipartFormData) {
     return orderAPI.post(
         "/order",multipartFormData);
 }
+function insertOrderDetail(multipartFormData) {
+    return orderAPI.post(
+        "/order/detail",multipartFormData);
+}
+function insertOrderPayment(multipartFormData) {
+    return orderAPI.post(
+        "/order/payment",multipartFormData);
+}
 
 function getOrder(orderId) {
     return orderAPI.get(`/order/${orderId}`);
@@ -53,5 +61,7 @@ export default {
     insertCart,
     updateCart,
     deleteCart,
-    addAuthHeader
+    addAuthHeader,
+    insertOrderDetail,
+    insertOrderPayment
 }
