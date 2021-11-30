@@ -131,29 +131,29 @@ export default {
             }
         }
     },
-    async handleProductInfo() {
-      try {
-        this.loading = true;
-        this.alertDialog = true;
-        const response = await productAPI.getCartProduct(this.productDetailId);
-        console.log("handleProductInfo", response);
-        this.productDetail = response.data; 
-        this.loading = false;
-        this.alertDialog = false;
-      } catch(error) {
-        if(error.response) {
-          if(error.response.status === 403) {
-              this.loading = false;
-              this.alertDialog = false;
-              this.$router.push("/menu07/auth/jwtauth")
+    handleProductInfo() {
+      this.loading = true;
+      this.alertDialog = true;
+      const response = productAPI.getCartProduct(this.orderDetail.productDetailId).then(response => {
+          console.log(response.data);
+          this.productDetail = response.data; 
+          this.loading = false;
+          this.alertDialog = false;
+          }).catch(error => {
+          if(error.response) {
+              if(error.response.status === 403) {
+                  this.loading = false;
+                  this.alertDialog = false;
+                  this.$router.push("/menu07/auth/jwtauth")
+              }
           } else {
               this.loading = false;
-              this.productDetail.productName = this.productDetailId;
+              this.alertDialogMessage = "네트워크 통신 오류";
           }
-          
-        }
-      }
-    }
+      });
+      this.loading = false;
+      this.alertDialog = false;
+    } 
   },
   created() {
     this.handleProductInfo();
