@@ -147,7 +147,6 @@ export default {
     }
   },
   async beforeMount() {
-    console.log(this.$store.getters.getMemberId)
     const response = await memberAPI.getMember(this.$store.getters.getMemberId);
     this.member = response.data;
     this.dateSplit();
