@@ -1,6 +1,6 @@
 <!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-    <v-card>
+    <v-card width="100%">
       <v-card-title @click="goDetail(`${orderId}`)">
           No.{{orderId}}
       </v-card-title>
@@ -9,11 +9,13 @@
       </v-card-subtitle>
       <v-card-text>
           총 가격 : {{totalPrice}} / 주문 상태 : {{state}}
-      </v-card-text>
       <v-divider/>
+
+
+
       <v-list subheader>
       <v-list-item v-for="(product,i) in productList" :key="i">
-        <v-list-item-avatar>
+        <v-list-item-avatar >
           <v-img
             :src="product.thumbnail"
           >사진</v-img>
@@ -25,6 +27,7 @@
         </v-list-item-content>
       </v-list-item>
       </v-list>
+      </v-card-text>
       <v-card-actions v-if="false">
           <v-btn>배송지 수정</v-btn>
           <v-btn>주문 확정</v-btn>
