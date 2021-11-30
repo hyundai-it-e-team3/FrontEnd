@@ -29,16 +29,10 @@ export default {
   }),
   async beforeCreate() {
     const categoryResponse = await Menu.getCategory();
-    console.log(categoryResponse);
-    console.log(categoryResponse.data);
     this.$store.commit("category/setCategory",categoryResponse.data);
-    console.log(this.$store.getters["category/getCategory"]);
 
     const brandResponse = await Menu.getBrand();
-    console.log(brandResponse);
-    console.log(brandResponse.data);
     this.$store.commit("category/setBrandCategory",brandResponse.data);
-    console.log(this.$store.getters["category/getBrandCategory"])
   },
   created() {
     this.$store.dispatch("loadAuth");

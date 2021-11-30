@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col class="memberupdatetitle text-center">회원 정보 수정</v-col>
+      <v-col class="text-center">회원 정보 수정</v-col>
     </v-row>
     
     <validation-observer ref="observer" v-slot="{ invalid }">
@@ -51,7 +51,7 @@
                           outlined
                           hide-details>
             </v-text-field>
-            <span class="telComment ml-15 pl-9">'-'를 제외한 숫자만 입력바랍니다.</span>
+            <span class="telComment ml-15 pl-9">'-'를 포함해 입력바랍니다.</span>
             <span class="errormessage col-12 mt-0 mt-0 ml-15 pl-9 mb-0">{{ errors[0] }}</span>
           </v-row>
         </validation-provider>
@@ -61,20 +61,18 @@
           <v-card class="content col-9 d-flex align-center" min-height="55" outlined>{{member.birthday}}</v-card>
         </v-row>
 
-        <v-row class="justify-end mt-3 mb-3 mr-1">
-          <v-btn depressed tile outlined @click="goBack">취소</v-btn>
-          <v-btn class="ml-1 black white--text" depressed tile :disabled="invalid" type="submit">수정</v-btn>
+        <v-row class="justify-center mt-5 mb-3 mr-1">
+          <v-btn large depressed tile outlined @click="goBack">취소</v-btn>
+          <v-btn class="ml-1 black white--text" large depressed tile :disabled="invalid" type="submit">수정</v-btn>
         </v-row>
       </form>
     </validation-observer>
-
-    <v-divider />
   </v-container>
 </template>
 
 <script>
 import { extend } from 'vee-validate';
-import { required, alpha_num, min, max, email } from 'vee-validate/dist/rules';
+import { required, min, max } from 'vee-validate/dist/rules';
 import memberAPI from '@/apis/member';
 import dayjs from 'dayjs'
 
@@ -86,10 +84,6 @@ extend('passwordMin', {
   ...min,
   message: '8자 이상 입력하세요.'
 });
-extend('nameRequired', {
-  ...required,
-  message: '이름을 입력하세요.'
-});
 extend('nicknameMin', {
   ...max,
   message: '최대 10자만 입력 가능합니다.'
@@ -99,7 +93,7 @@ extend('telRequired', {
   message: '전화번호를 입력하세요.'
 });
 extend('telType', value => {
-  let format = /^(01[0|1|6|7|8|9])([0-9]{7,8})$/;
+  let format = /^(01[0|1|6|7|8|9])-([0-9]{3,4})-([0-9]{4})$/;
   if(format.test(value)) {
     return true;
   }
@@ -126,6 +120,22 @@ export default {
     };
   },
   methods: {
+    getMember(memberId) {
+      memberAPI.getMember(memberId)
+        .then(response => {
+          this.member = response.data;
+          this.dateSplit();
+        })
+        .catch(error => {
+          if(error.response) {
+            if(error.response.status === 403) {
+              this.$router.push("/member/mypage");
+            }
+          } else {
+            console.log(error);
+          }
+        })
+    },
     goBack(){
       this.$router.go(-1);
     },
@@ -135,7 +145,7 @@ export default {
       if(this.$refs.observer.validate()) {
         memberAPI.updateMember(this.member)
           .then(response => {
-            this.board = response.data
+            console.log(response)
           })
           .catch(error =>  {
             console.log(error);
@@ -143,13 +153,12 @@ export default {
       }
     },
     dateSplit() {
-      this.member.birthday = dayjs(this.member.birthday).format("YYYY-MM-DD")
+      this.member.birthday = dayjs(this.member.birthday).format("YYMMDD")
     }
   },
-  async beforeMount() {
-    const response = await memberAPI.getMember(this.$store.getters.getMemberId);
-    this.member = response.data;
-    this.dateSplit();
+  created() {
+    let memberId = this.$store.getters.getMemberId;
+    this.getMember(memberId);
   },
 }
 </script>

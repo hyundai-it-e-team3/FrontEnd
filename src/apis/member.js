@@ -1,3 +1,4 @@
+import member from "@/router/member";
 import axios from "axios";
 
 const memberAPI = axios.create({
@@ -40,10 +41,52 @@ function deleteMember(memberId) {
   return memberAPI.patch(`/member/delete/${memberId}`)
 }
 
+function getAddressList(memberId) {
+  return memberAPI.get(`/address/list/${memberId}`)
+}
+
+function deleteAddress(addresssSeq) {
+  return memberAPI.delete(`/address/${addresssSeq}`)
+}
+
+function updateAddress(address) {
+  return memberAPI.patch('/address', {
+    addressSeq: address.addressSeq,
+    name: address.name,
+    zipCode: address.zipCode,
+    address1: address.address1,
+    address2: address.address2,
+    tel: address.tel,
+    memberId : address.memberId,
+    dafaultAddress: address.defaultaddress
+  })
+}
+
+function getAddress(addressSeq) {
+  return memberAPI.get(`/address/${addressSeq}`)
+}
+
+function insertAddress(address) {
+  return memberAPI.post('/address', {
+    name: address.name,
+    zipCode: address.zipCode,
+    address1: address.address1,
+    address2: address.address2,
+    tel: address.tel,
+    memberId : address.memberId,
+    defaultAddress: address.defaultAddress
+  })
+}
+
 export default {
   joinMember,
   login,
   getMember,
   updateMember,
-  deleteMember
+  deleteMember,
+  getAddressList,
+  deleteAddress,
+  getAddress,
+  updateAddress,
+  insertAddress
 };
