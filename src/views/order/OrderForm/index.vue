@@ -4,11 +4,18 @@
       <v-card-title></v-card-title>
       <v-card-subtitle></v-card-subtitle>
       <v-divider/>
+        <v-row v-if="!cartFlag">
+        <product-component 
+                            :product=product
+                            :cart=cart />
+        </v-row>
+        <v-card-text v-if="cartFlag">
         <v-row v-for="(orderDetail, i) in orderDetailList" :key="i">
             <product-component 
-                        :product=orderDetail />
+                        :productDetailId=orderDetail.productDetailId />
         </v-row>
-    <v-expansion-panels flat>
+        </v-card-text>
+    <v-expansion-panels flat v-if="false">
         <v-expansion-panel>
             <v-expansion-panel-header>
                 쿠폰 선택
@@ -45,7 +52,7 @@
             </v-expansion-panel-content>
         </v-expansion-panel>
     </v-expansion-panels>
-     <v-expansion-panels flat>
+     <v-expansion-panels flat v-if="false">
         <v-expansion-panel>
             <v-expansion-panel-header>
                 포인트 사용
@@ -67,7 +74,7 @@
             </v-expansion-panel-content>
         </v-expansion-panel>
     </v-expansion-panels>
-    <v-expansion-panels flat>
+    <v-expansion-panels flat v-if="false">
         <v-expansion-panel>
             <v-expansion-panel-header>
                 총 결제 금액
@@ -163,6 +170,52 @@
             </v-expansion-panel-content>
         </v-expansion-panel>
     </v-expansion-panels>
+
+    <v-expansion-panels flat>
+        <v-expansion-panel>
+            <v-expansion-panel-header>
+                결제
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+                <v-row>
+                    <v-col cols="4" class="d-flex align-center">받으시는 분</v-col>
+                    <v-spacer></v-spacer>
+                    <v-col cols="8" class="text-right"><v-text-field :rules="rules" label="Name" :value=order.recName></v-text-field></v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="4" class="d-flex align-center">연락처</v-col>
+                    <v-spacer></v-spacer>
+                    <v-col cols="8" class="text-right">        
+                        <v-text-field
+                        label="Phone Number"
+                        required
+                        value="010-1234-5678"
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="4" class="d-flex align-center">배송지</v-col>
+                    <v-spacer></v-spacer>
+                    <v-col cols="8">
+                        <div>
+                            <v-text-field
+                            label="우편번호" :value=order.zipCode
+                            ></v-text-field>        
+                            <v-text-field
+                            label="주소"
+                            :value=order.address1
+                            ></v-text-field>
+                            <v-text-field label="상세주소" :value=order.address2></v-text-field>
+                        </div>
+                    </v-col>
+                </v-row>
+
+            </v-expansion-panel-content>
+        </v-expansion-panel>
+    </v-expansion-panels>
+    
+
+
     
     <v-card-actions>
         <v-btn width="100%" @click="handleInsertOrder">주문하기</v-btn>
@@ -203,7 +256,7 @@ export default {
         member: null,
         cart: null,
         product: null,
-        linkKey: null,
+        cartFlag: false,
         order: {
             totalPrice: 100000,
             discountPrice: 10000,
@@ -217,28 +270,6 @@ export default {
             couponId: null,
             orderId: null,
         },
-        orderDetailList : [
-            {
-                orderId: null,
-                productDetailId: "O22B5WSC943W_KK",
-                psize: "64",
-                amount: "1",
-                price: 100000,
-                state: 1,
-                brandName: "System",
-                productName: "name"
-            },
-            {
-                orderId: null,
-                productDetailId: "O22B5WSC943W_KK",
-                psize: "66",
-                amount: "1",
-                price: 100000,
-                state: 1,
-                brandName: "System",
-                productName: "name"
-            }
-        ],
         paymentList : [
             {
                 type: 1,
@@ -252,28 +283,6 @@ export default {
     }),
     //컴포넌트 메소드 정의
     methods: {
-        async handleProductInfo() { 
-            try {
-                this.loading = true;
-                this.alertDialog = true;
-                const response = await productAPI.getCartProduct(this.cart.productDetailId);
-                console.log("handleProductInfo", response);
-                this.product = response.data; 
-                this.loading = false;
-                this.alertDialog = false;
-            } catch(error) {
-                if(error.response) {
-                    if(error.response.status === 403) {
-                        this.loading = false;
-                        this.alertDialog = false;
-                        this.$router.push("/menu07/auth/jwtauth")
-                    } else {
-                        this.loading = false;
-                        this.alertDialogMessage = "네트워크 통신 오류";
-                    }
-                }
-            }
-        },
          async handleInsertOrder() { 
             this.loading = true;
             this.alertDialog = true;
@@ -310,40 +319,72 @@ export default {
                 }
             }
 
-            for(let i=0; i<this.orderDetailList.length; i++) {
-                console.log(this.orderDetailList[i]);
+            if(!this.cartFlag) {
+                console.log("add product order");
                 try {
-                    const multipartFormData = new FormData();
+                        const multipartFormData = new FormData();
 
-                    multipartFormData.append("productDetailId", this.orderDetailList[i].productDetailId);
-                    multipartFormData.append("psize", this.orderDetailList[i].psize);
-                    multipartFormData.append("orderId", this.order.orderId);
-                    multipartFormData.append("amount", this.orderDetailList[i].amount);
-                    multipartFormData.append("price", this.orderDetailList[i].price);
-                    multipartFormData.append("state", this.orderDetailList[i].state);
-                    multipartFormData.append("productName", this.orderDetailList[i].productName);
-                    multipartFormData.append("brandName", this.orderDetailList[i].brandName);
+                        multipartFormData.append("productDetailId", this.cart.productDetailId);
+                        multipartFormData.append("psize", this.cart.psize);
+                        multipartFormData.append("orderId", this.order.orderId);
+                        multipartFormData.append("amount", this.cart.amount);
+                        multipartFormData.append("price", this.product.price);
+                        multipartFormData.append("state", 1);
 
 
-                    console.log(multipartFormData);
-                    const response = await orderAPI.insertOrderDetail(multipartFormData);
-                    this.loading = false;
-                    this.alertDialog = false;
-                }   catch(error) {
-                    if(error.response) {
-                        if(error.response.status === 403) {
-                            this.loading = false;
-                            this.alertDialog = false;
-                            this.$router.push("/menu07/auth/jwtauth")
-                        } else {
-                            this.loading = false;
-                            this.alertDialogMessage = "네트워크 통신 오류";
+                        console.log(multipartFormData);
+                        const response = await orderAPI.insertOrderDetail(multipartFormData);
+                        this.loading = false;
+                        this.alertDialog = false;
+                    }   catch(error) {
+                        if(error.response) {
+                            if(error.response.status === 403) {
+                                this.loading = false;
+                                this.alertDialog = false;
+                                this.$router.push("/menu07/auth/jwtauth")
+                            } else {
+                                this.loading = false;
+                                this.alertDialogMessage = "네트워크 통신 오류";
+                            }
                         }
-                    }
-                }
-                    
-                    
+                    }   
             }
+
+            if(this.cartFlag) {
+                console.log("add product order");
+                for(let i=0; i<this.orderDetailList.length; i++) {
+                    console.log(this.orderDetailList[i]);
+                    try {
+                        const multipartFormData = new FormData();
+
+                        multipartFormData.append("productDetailId", this.orderDetailList[i].productDetailId);
+                        multipartFormData.append("psize", this.orderDetailList[i].psize);
+                        multipartFormData.append("orderId", this.order.orderId);
+                        multipartFormData.append("amount", this.orderDetailList[i].amount);
+                        multipartFormData.append("price", this.orderDetailList[i].price);
+                        multipartFormData.append("state", this.orderDetailList[i].state);
+                        multipartFormData.append("productName", this.orderDetailList[i].productName);
+                        multipartFormData.append("brandName", this.orderDetailList[i].brandName);
+
+
+                        console.log(multipartFormData);
+                        const response = await orderAPI.insertOrderDetail(multipartFormData);
+                        this.loading = false;
+                        this.alertDialog = false;
+                    }   catch(error) {
+                        if(error.response) {
+                            if(error.response.status === 403) {
+                                this.loading = false;
+                                this.alertDialog = false;
+                                this.$router.push("/menu07/auth/jwtauth")
+                            } else {
+                                this.loading = false;
+                                this.alertDialogMessage = "네트워크 통신 오류";
+                            }
+                        }
+                    }   
+                }
+            }//if cart
 
             for(let i=0; i<this.paymentList.length; i++) {
                 console.log(this.paymentList[i]);
@@ -374,22 +415,52 @@ export default {
                         }
                     }
                 }
-                    
-                    
+                
             }
+
+
+
+            this.$router.push("/order/complete?orderNo="+this.order.orderId);
+            
         },
+        handleProductInfo(pId) {
+        this.loading = true;
+        this.alertDialog = true;
+        const response = productAPI.getCartProduct(pId).then(response => {
+            console.log(response.data);
+            this.product = response.data; 
+            this.loading = false;
+            this.alertDialog = false;
+            }).catch(error => {
+            if(error.response) {
+                if(error.response.status === 403) {
+                    this.loading = false;
+                    this.alertDialog = false;
+                    this.$router.push("/menu07/auth/jwtauth")
+                }
+            } else {
+                this.loading = false;
+                this.alertDialogMessage = "네트워크 통신 오류";
+            }
+        });
+        this.loading = false;
+        this.alertDialog = false;
+      } 
     },
     mounted(){
         this.$store.commit("setPageFlag",'order');
     },
     created() {
+        console.log("product : " + this.$store.getters["product/getProduct"]);
         const linkKey = this.$route.query.link;
-        if(linkKey === 'product') {
+        if(linkKey == 'product') {
             this.cart = this.$store.getters["product/getProduct"];
+            this.handleProductInfo(this.cart.productDetailId);
             console.log("LinkKey = product : ", this.cart);
-        } else if(linkKey === 'cart') {
+            
+        } else if(linkKey == 'cart') {
             //cart에서 가져와서 오더로
-            this.handleProductInfo();
+            this.cartFlag = true;
         }
     }
 }

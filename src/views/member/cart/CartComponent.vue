@@ -1,91 +1,119 @@
 <template>
-  <v-container>
-      <v-col class="pa-0">
-        <v-row>
-          <v-col cols="1"  class="pa-2">
-            <v-icon class="d-flex">mdi-check-circle-outline</v-icon>
-          </v-col>
-          <v-col cols="10">
-          </v-col>
-          <v-col cols="1" class="pa-2">
-            <v-icon class="d-flex" @click="handleDelete()">mdi-close</v-icon>
-          </v-col>    
+  <v-card
+    v-click-outside="onClickOutside"
+    :color="active ? 'primary' : undefined" 
+    class="mt-2 pa-0"
+    @click="active = true"
+    >
+      
+            <v-row>
+              <v-col cols="4">
+                <v-img :src="productDetail.thumbnail" height="180" class="d-flex flex-row pl-2 pt-0"
+            gradient="to top, rgba(0,0,0,.3), rgba(0,0,0,.3)" >
+        <v-row class="d-flex justify-space-between">     
+          <v-checkbox x-large
+            class="ma-0"
+            color="orange"
+            value="`this.cartId`"
+        ></v-checkbox>
+          
         </v-row>
+        </v-img>
+              </v-col>
 
-        <v-row>
-          <v-col cols="4" class="pa-0 pl-2 pb-2">
-            <img :src="productDetail.thumbnail" width="100%"/>
-          </v-col>
-          <v-col cols="8" class="pa-1 pl-2">
-            <v-row>
-              <v-col class="pa-4">
+
+          <v-col cols="8" v-if="!changeFlag" class="pa-2">
+            <v-row  class="d-flex justify-space-between">
+              <v-col cols="11">
                 <div >[{{productDetail.brandName}}]</div>
-                <div>{{productDetail.name}}</div>
-                <div class="font-weight-bold">{{productDetail.price}}원</div>
+                <h2>{{productDetail.name}}</h2>
+                <div class="font-weight-bold">{{productDetail.price * amount}}원</div>
+              </v-col>
+              <v-col cols="1">
+                <v-icon small @click="handleDelete()" class="ma-0">mdi-close</v-icon>
               </v-col>
             </v-row>
 
-            <v-row>
-              <v-col class="d-flex align-center">
-                <v-row>
-                  <v-col cols="2">
-                    <v-icon small @click="minusAmount">mdi-minus</v-icon>
-                  </v-col>
-                  <v-col cols="3" class="text-center">{{amount}}</v-col>
-                  <v-col cols="2">
-                    <v-icon small @click="plusAmount">mdi-plus</v-icon>
-                  </v-col>
-                </v-row>        
+
+
+            <v-row class="d-flex flex-row-reverse ">
+              <v-col cols="2">
+                <v-icon small @click="plusAmount">mdi-plus</v-icon>
               </v-col>
+              <v-col cols="3" class="text-center">{{amount}}</v-col>
+              <v-col cols="2">
+                <v-icon small @click="minusAmount">mdi-minus</v-icon>
+              </v-col>
+            </v-row>
+            <v-divider/>
+
+
+
+            <v-row class="d-flex justify-end">
               <v-col>
-                {{price}}원
-              </v-col>
-            </v-row>
-
-            
-            <v-row>
-              <v-divider class="ml-4 mr-4"/>
-            </v-row>
-            <v-row>
-              <v-col class="grey--text">
-                <v-row>
-                  <v-col cols="9" class="pl-4 pt-1 pb-0" :amount=amount>옵션 <span>{{productDetail.colorCode}} / {{size}} / {{amount}}개</span></v-col>
-                  <v-col cols="3" class="pr-4 pt-1 pb-0" @click="changeDetail">변경</v-col>
+                <v-row class="d-flex align-center">
+                  <v-col cols="12" >
+                    <div class="text-right">상품코드 : {{productDetailId}}</div>
+                    <div class="text-right">사이즈 : {{psize}}</div>
+                  </v-col>
+                  <v-col cols="12" class="text-right" @click="changeDetail">변경</v-col>
                 </v-row>
               </v-col>
             </v-row>
-            
           </v-col>
-        </v-row>
+          
 
-        
 
-        <v-row v-if="changeFlag">
-          <change-option />
-        </v-row>
-      </v-col>
 
-  </v-container>
+
+          <v-col cols="8" v-if="changeFlag">
+            <v-row>
+              <v-col cols="12" class="d-flex align-center">색상 </v-col>
+              <v-col cols="12" v-for="(colorChip, index) in colorChip" :key="index">
+                <img :src="colorChip" width="30" />
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" class="d-flex align-center">사이즈</v-col>
+              <v-col cols="12" v-for="(size, index) in size" :key="index">
+                {{size}}
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-btn  @click="handleUpdate" >변경하기</v-btn>
+              </v-col>
+            </v-row>
+          </v-col>
+
+
+
+
+
+
+
+
+      </v-row>
+  </v-card>
 </template>
 
 <script>
-import ChangeOption from './ChangeOption.vue';
 import orderAPI from "@/apis/order";
 import productAPI from "@/apis/product";
 export default {
   name:"CartComponent",
   components: {
-    ChangeOption
   },
   data() {
     return {
       changeFlag: false,
       productDetail: null,
+      active: false,
     };
   },
   props: [
     "productDetailId",
-    "size",
+    "psize",
     "amount",
     "cartId"
   ],
@@ -134,7 +162,7 @@ export default {
     handleProductInfo() {
       this.loading = true;
       this.alertDialog = true;
-      const response = productAPI.getCartProduct(this.orderDetail.productDetailId).then(response => {
+      const response = productAPI.getCartProduct(this.productDetailId).then(response => {
           console.log(response.data);
           this.productDetail = response.data; 
           this.loading = false;
@@ -157,9 +185,16 @@ export default {
   },
   created() {
     this.handleProductInfo();
-  }
+  },
+  onClickOutside () {
+    this.active = false
+  },
 }
 </script>
 
 <style scoped>
+  *{
+    margin: 0px;
+    padding: 0px;
+  }
 </style>
