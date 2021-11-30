@@ -39,6 +39,32 @@
             class="mx-auto"
           >
             <v-container fluid>
+              <v-sheet
+                class="mx-auto"
+                max-width="700"
+              >
+                <v-slide-group
+                  multiple
+                  show-arrows
+                >
+                  <v-slide-item
+                    v-for="category in categoryList"
+                    :key="category.name"
+                    v-slot="{ active}"
+                  >
+                    <v-btn
+                      class="mx-2"
+                      :input-value="active"
+                      active-class="purple white--text"
+                      depressed
+                      rounded
+                      @click="goDetailCategory(category)"
+                    >
+                      {{category.name}}
+                    </v-btn>
+                  </v-slide-item>
+                </v-slide-group>
+              </v-sheet>
               <v-row dense>
                 <v-col cols="6" @click="goProduct">
                   <v-card>
@@ -48,7 +74,7 @@
                       gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
                       height="200px"
                     >
-                      <v-card-title class="body-2">the CASHMERE</v-card-title>
+                      <v-card-title class="body-2">{{brandName}}</v-card-title>
                       <v-card-subtitle class="caption">
                         <div>캐시미어 가디건</div>
                         <div>123,000₩</div>
@@ -64,7 +90,7 @@
                       gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
                       height="200px"
                     >
-                      <v-card-title class="body-2">the CASHMERE</v-card-title>
+                      <v-card-title class="body-2">{{brandName}}</v-card-title>
                       <v-card-subtitle class="caption">
                         <div>캐시미어 가디건</div>
                         <div>123,000₩</div>
@@ -79,13 +105,14 @@
       </v-card>
     </template>
     <v-container fluid>
-      <product-list listType="brandProductList" :categoryId="brandName"/>
+      <product-list listType="brandProductList" :categoryId="categoryId" :brandName="brandName"/>
     </v-container>
   </v-card>
 </template>
 
 <script>
 import ProductList from '@/views/mainPage/newItem/ProductList.vue';
+import category from '@/store/category';
 export default {
   //컴포넌트의 대표이름(devtools에 나오는 이름이다.) 이름을 정하지 않으면 파일명으로
   name:"",
@@ -98,7 +125,11 @@ export default {
     heartFlag : 0,
     brandList :[],
     index:0,
-    brandName:""
+    brandName:"",
+    categoryList:[],
+    clevel :0,
+    curCategory:"",
+    categoryId:"null"
   }),
   //컴포넌트 메소드 정의
   methods:{
@@ -111,15 +142,30 @@ export default {
       }else{
         this.heartFlag = 0;
       }
+    },
+
+    goDetailCategory(curCategory){
+      this.curCategory = curCategory;
+      this.categoryList = this.curCategory.categoryList;
+      this.categoryId = this.curCategory.categoryId;
+      
     }
   },
   watch: { heartFlag() { return this.heartFlag; } },
-  beforeMount(){
+  created(){
+    console.log(this.$store.getters["category/getBrandCategory"]);
     this.brandList = this.$store.getters["category/getBrandCategory"];
     this.brandName = this.$route.query.brandName;
-    this.index = this.$route.query.index;
-    console.log(this.brandList[this.index]);
-  }
+    this.index = parseInt(this.$route.query.index);
+    console.log(this.brandList);
+    for(let brandCategory of this.brandList[this.index].brandCategoryTempList){
+    
+      if(brandCategory.clevel==1){
+        this.categoryList.push(brandCategory);
+      }
+    }
+    console.log(this.categoryList);
+  },
 }
 </script>
 <!-- 컴포넌트 스타일 정의 -->

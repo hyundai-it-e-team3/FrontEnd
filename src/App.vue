@@ -1,8 +1,7 @@
 <template>
   <v-app>
     <app-header/>
-    
-    <v-main class="pt-13">
+    <v-main>
       <v-sheet
         id="scrolling-techniques-3"
         class="overflow-y-auto gray"

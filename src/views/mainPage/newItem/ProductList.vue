@@ -1,6 +1,5 @@
 <template>
   <v-container class="pt-0">
-    <navi />
       <v-row class="mt-2">
         <v-col cols="12" class="grey"></v-col>
       </v-row>
@@ -104,12 +103,10 @@
 </template>
 
 <script>
-import pagerAPI from "@/apis/pager";
-import Navi from '../Navi.vue';
+import PagerModule from "@/methodBox/pagerModule";
 export default {
   name:"productList",
   components: {
-    Navi,
   },
   data:()=>({
     newList :[],
@@ -120,30 +117,31 @@ export default {
   }),
   props:[
     "listType",
-    "categoryId"
+    "categoryId",
+    "brandName"
   ],
   methods: {
-    async onIntersect (entries, observer,isIntersecting) {
-        
+    onIntersect (entries, observer,isIntersecting) {
         if(isIntersecting==true){
           console.log("----------------------");
           let startRow = this.$store.getters["pager/getRowCount"];
           console.log(startRow,this.sortId);
-          try{
-            const response = await pagerAPI.getProdctList(this.listType,this.categoryId,startRow,3,this.sortId);
-            if(this.$store.getters["pager/getRowCount"]==1){
+
+          PagerModule.getProductList(this.listType,this.brandName,this.categoryId,startRow,3,this.sortId)
+            .then(response=>{
+              if(this.$store.getters["pager/getRowCount"]==1){
                 this.newList = response.data;
-            }else{
-              let resList = response.data;
-              for(let item of resList){
-                this.newList.push(item);
+              }else{
+                let resList = response.data;
+                for(let item of resList){
+                  this.newList.push(item);
+                }
               }
-            }
-            this.$store.commit("pager/plusRowCount",4);
-          }
-          catch(err){
-            console.log(err)
-          }
+              this.$store.commit("pager/plusRowCount",4);
+            })
+            .catch(error => {
+              console.log(error);
+          });
         }
       }
       ,
@@ -151,7 +149,7 @@ export default {
       console.log(productId);
       this.$router.push(`/product/productDetail?productId=${productId}`);
     },
-    async sortSelect(sort){
+    sortSelect(sort){
       console.log(sort);
       this.sortSheet = false;
       if(sort=="신상품순")
@@ -160,28 +158,46 @@ export default {
         this.sortId = 1;
       else if(sort=="고가순")
         this.sortId = 2;
-      try{
-        const response = await pagerAPI.getProdctList(this.listType,this.categoryId,1,10,this.sortId);
+
+      PagerModule.getProductList(this.listType,this.brandName,this.categoryId,1,10,this.sortId)
+        .then(response=>{
+          this.newList = response.data;
+          this.$store.commit("pager/resetRowCount");
+          this.$store.commit("pager/plusRowCount",11);
+        })
+        .catch(error => {
+          console.log(error);
+      });
+    }
+  },
+  created(){
+    PagerModule.getProductList(this.listType,this.brandName,this.categoryId,1,10,this.sortId)
+      .then(response=>{
         this.newList = response.data;
         this.$store.commit("pager/resetRowCount");
         this.$store.commit("pager/plusRowCount",11);
-        console.log(this.newList);
-      }
-      catch(err){
-        console.log(err)
-      }
-    }
-  },
-  async beforeMount(){
-    const response = await pagerAPI.getProdctList(this.listType,this.categoryId,1,10,this.sortId);
-    console.log(response.data);
-    this.newList = response.data;
-    this.$store.commit("pager/plusRowCount",11);
-    console.log(this.newList);
+      })
+      .catch(error => {
+        console.log(error);
+    });
   },
   destroyed(){
     this.$store.commit("pager/resetRowCount"
     );
+  }
+  ,watch: { 
+    categoryId() { 
+      console.log(this.categoryId);
+      PagerModule.getProductList(this.listType,this.brandName,this.categoryId,1,10,this.sortId)
+        .then(response=>{
+          this.newList = response.data;
+          this.$store.commit("pager/resetRowCount");
+          this.$store.commit("pager/plusRowCount",11);
+        })
+        .catch(error => {
+          console.log(error);
+      });
+    } 
   }
 }
 </script>

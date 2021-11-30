@@ -1,38 +1,21 @@
 <!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
     <v-app-bar
-      color="black"
-      dark
-      absolute
-      hide-on-scroll
-      height="50px"
+        color="black"
+        dark
+        height="50px"
     >
         <template heigth="50px">
             <v-btn icon>
-            <v-icon small>mdi-magnify</v-icon>
-        </v-btn>
-        <v-spacer></v-spacer>
-        <v-toolbar-title>THE HANSOME</v-toolbar-title>
-        <v-spacer></v-spacer>
-        
-        
-        <v-btn icon to="/member/cart">
-            <v-icon small>mdi-cart-minus</v-icon>
-        </v-btn>
-        </template>
-
-    <template v-slot:extension >
-        <v-tabs
-            show-arrows-on-hover
-            align-with-title
-            color="grey"
-        >
-          <v-tab to="/">HOME</v-tab>
-          <v-tab to="/mainpage/newitem">NEW</v-tab>
-          <v-tab to="/mainpage/bestitem">BEST</v-tab>
-          <v-tab to="/mainpage/eventpage">EVENT</v-tab>
-        </v-tabs>
-      </template>
+                <v-icon small>mdi-magnify</v-icon>
+            </v-btn>
+            <v-spacer></v-spacer>
+            <v-toolbar-title>THE HANSOME</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn icon to="/member/cart">
+                <v-icon small>mdi-cart-minus</v-icon>
+            </v-btn>
+            </template>
     </v-app-bar>
 </template>
 
