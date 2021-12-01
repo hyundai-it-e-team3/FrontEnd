@@ -5,15 +5,12 @@
       <v-card-subtitle></v-card-subtitle>
       <v-divider/>
         <v-row v-if="!cartFlag">
-        <product-component 
-                            :product=product
-                            :cart=cart />
+            <product-component :orderDetail=orderDetail />
         </v-row>
         <v-card-text v-if="cartFlag">
-        <v-row v-for="(orderDetail, i) in orderDetailList" :key="i">
-            <product-component 
-                        :productDetailId=orderDetail.productDetailId />
-        </v-row>
+            <v-row v-for="(orderDetail, i) in orderDetailList" :key="i">
+                <product-component :orderDetail=orderDetail />
+            </v-row>
         </v-card-text>
     <v-expansion-panels flat v-if="false">
         <v-expansion-panel>
@@ -254,9 +251,11 @@ export default {
         { text: '생일 쿠폰', rate: '15%' }
         ],
         member: null,
-        cart: null,
+        orderDetail: null,
+        orderDetailList: [],
         product: null,
         cartFlag: false,
+        temp: null,
         order: {
             totalPrice: 100000,
             discountPrice: 10000,
@@ -320,38 +319,35 @@ export default {
             }
 
             if(!this.cartFlag) {
-                console.log("add product order");
                 try {
-                        const multipartFormData = new FormData();
+                    const multipartFormData = new FormData();
 
-                        multipartFormData.append("productDetailId", this.cart.productDetailId);
-                        multipartFormData.append("psize", this.cart.psize);
-                        multipartFormData.append("orderId", this.order.orderId);
-                        multipartFormData.append("amount", this.cart.amount);
-                        multipartFormData.append("price", this.product.price);
-                        multipartFormData.append("state", 1);
+                    multipartFormData.append("productDetailId", this.orderDetail.productDetailId);
+                    multipartFormData.append("psize", this.orderDetail.psize);
+                    multipartFormData.append("orderId", this.order.orderId);
+                    multipartFormData.append("amount", this.orderDetail.amount);
+                    multipartFormData.append("price", this.orderDetail.price);
+                    multipartFormData.append("state", 1);
 
-
-                        console.log(multipartFormData);
-                        const response = await orderAPI.insertOrderDetail(multipartFormData);
-                        this.loading = false;
-                        this.alertDialog = false;
-                    }   catch(error) {
-                        if(error.response) {
-                            if(error.response.status === 403) {
-                                this.loading = false;
-                                this.alertDialog = false;
-                                this.$router.push("/menu07/auth/jwtauth")
-                            } else {
-                                this.loading = false;
-                                this.alertDialogMessage = "네트워크 통신 오류";
-                            }
+                    console.log(multipartFormData);
+                    await orderAPI.insertOrderDetail(multipartFormData);
+                    this.loading = false;
+                    this.alertDialog = false;
+                }   catch(error) {
+                    if(error.response) {
+                        if(error.response.status === 403) {
+                            this.loading = false;
+                            this.alertDialog = false;
+                            this.$router.push("/menu07/auth/jwtauth")
+                        } else {
+                            this.loading = false;
+                            this.alertDialogMessage = "네트워크 통신 오류";
                         }
-                    }   
+                    }
+                }   
             }
 
             if(this.cartFlag) {
-                console.log("add product order");
                 for(let i=0; i<this.orderDetailList.length; i++) {
                     console.log(this.orderDetailList[i]);
                     try {
@@ -362,13 +358,9 @@ export default {
                         multipartFormData.append("orderId", this.order.orderId);
                         multipartFormData.append("amount", this.orderDetailList[i].amount);
                         multipartFormData.append("price", this.orderDetailList[i].price);
-                        multipartFormData.append("state", this.orderDetailList[i].state);
-                        multipartFormData.append("productName", this.orderDetailList[i].productName);
-                        multipartFormData.append("brandName", this.orderDetailList[i].brandName);
+                        multipartFormData.append("state", 1);
 
-
-                        console.log(multipartFormData);
-                        const response = await orderAPI.insertOrderDetail(multipartFormData);
+                        await orderAPI.insertOrderDetail(multipartFormData);
                         this.loading = false;
                         this.alertDialog = false;
                     }   catch(error) {
@@ -417,52 +409,80 @@ export default {
                 }
                 
             }
-
-
-
             this.$router.push("/order/complete?orderNo="+this.order.orderId);
             
         },
-        handleProductInfo(pId) {
-        this.loading = true;
-        this.alertDialog = true;
-        const response = productAPI.getCartProduct(pId).then(response => {
-            console.log(response.data);
-            this.product = response.data; 
+        addOrderDetailList(id) {
+            this.loading = true;
+            this.alertDialog = true;
+
+            orderAPI.getCartInfo(id).then(response => {
+                    let temp = response.data;
+                    const res = productAPI.getproductDetailPrice(temp.productDetailId)
+                        .then(res => {
+                            temp.price = res.data;
+                            this.orderDetailList.push(JSON.parse(JSON.stringify(temp))); 
+                        });
+                }).catch(error => {
+                if(error.response) {
+                    if(error.response.status === 403) {
+                        this.loading = false;
+                        this.alertDialog = false;
+                        this.$router.push("/menu07/auth/jwtauth")
+                    }
+                } else {
+                    this.loading = false;
+                    this.alertDialogMessage = "네트워크 통신 오류";
+                }
+            });
             this.loading = false;
             this.alertDialog = false;
-            }).catch(error => {
-            if(error.response) {
-                if(error.response.status === 403) {
-                    this.loading = false;
-                    this.alertDialog = false;
-                    this.$router.push("/menu07/auth/jwtauth")
-                }
-            } else {
+        },
+        addOrderDetail() {
+            this.loading = true;
+            this.alertDialog = true;
+            productAPI.getCartProduct(this.orderDetail.productDetailId).then(response => {
+                console.log(response.data);
+                const temp = response.data; 
+                this.orderDetail.price = temp.price;
+                console.log(this.orderDetail);
                 this.loading = false;
-                this.alertDialogMessage = "네트워크 통신 오류";
-            }
-        });
-        this.loading = false;
-        this.alertDialog = false;
-      } 
+                this.alertDialog = false;
+                }).catch(error => {
+                if(error.response) {
+                    if(error.response.status === 403) {
+                        this.loading = false;
+                        this.alertDialog = false;
+                        this.$router.push("/menu07/auth/jwtauth")
+                    }
+                } else {
+                    this.loading = false;
+                    this.alertDialogMessage = "네트워크 통신 오류";
+                }
+            });
+            this.loading = false;
+            this.alertDialog = false;
+        }
     },
     mounted(){
         this.$store.commit("setPageFlag",'order');
     },
-    created() {
-        console.log("product : " + this.$store.getters["product/getProduct"]);
+    created(){
         const linkKey = this.$route.query.link;
         if(linkKey == 'product') {
-            this.cart = this.$store.getters["product/getProduct"];
-            this.handleProductInfo(this.cart.productDetailId);
-            console.log("LinkKey = product : ", this.cart);
-            
+            this.orderDetail = this.$store.getters["product/getProduct"];
+            console.log(this.orderDetail);
+            this.addOrderDetail();
         } else if(linkKey == 'cart') {
-            //cart에서 가져와서 오더로
+            this.cartIdList = this.$store.getters["product/getCartIdList"];
+            for(var cartId of this.cartIdList) {
+                this.addOrderDetailList(cartId);
+            }
             this.cartFlag = true;
         }
-    }
+    },
+    
+
 }
 </script>
 

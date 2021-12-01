@@ -1,9 +1,6 @@
 <template>
   <v-card
-    v-click-outside="onClickOutside"
-    :color="active ? 'primary' : undefined" 
     class="mt-2 pa-0"
-    @click="active = true"
     >
       
       <v-row>
@@ -14,9 +11,11 @@
           <v-checkbox x-large
             class="ma-0"
             color="orange"
-            value="`this.cartId`"
+            :value="cartId"
+            v-model="cartSelected"
+            @click="handleCheckbox()"
         ></v-checkbox>
-          
+          {{cartId}}
         </v-row>
         </v-img>
               </v-col>
@@ -109,9 +108,12 @@ export default {
   data() {
     return {
       changeFlag: false,
-      productDetail: null,
-      active: false,
+      productDetail: {
+        thumbnail: "@/assets/images/event.png",
+        productDetailList: [{}]
+      },
       colorChips: null,
+      cartSelected: false
     };
   },
   props: [
@@ -186,7 +188,10 @@ export default {
       });
       this.loading = false;
       this.alertDialog = false;
-    } 
+    } ,
+    handleCheckbox() {
+      this.$emit("check-checkbox", this.cartId, this.cartSelected);
+    }
   },
   created() {
     this.handleProductInfo();
@@ -196,7 +201,7 @@ export default {
   },
   onClickOutside () {
     this.active = false
-  },
+  }
 }
 </script>
 
