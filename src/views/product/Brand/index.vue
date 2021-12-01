@@ -7,16 +7,19 @@
         :src="brandList[index].mainImg"
         height="330"
       >
-        <v-icon v-if="heartFlag == 0" right dark large @click="heartClick()"
-          >mdi-heart-outline</v-icon
-        >
         <v-icon
-          v-if="heartFlag == 1"
+          v-if="$store.getters['category/getWishBrand'].includes(brandName)"
           right
           color="red"
           large
-          @click="heartClick()"
+          @click="removeWish()"
           >mdi-heart</v-icon
+        >
+        <v-icon
+          v-if="!$store.getters['category/getWishBrand'].includes(brandName)"
+          right dark large
+          @click="addWish()"
+          >mdi-heart-outline</v-icon
         >
       </v-img>
 
@@ -137,6 +140,7 @@
 <script>
 import ProductList from "@/components/layout/ProductList/index.vue";
 import category from "@/store/category";
+import memberAPI from "@/apis/member";
 export default {
   //컴포넌트의 대표이름(devtools에 나오는 이름이다.) 이름을 정하지 않으면 파일명으로
   name: "",
@@ -200,11 +204,24 @@ export default {
       console.log(productId);
       this.$router.push(`/product/productDetail?productId=${productId}`);
     },
+    async addWish(){
+      let memberId = this.$store.getters.getMemberId;
+      console.log(memberId,this.brandName);
+      await memberAPI.insertBrand(memberId,this.brandName);
+      this.$store.commit("category/addWishBrand",this.brandName);
+    },
+    async removeWish(){
+      let memberId = this.$store.getters.getMemberId;
+      console.log(memberId,this.brandName);
+      await memberAPI.deleteBrand(memberId,this.brandName);
+      this.$store.commit("category/removeWishBrand",this.brandName);
+    }
   },
   watch: {
     heartFlag() {
       return this.heartFlag;
     },
+
   },
   created() {
     console.log(this.$store.getters["category/getBrandCategory"]);
@@ -222,13 +239,15 @@ export default {
     this.selectCategoryList = [];
 
     for(let brandCategory of this.categoryList){
-      this.allCategoryList.push(brandCategory.name);
+      if(!this.allCategoryList.includes(brandCategory.name))
+        this.allCategoryList.push();
       for(let level2 of brandCategory.categoryList){
         console.log(level2);
-        this.allCategoryList.push(level2.name);
+        if(!this.allCategoryList.includes(level2.name))
+          this.allCategoryList.push(level2.name);
         for(let level3 of level2.categoryList){
-          this.allCategoryList.push(level3.name);
-          console.log(level3);
+          if(!this.allCategoryList.includes(level3.name))
+            this.allCategoryList.push(level3.name);
         }
       }
     }

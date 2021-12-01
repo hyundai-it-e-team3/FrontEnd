@@ -1,39 +1,12 @@
 <!-- 컴포넌트 UI 정의 -->
 <template>
     <v-list dense nav>
-      <v-list-item to="/product/brand">
+      <v-list-item   v-for="(item, index) in wishList"
+            :key="index" to="/product/brand">
         <v-list-item-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>the CASHMERE</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item>
-        <v-list-item-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>TIME</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item>
-        <v-list-item-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>MINE</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item>
-        <v-list-item-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>LANVIN COLLECTION</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item>
-        <v-list-item-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>SYSTEM</v-list-item-title>
+          <v-list-item-title>{{item.name}}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -45,12 +18,23 @@ export default {
   name:"",
   // 추가하고 싶은 컴포넌트를 등록
   components: {
+    
   },
   //컴포넌트 데이터를 정의
   data:()=>({
+    wishList:[]
   }),
   //컴포넌트 메소드 정의
   methods:{
+  },
+  beforeMount(){
+    let tempBrandList = this.$store.getters["category/getBrandCategory"];
+    let myWishList = this.$store.getters["category/getWishBrand"];
+    for(let i = 0; i < tempBrandList.length; i++){
+      if(myWishList.includes(tempBrandList[i].name)){
+        this.wishList.push({'name':tempBrandList[i].name,'index':i});
+      }
+    }
   }
 }
 </script>

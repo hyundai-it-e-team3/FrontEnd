@@ -52,6 +52,7 @@
 
 <script>
 import memberAPI from '@/apis/member';
+import CategoryModule from "@/modules/categoryModule";
 
 export default {
   name: "AfterLogin",
@@ -116,6 +117,22 @@ export default {
   created() {
     let memberId = this.$store.getters.getMemberId;
     this.getMember(memberId);
+    console.log(memberId);
+    CategoryModule.getWishBrandList(memberId)
+      .then(response=>{
+        let tempList = [];
+        let resList = response.data;
+        console.log(response.data);
+        for(let res of resList){
+          tempList.push(res.brandName);
+        }
+        this.$store.commit("category/setWishBrand",tempList);
+        console.log(tempList);
+        console.log("this is wish brand");
+      })
+      .catch(error => {
+        console.log(error);
+    });
   },
 }
 </script>
