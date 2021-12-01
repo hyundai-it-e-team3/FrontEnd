@@ -1,50 +1,59 @@
-<!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-    <v-card>
-      <v-app-bar>
-      <v-tabs align-with-title 
-      background-color="grey darken-3" 
-      dark>
-        <v-tab>사용 가능 쿠폰</v-tab>
-        <v-tab>사용 완료 쿠폰</v-tab>
-        <v-tab>만료 쿠폰</v-tab>
+  <v-card>
+    <v-app-bar>
+      <v-tabs v-model="tab" background-color="white" color="black" slider-color="black" centered>
+        <v-tab v-for="tabs in tabs" :key="tabs">{{tabs}}</v-tab>
       </v-tabs>
-      </v-app-bar>
-      <v-card-title>쿠폰</v-card-title>
-      <v-divider/>
-      <v-expansion-panels accordion>
-            <coupon-component/>
-            <coupon-component/>
-            <coupon-component/>
-            <coupon-component/>
-            <coupon-component/>
-            <coupon-component/>
-            <coupon-component/>
-        </v-expansion-panels>
-    </v-card>  
+    </v-app-bar>
+
+    <v-expansion-panels accordion v-for="(memberCoupon) in memberCoupon" :key="memberCoupon.couponId">
+      <coupon-component v-if="memberCoupon.status == tab+1"
+        :memberCoupon=memberCoupon />
+    </v-expansion-panels>
+  </v-card>
 </template>
 
 <script>
-import couponComponent from './couponComponent.vue';
+import CouponComponent from "./couponComponent.vue";
+import memberAPI from '@/apis/member'
+
 export default {
-    //컴포넌트의 대표이름 (devtools에 나오는 이름)
-    name: "memberCoupon",
-    //추가하고 싶은 컴포넌트 등록
-    components: {
-        couponComponent,
+  name: "MemberCoupon",
+  components: {
+    CouponComponent,
+  },
+  data: function () {
+    return {
+      tab: '',
+      tabs: ['사용가능 쿠폰', '사용완료 쿠폰', '만료 쿠폰'],
+      memberCoupon: {
+        couponId: '',
+        regDate:  '', 
+        expDate: '',
+        status: '',
+        name: '',
+        amount: '',
+        type: '',
+        content:  ''
+      },
+    };
+  },
+  methods: {
+    async getMemberCoupon(memberId) {
+      try {
+        const response = await memberAPI.getMemberCoupon(memberId);
+        console.log(response.data)
+        this.memberCoupon = response.data;
+      } catch (error) {
+        console.log(error);
+      }
     },
-    //컴포넌트 데이터 정의
-    data: function() {
-        return {
-        };
-    },
-    //컴포넌트 메소드 정의
-    methods: {
-    }
-}
+  },
+  created() {
+    let memberId = this.$store.getters.getMemberId;
+    this.getMemberCoupon(memberId);
+  },
+};
 </script>
 
-<!-- 컴포넌트 스타일 정의 -->
-<style scoped>
-
-</style>
+<style scoped></style>

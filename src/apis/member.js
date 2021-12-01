@@ -106,6 +106,10 @@ function updateAccountPassword(member) {
   })
 }
 
+function getMemberCoupon(memberId) {
+  return memberAPI.get(`/member/coupon/list/${memberId}`)
+}
+
 export default {
   joinMember,
   login,
@@ -120,5 +124,6 @@ export default {
   getAccount,
   insertAccount,
   deleteAccount,
-  updateAccountPassword
+  updateAccountPassword,
+  getMemberCoupon
 };
