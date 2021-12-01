@@ -180,7 +180,7 @@
 </template>
 
 <script>
-import productAPI from "@/apis/product";
+import ProductModule from "@/modules/productModule";
 export default {
   //컴포넌트의 대표이름(devtools에 나오는 이름이다.) 이름을 정하지 않으면 파일명으로
   name:"",
@@ -252,17 +252,23 @@ export default {
       this.alertFlag = 0;
     }
   },
-  async beforeMount(){
+  beforeMount(){
     let productId = this.$route.query.productId;
-    let response = await productAPI.getProdct(productId);
-    this.product = response.data; 
-    this.productDetail = this.product.productDetailList[0];
-    this.cart.productDetailId = this.productDetail.productDetailId;
+    ProductModule.getProduct(productId)
+      .then(response=>{
+        this.product = response.data; 
+        this.productDetail = this.product.productDetailList[0];
+        this.cart.productDetailId = this.productDetail.productDetailId;
 
-    for(let i = 0; i < this.product.productDetailList.length; i++){
-      this.colorChips.push(this.product.productDetailList[i].colorChip);
-    }
-    console.log(this.productDetail);
+        for(let i = 0; i < this.product.productDetailList.length; i++){
+          this.colorChips.push(this.product.productDetailList[i].colorChip);
+        }
+        console.log(this.productDetail);
+      })
+      .catch(error => {
+      console.log(error);
+    });
+
   },
   mounted(){
     this.$store.commit("setPageFlag",'product');

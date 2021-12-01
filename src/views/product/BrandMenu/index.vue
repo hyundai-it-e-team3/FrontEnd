@@ -18,8 +18,8 @@
           </v-list-item-content>
         </v-list-item>
       </div>
-      <fav-brand-list v-if="!favBrandShow"/>
-      <brand-list v-if="favBrandShow"/>
+      <fav-brand-list v-if="favBrandShow"/>
+      <brand-list v-if="!favBrandShow"/>
     </v-list>
     
   </v-app>

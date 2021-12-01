@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <app-header/>
-    <v-main>
+    <v-main class="mt-5">
       <v-sheet
         id="scrolling-techniques-3"
         class="overflow-y-auto gray"
@@ -18,21 +18,32 @@
 <script>
 import AppFooter from './components/layout/AppFooter';
 import AppHeader from './components/layout/AppHeader';
-import Menu from "@/apis/menu";
+import CategoryModule from "@/modules/categoryModule";
 export default {
   components: { 
-    AppHeader,
-    AppFooter 
+    AppFooter ,
+    AppHeader
   },
   name: 'App',
   data: () => ({
   }),
-  async beforeCreate() {
-    const categoryResponse = await Menu.getCategory();
-    this.$store.commit("category/setCategory",categoryResponse.data);
-
-    const brandResponse = await Menu.getBrand();
-    this.$store.commit("category/setBrandCategory",brandResponse.data);
+beforeCreate() {
+    CategoryModule.getCategory()
+      .then(response=>{
+        this.$store.commit("category/setCategory",response.data);
+      })
+      .catch(error => {
+        console.log(error);
+    });
+  
+    CategoryModule.getBrand()
+      .then(response=>{
+        this.$store.commit("category/setBrandCategory",response.data);
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+    });
   },
   created() {
     this.$store.dispatch("loadAuth");
