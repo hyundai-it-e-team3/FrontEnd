@@ -64,12 +64,14 @@ export default {
     //컴포넌트 메소드 정의
     methods: {
       
+      
     },
     props: [
       "cart",
       "product"
     ],
     created() {
+
     }
 }
 </script>
