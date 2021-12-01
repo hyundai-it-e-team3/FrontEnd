@@ -61,10 +61,10 @@ export default {
     },
     goList(categoryId){
       console.log(categoryId);
-      this.$router.push(`/product/categoryProduct?categoryId=${categoryId}`).catch(()=>{});
+      this.$router.push(`product/categoryProduct?categoryId=${categoryId}`).catch(()=>{});
     }
   },
-  beforeMount(){
+  created(){
     this.menuList = this.$store.getters["category/getCategory"];
   }
 }
