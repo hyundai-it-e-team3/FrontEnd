@@ -26,9 +26,6 @@ export default {
     };
   },
   methods: {
-    goAccountUpdate(accountNo) {
-      this.$router.push("/member/account/update?accountNo="+accountNo);
-    },
     deleteAccount(accountNo) {
       memberAPI.deleteAccount(accountNo)
         .then(response =>  {

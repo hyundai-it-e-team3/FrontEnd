@@ -112,8 +112,9 @@ function getMemberCoupon(memberId) {
 
 function getPointList(memberId) {
   return memberAPI.get(`/point/list/${memberId}`)
+}
 
-  function getWishBrandList(memberId){
+function getWishBrandList(memberId){
   return memberAPI.get(`/fvbrand/${memberId}`)
 }
 
@@ -129,7 +130,7 @@ function deleteBrand(memberId,brandName){
 }
 
 function getWishList(memberId){
-  return member
+  return memberAPI.get(`wishlist/${memberId}`);
 }
 
 export default {
@@ -151,5 +152,6 @@ export default {
   getPointList,
   getWishBrandList,
   insertBrand,
-  deleteBrand
+  deleteBrand,
+  getWishList
 };
