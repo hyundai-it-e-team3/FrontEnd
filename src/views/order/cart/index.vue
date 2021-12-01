@@ -1,7 +1,7 @@
 <template>
-  <v-card class="pa-0 mt-2">
+  <v-card class="pa-0 mt-11">
   <v-container>
-    <v-row>
+    <v-row v-if="false">
       <v-col cols="6" class="mb-2">
         <v-btn small>
         전체 {{cartList.length}}개

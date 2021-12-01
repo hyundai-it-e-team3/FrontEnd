@@ -10,12 +10,11 @@
         <v-row class="d-flex justify-space-between">     
           <v-checkbox x-large
             class="ma-0"
-            color="orange"
+            color="grey darken-3"
             :value="cartId"
             v-model="cartSelected"
             @click="handleCheckbox()"
         ></v-checkbox>
-          {{cartId}}
         </v-row>
         </v-img>
               </v-col>
@@ -35,13 +34,13 @@
 
 
 
-            <v-row class="d-flex flex-row-reverse ">
+            <v-row class="d-flex justify-end mt-5 ">
               <v-col cols="2">
-                <v-icon small @click="plusAmount">mdi-plus</v-icon>
+                <v-icon small @click="minusAmount">mdi-minus</v-icon>
               </v-col>
               <v-col cols="3" class="text-center">{{amount}}</v-col>
               <v-col cols="2">
-                <v-icon small @click="minusAmount">mdi-minus</v-icon>
+                <v-icon small @click="plusAmount">mdi-plus</v-icon>
               </v-col>
             </v-row>
             <v-divider/>
@@ -52,24 +51,23 @@
               <v-col>
                 <v-row class="d-flex align-center">
                   <v-col cols="12" >
-                    <div class="text-right">상품코드 : {{productDetailId}}</div>
+                    <div class="text-right mt-1">{{productDetailId}}</div>
                     <div class="text-right">사이즈 : {{psize}}</div>
                   </v-col>
-                  <v-col cols="12" class="text-right" @click="changeDetail">변경</v-col>
+                  <v-col cols="12" class="text-right mt-3" @click="changeDetail">변경</v-col>
                 </v-row>
               </v-col>
             </v-row>
           </v-col>
           
-
-
-
-
-          <v-col cols="8" v-if="changeFlag">
+          <v-col cols="8" v-if="changeFlag" class="d-flex align-center justify-center">
+            <div>
             <v-row>
               <v-col cols="3" class="d-flex align-center">색상 </v-col>
-              <v-col cols="2" v-for="(colorChip, index) in colorChips" :key="index">
-                <img :src="colorChip" width="30" @click="goProductDetail(index)"/>
+              <v-col cols="9">
+                  <div v-for="(colorChip, index) in colorChips" :key="index">
+                    <img :src="colorChip" width="30" @click="handleColor(index)"/>
+                  </div>
               </v-col>
             </v-row>
             <v-row>
@@ -81,10 +79,12 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col>
-                <v-btn  @click="handleUpdate" >변경하기</v-btn>
+              <v-col class="d-flex justify-center">
+                <v-btn small  @click="changeFlag = !changeFlag" class="mr-2">취소</v-btn>
+                <v-btn small @click="handleUpdate" class="ml-2">변경하기</v-btn>
               </v-col>
             </v-row>
+            </div>
           </v-col>
 
 
@@ -125,6 +125,7 @@ export default {
   methods: {
     changeDetail() {
       this.changeFlag = !this.changeFlag
+      
     },
     plusAmount() {
       if(this.amount+1 > this.stock) {
@@ -191,7 +192,7 @@ export default {
     } ,
     handleCheckbox() {
       this.$emit("check-checkbox", this.cartId, this.cartSelected);
-    }
+    } 
   },
   created() {
     this.handleProductInfo();
