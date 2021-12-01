@@ -10,9 +10,9 @@
                 <v-icon small>mdi-magnify</v-icon>
             </v-btn>
             <v-spacer></v-spacer>
-            <v-toolbar-title>THE HANSOME</v-toolbar-title>
+            <v-toolbar-title>THE HANDSOME</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn icon to="/member/cart">
+            <v-btn icon to="/order/cart">
                 <v-icon small>mdi-cart-minus</v-icon>
             </v-btn>
             </template>

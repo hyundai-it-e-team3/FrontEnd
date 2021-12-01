@@ -14,9 +14,7 @@
         <v-spacer></v-spacer>
         장바구니
         <v-spacer></v-spacer>
-        <v-btn icon to="/member/cart">
-            <v-icon small>mdi-cart-minus</v-icon>
-        </v-btn>
+
         </template>
     </v-app-bar>
 </template>

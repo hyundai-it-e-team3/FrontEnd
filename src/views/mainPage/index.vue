@@ -2,9 +2,7 @@
   <v-container fluid class="pa-0">
     <v-row class="mt-2">
       <v-col class="pa-0">
-        <v-layout color="#385F73" dark>
-          <img src="@/assets/images/event.png" width="100%">
-        </v-layout>
+        <event-component/>
         <category-nav/>
         <v-col>
           <v-card-title class="text-h6 pa-1">신상품</v-card-title>
@@ -156,10 +154,12 @@
 <script>
 import PagerModule from "@/modules/pagerModule";
 import CategoryNav from "@/components/layout/CategoryNav";
+import EventComponent from './eventComponent.vue';
 export default {
   name: "mainPage",
   components: {
-    CategoryNav
+    CategoryNav,
+    EventComponent
   },
   data() {
     return {
