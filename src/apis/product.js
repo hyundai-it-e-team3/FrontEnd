@@ -17,8 +17,13 @@ function getCartProduct(productDetailId){
   return productAPI.get(`/product/${productId}`);
 }
 
+function getproductDetailPrice(productDetailId){
+  return productAPI.get(`/productDetail/price/${productDetailId}`);
+}
+
 export default{
   getProdct,
   getCartProduct,
-  addAuthHeader
+  addAuthHeader,
+  getproductDetailPrice
 }

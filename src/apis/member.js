@@ -125,6 +125,10 @@ function deleteBrand(memberId,brandName){
   return memberAPI.delete(`fvbrand/${memberId}/${brandName}`)
 }
 
+function getWishList(memberId){
+  return member
+}
+
 export default {
   joinMember,
   login,

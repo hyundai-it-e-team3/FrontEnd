@@ -229,7 +229,7 @@ export default {
     this.brandName = this.$route.query.brandName;
     this.index = parseInt(this.$route.query.index);
     this.mdPickList = this.brandList[this.index].mdPickList;
-    console.log(this.brandList);
+    
     for (let brandCategory of this.brandList[this.index].brandCategoryTempList) {
       if (brandCategory.clevel == 1) {
         this.categoryList.push(brandCategory);

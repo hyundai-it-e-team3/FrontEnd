@@ -2,7 +2,7 @@
 <template>
     <v-list dense nav>
       <v-list-item   v-for="(item, index) in wishList"
-            :key="index" to="/product/brand">
+            :key="index" @click="goBrand(item.name,item.index)">
         <v-list-item-icon>
         </v-list-item-icon>
         <v-list-item-content>
@@ -26,13 +26,18 @@ export default {
   }),
   //컴포넌트 메소드 정의
   methods:{
+    goBrand(brandName,index){
+      this.$router.push(`/product/brand?brandName=${brandName}&index=${index}`).catch(()=>{});
+    }
   },
   beforeMount(){
     let tempBrandList = this.$store.getters["category/getBrandCategory"];
     let myWishList = this.$store.getters["category/getWishBrand"];
+    console.log(myWishList);
+    console.log(tempBrandList);
     for(let i = 0; i < tempBrandList.length; i++){
-      if(myWishList.includes(tempBrandList[i].name)){
-        this.wishList.push({'name':tempBrandList[i].name,'index':i});
+      if(myWishList.includes(tempBrandList[i].brandName)){
+        this.wishList.push({'name':tempBrandList[i].brandName,'index':i});
       }
     }
   }
