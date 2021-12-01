@@ -6,10 +6,10 @@
     @click="active = true"
     >
       
-            <v-row>
-              <v-col cols="4">
-                <v-img :src="productDetail.thumbnail" height="180" class="d-flex flex-row pl-2 pt-0"
-            gradient="to top, rgba(0,0,0,.3), rgba(0,0,0,.3)" >
+      <v-row>
+        <v-col cols="4">
+          <v-img :src="productDetail.thumbnail" height="180" class="d-flex flex-row pl-2 pt-0"
+          gradient="to top, rgba(0,0,0,.3), rgba(0,0,0,.3)" >
         <v-row class="d-flex justify-space-between">     
           <v-checkbox x-large
             class="ma-0"
@@ -68,15 +68,17 @@
 
           <v-col cols="8" v-if="changeFlag">
             <v-row>
-              <v-col cols="12" class="d-flex align-center">색상 </v-col>
-              <v-col cols="12" v-for="(colorChip, index) in colorChip" :key="index">
-                <img :src="colorChip" width="30" />
+              <v-col cols="3" class="d-flex align-center">색상 </v-col>
+              <v-col cols="2" v-for="(colorChip, index) in colorChips" :key="index">
+                <img :src="colorChip" width="30" @click="goProductDetail(index)"/>
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols="12" class="d-flex align-center">사이즈</v-col>
-              <v-col cols="12" v-for="(size, index) in size" :key="index">
-                {{size}}
+              <v-col cols="3" class="d-flex align-center">사이즈</v-col>
+              <v-col cols="2" v-for="(stock, index) in productDetail.stockList" :key="index">
+                <v-btn small v-if="sizeIdx==index" color="success" dark>{{stock.psize}}</v-btn>
+                <v-btn small v-else-if="productDetail.stockList[index].amount==0" color="secondary" dark>{{stock.psize}}</v-btn>
+                <v-btn small v-else-if="sizeIdx!=index" @click="selectSize(index)">{{stock.psize}}</v-btn>
               </v-col>
             </v-row>
             <v-row>
@@ -109,6 +111,7 @@ export default {
       changeFlag: false,
       productDetail: null,
       active: false,
+      colorChips: null,
     };
   },
   props: [
@@ -140,7 +143,6 @@ export default {
             this.loading = true;
             this.alertDialog = true;
             const response = await orderAPI.deleteCart(this.cartId);
-            console.log(response);
             this.loading = false;
             this.alertDialog = false;
             this.$destroy();
@@ -163,8 +165,11 @@ export default {
       this.loading = true;
       this.alertDialog = true;
       const response = productAPI.getCartProduct(this.productDetailId).then(response => {
-          console.log(response.data);
           this.productDetail = response.data; 
+
+          for(let i = 0; i < this.productDetail.productDetailList.length; i++){
+            this.colorChips.push(this.productDetail.productDetailList[i].colorChip);
+          }
           this.loading = false;
           this.alertDialog = false;
           }).catch(error => {
@@ -185,6 +190,9 @@ export default {
   },
   created() {
     this.handleProductInfo();
+    
+    
+
   },
   onClickOutside () {
     this.active = false

@@ -24,6 +24,7 @@
     </v-card>
 
 
+
   </v-container>
   <alert-dialog v-if="alertDialog"
               :loading="loading"
@@ -79,7 +80,10 @@ export default {
   },
   created() {
     this.handleCartList();
-  }
+  },
+  mounted(){
+    this.$store.commit("setPageFlag",'product');
+  },
 }
 </script>
 
