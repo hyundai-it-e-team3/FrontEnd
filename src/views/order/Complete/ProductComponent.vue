@@ -14,18 +14,10 @@
                 <div> 처리 상태 : {{orderDetail.state}} </div>
               </v-col>
             </v-row>
-            <v-expansion-panels accordion flat>
-                <v-expansion-panel>
-                    <v-expansion-panel-header class="pa-0 pl-4 pr-4">
-                        <v-row>
-                        <v-col cols="3" class="pa-0 text-left">금액</v-col>
-                        <v-spacer></v-spacer>
-                        <v-col cols="9" class="pa-0 text-right pr-4">{{orderDetail.price}}원</v-col>
-                        </v-row>
-                    </v-expansion-panel-header>
-                   
-                </v-expansion-panel>
-            </v-expansion-panels>
+            <v-row>
+              <v-col cols="3" class="pa-0 text-left">금액</v-col>
+              <v-col cols="9" class="pa-0 text-right pr-4">{{orderDetail.price}}원</v-col>
+            </v-row>
           </v-col>
         </v-row>
     </v-card>  
@@ -82,5 +74,10 @@ export default {
 
 <!-- 컴포넌트 스타일 정의 -->
 <style scoped>
+
+*{
+  margin:0px;
+  padding:0px;
+}
 
 </style>
