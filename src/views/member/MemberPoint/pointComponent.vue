@@ -1,38 +1,48 @@
 <!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-    <v-card>
-      <v-card-title>2021.11.01</v-card-title>
-      <v-divider/>
-      <v-card-text>
-          <div>-1,000</div>
-          <div>결제 사용</div>
-      </v-card-text>
-      <v-card-text>
-          <div>+3,420</div>
-          <div>구매 확정시 적립</div>
-      </v-card-text>
-    </v-card>  
+  <v-card class="d-flex ml-2 mr-2 mt-1 mb-1 pa-1" outlined>
+    <v-col class="pointRegDate col-4">
+      {{new Date(pointList.regDate).toLocaleDateString()}}
+    </v-col>
+    <v-col class="col-5 d-flex justify-end">
+      <span class="pointTypeSave" v-if="pointList.type === '적립'">{{pointList.type}}</span>
+      <span class="pointTypeUse" v-if="pointList.type === '사용'">{{pointList.type}}</span>
+    </v-col>
+    <v-col class="point col-3 d-flex justify-end">
+      {{pointList.point}} 점
+    </v-col>
+  </v-card>
 </template>
 
 <script>
 export default {
-    //컴포넌트의 대표이름 (devtools에 나오는 이름)
-    name: "pointComponent",
-    //추가하고 싶은 컴포넌트 등록
-    components: {
-    },
-    //컴포넌트 데이터 정의
-    data: function() {
-        return {
-        };
-    },
-    //컴포넌트 메소드 정의
-    methods: {
-    }
-}
+  name: "pointComponent",
+  components: {
+  },
+  data: function () {
+    return {};
+  },
+  methods: {},
+  props:  [
+    "pointList"
+  ]
+};
 </script>
 
-<!-- 컴포넌트 스타일 정의 -->
 <style scoped>
-
+.pointRegDate {
+  font-size: 15px;
+  font-weight: 500;
+}
+.pointTypeSave {
+  font-size: 15px;
+  color: rgb(39, 100, 232);
+}
+.pointTypeUse {
+  font-size: 15px;
+  color: crimson;
+}
+.point {
+  font-size: 15px;
+}
 </style>

@@ -110,7 +110,10 @@ function getMemberCoupon(memberId) {
   return memberAPI.get(`/member/coupon/list/${memberId}`)
 }
 
-function getWishBrandList(memberId){
+function getPointList(memberId) {
+  return memberAPI.get(`/point/list/${memberId}`)
+
+  function getWishBrandList(memberId){
   return memberAPI.get(`/fvbrand/${memberId}`)
 }
 
@@ -145,6 +148,7 @@ export default {
   deleteAccount,
   updateAccountPassword,
   getMemberCoupon,
+  getPointList,
   getWishBrandList,
   insertBrand,
   deleteBrand
