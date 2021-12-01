@@ -1,6 +1,6 @@
 <!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-    <v-card>
+    <v-card class="pa-1">
         <v-row v-for="(order) in orderList" :key="order.orderId">
             <order-component :orderId=order.orderId           
                             :orderDate=order.orderDate
@@ -68,5 +68,9 @@ export default {
 
 <!-- 컴포넌트 스타일 정의 -->
 <style scoped>
+    *{
+        margin:0px;
+        padding:0px;
+    }
 
 </style>
