@@ -6,10 +6,12 @@
         <title-header 
             title="주문완료"
             v-if="pageFlag==='title'"/>
+        <cart-header v-if="pageFlag==='cart'"/>
     </div>
 </template>
 
 <script>
+import CartHeader from './CartHeader.vue';
 import MainHeader from './MainHeader.vue';
 import ProductHeader from './ProductHeader.vue';
 import TitleHeader from './TitleHeader.vue';
@@ -20,7 +22,8 @@ export default {
     components: {
         MainHeader,
         ProductHeader,
-        TitleHeader
+        TitleHeader,
+        CartHeader
     },
     //컴포넌트 데이터 정의
     data: function() {

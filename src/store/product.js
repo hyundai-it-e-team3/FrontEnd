@@ -9,15 +9,20 @@ export default{
             amount : "0",
             stock : "0",
             category : "Store_null",
-            productName : "Store_null"
-        }
+            productName : "Store_null",
+            price : 0
+        },
+        cartIdList: null
     },
     //상태값을 읽는 메소드를 정의 (=getter)
     getters: {
         //root 상태값에 접근하려면 rootState 사용
         getProduct(state, getters, rootState, rootGetters) {
             return state.product;
-        }
+        },
+        getCartIdList(state, getters, rootState, rootGetters) {
+            return state.cartIdList;
+        },
     },
     //상태값을 변경하는 메소드 정의, 동기 방식 처리 (=setter)
     mutations: {
@@ -25,6 +30,10 @@ export default{
         setProduct(state, payload) {
             state.product = payload;
             console.log(state.product);
+        },
+        setCartIdList(state, payload) {
+            state.cartIdList = payload;
+            console.log(state.cartIdList);
         }
-    }
+    },
 }
