@@ -289,7 +289,7 @@ export default {
             try {
                 const multipartFormData = new FormData();
 
-                multipartFormData.append("memberId", "chenjae");
+                multipartFormData.append("memberId", this.$store.state.memberId);
                 multipartFormData.append("totalPrice", this.order.totalPrice);
                 multipartFormData.append("discountPrice", this.order.discountPrice);
                 multipartFormData.append("state", 1);
