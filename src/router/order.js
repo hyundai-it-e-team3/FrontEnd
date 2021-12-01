@@ -17,4 +17,9 @@ export default[
     //lazyloding
     component: () => import(/* webpackChunkName: "about" */ '../views/order/OrderList')
   },
+  {
+    path: "/order/cart",
+    //lazyloding
+    component: () => import(/* webpackChunkName: "about" */ '../views/order/cart')
+  },
 ]
