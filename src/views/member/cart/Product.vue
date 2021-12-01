@@ -77,6 +77,9 @@ export default {
     changeDetail() {
       this.changeFlag = !this.changeFlag
     }
+  },
+  created() {
+
   }
 }
 </script>

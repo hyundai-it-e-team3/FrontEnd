@@ -14,19 +14,11 @@ import AfterLogin from './AfterLogin.vue'
 import BeforeLogin from './BeforeLogin.vue';
 
 export default {
-  name:"",
+  name:"MyPage",
   components: {
     AfterLogin,
     BeforeLogin,
   },
-  data() {
-    return {
-    };
-  },
-  methods: {
-  },
-  created: {
-  }
 }
 </script>
 

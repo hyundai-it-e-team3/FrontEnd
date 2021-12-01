@@ -1,32 +1,30 @@
 <template>
-  <v-card class="mt-13">
+  <v-card class="pa-0">
   <v-container>
     <v-row>
-      <v-col cols="1">
-        <v-icon class="d-flex">mdi-check-circle-outline</v-icon>
+      <v-col cols="6" class="mb-2">
+        <v-btn small>
+        전체 {{cartList.length}}개
+        </v-btn>
       </v-col>
-      <v-col cols="2">
-        전체 N개
-      </v-col>
-      <v-col cols="5">
-      </v-col>
-      <v-col cols="2">
+      <v-col cols="6" class="d-flex flex-row-reverse">
+        <v-btn small>
         선택삭제
+        </v-btn>
       </v-col>    
-      <v-col cols="2">
-        품절삭제
-      </v-col> 
     </v-row>
 
-    <v-row>
-      <v-divider class="ml-2 mr-2 mb-2"/>
-    </v-row>
+    <v-card class="pa-1" flat>
     <v-row v-for="(cart) in cartList" :key="cart.cartId">
       <cart-component   :productDetailId=cart.productDetailId
                         :psize=cart.psize
                         :amount=cart.amount
                         :cartId=cart.cartId />
    </v-row>
+    </v-card>
+
+
+
   </v-container>
   <alert-dialog v-if="alertDialog"
               :loading="loading"
@@ -82,9 +80,13 @@ export default {
   },
   created() {
     this.handleCartList();
-  }
+  },
+  mounted(){
+    this.$store.commit("setPageFlag",'product');
+  },
 }
 </script>
 
 <style scoped>
+
 </style>

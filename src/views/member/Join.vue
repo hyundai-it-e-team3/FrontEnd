@@ -54,7 +54,7 @@
         </validation-provider>
 
         <validation-provider name="member.tel" rules="telRequired|telType" v-slot="{ errors }">
-          <v-col>전화번호<span class="red--text">*</span> <span class="telComment">'-'를 제외한 숫자만 입력바랍니다.</span></v-col>
+          <v-col>전화번호<span class="red--text">*</span> <span class="telComment">'-'를 포함해 입력바랍니다.</span></v-col>
           <v-text-field placeholder="전화번호"
                         v-model="member.tel"
                         outlined
@@ -95,7 +95,7 @@
     <alert-dialog :message="alertDialogMessage"
                       :loading="loading"
                       v-if="alertDialog"
-                      @close="alertDialog=false" />
+                      @close="goMyPage" />
   </v-container>
 </template>
 
@@ -146,7 +146,7 @@ extend('telRequired', {
   message: '전화번호를 입력하세요.'
 });
 extend('telType', value => {
-  let format = /^(01[0|1|6|7|8|9])([0-9]{7,8})$/;
+  let format = /^(01[0|1|6|7|8|9])-([0-9]{3,4})-([0-9]{4})$/;
   if(format.test(value)) {
     return true;
   }
@@ -207,9 +207,8 @@ export default {
         try {
           this.loading = true;
           this.alertDialog = true;
-
+          
           const response = await memberAPI.joinMember(this.member);
-          console.log(response);
 
           this.loading = false;
           if(response.data === "success") {
@@ -227,6 +226,9 @@ export default {
         }
       }
     },
+    goMyPage() {
+      this.$router.push("/member/mypage");
+    }
   },
 }
 </script>

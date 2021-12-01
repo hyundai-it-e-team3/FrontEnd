@@ -1,40 +1,39 @@
-<!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-    <v-expansion-panel>
-        <v-expansion-panel-header>
-            <v-avatar color="grey darken-3" class="mr-2" size="30" rounded>
-            <div class="white--text">D-30</div>
-            </v-avatar>
-            <div>
-            신규 회원가입 환영 쿠폰
-            </div>
-        </v-expansion-panel-header>
-        <v-expansion-panel-content>
-            <div>3000원 할인</div>
-            <div>2021-11-20 ~ 2021-12-20</div>
-        </v-expansion-panel-content>
-    </v-expansion-panel>
+  <v-expansion-panel>
+    <v-expansion-panel-header>
+      <div class="couponName font-weight-bold">{{memberCoupon.name}}</div>
+    </v-expansion-panel-header>
+    <v-expansion-panel-content>
+      <div class="couponAmount font-weight-medium blue--text">{{memberCoupon.amount}}
+        <span v-if="memberCoupon.type === '1'">원</span>
+        <span v-if="memberCoupon.type === '2'">%</span>
+         할인
+      </div>
+      <div>{{memberCoupon.content}}</div>
+      <div>{{new Date(memberCoupon.expDate).toLocaleDateString()}} 까지</div>
+    </v-expansion-panel-content>
+  </v-expansion-panel>
 </template>
 
 <script>
+
 export default {
-    //컴포넌트의 대표이름 (devtools에 나오는 이름)
-    name: "couponComponent",
-    //추가하고 싶은 컴포넌트 등록
-    components: {
-    },
-    //컴포넌트 데이터 정의
-    data: function() {
-        return {
-        };
-    },
-    //컴포넌트 메소드 정의
-    methods: {
-    }
-}
+  name: "CouponComponent",
+  components: {},
+  data: function () {
+    return {};
+  },
+  props: [
+    "memberCoupon"
+  ],
+};
 </script>
 
-<!-- 컴포넌트 스타일 정의 -->
 <style scoped>
-
+.couponName {
+  font-size: 15px;
+}
+.couponAmount  {
+  font-size: 1.3em;
+}
 </style>

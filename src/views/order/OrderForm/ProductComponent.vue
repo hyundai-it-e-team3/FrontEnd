@@ -3,14 +3,14 @@
     <v-card>
       <v-row>
           <v-col cols="4" class="pa-0 pl-2 pb-2">
-            <v-img width="100%" src="http://newmedia.thehandsome.com/CM/2B/SS/CM2B1KOT032M_DB_W01.jpg/dims/resize/684x1032/"/>
+            <v-img width="100%" :src="product.thumbnail"/>
           </v-col>
           <v-col cols="8" class="pa-1 pl-2">
             <v-row>
               <v-col class="pa-4">
                 <div class="font-weight-bold">{{product.brandName}}</div>
-                <div>{{product.productName}}</div>
-                <div> {{product.colorCode}} / {{product.psize}} / {{product.amount}}개 </div>
+                <div>{{product.name}}</div>
+                <div> {{cart.productDetailId}} / {{cart.psize}} / {{cart.amount}}개 </div>
               </v-col>
             </v-row>
             <v-expansion-panels accordion flat >
@@ -54,6 +54,7 @@ export default {
     name: "productComponent",
     //추가하고 싶은 컴포넌트 등록
     components: {
+      
     },
     //컴포넌트 데이터 정의
     data: function() {
@@ -62,12 +63,15 @@ export default {
     },
     //컴포넌트 메소드 정의
     methods: {
+      
+      
     },
     props: [
+      "cart",
       "product"
     ],
     created() {
-      //정보 불러오기
+
     }
 }
 </script>

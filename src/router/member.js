@@ -39,4 +39,34 @@ export default[
     //lazyloding
     component: () => import(/* webpackChunkName: "about" */ '../views/member/MemberPoint')
   },
+  {
+    path: "/member/address",
+    //lazyloding
+    component: () => import(/* webpackChunkName: "about" */ '../views/member/Address')
+  },
+  {
+    path: "/member/address/update",
+    //lazyloding
+    component: () => import(/* webpackChunkName: "about" */ '../views/member/Address/AddressUpdate')
+  },
+  {
+    path: "/member/address/insert",
+    //lazyloding
+    component: () => import(/* webpackChunkName: "about" */ '../views/member/Address/AddressInsert')
+  },
+  {
+    path: "/member/account",
+    //lazyloding
+    component: () => import(/* webpackChunkName: "about" */ '../views/member/Account')
+  },
+  {
+    path: "/member/account/insert",
+    //lazyloding
+    component: () => import(/* webpackChunkName: "about" */ '../views/member/Account/AccountInsert')
+  },
+  {
+    path: "/member/account/password",
+    //lazyloding
+    component: () => import(/* webpackChunkName: "about" */ '../views/member/Account/InsertPassword')
+  },
 ]

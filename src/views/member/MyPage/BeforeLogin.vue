@@ -47,7 +47,7 @@
 <script>
 import { extend } from 'vee-validate';
 import { required } from 'vee-validate/dist/rules';
-import member from '@/apis/member';
+import memberAPI from '@/apis/member';
 import AlertDialog from "@/components/alert/AlertDialog.vue";
 
 extend('memberIdRequired', {
@@ -79,8 +79,7 @@ export default {
   methods: {
     async handleLogin() {
       try {
-        const response = await member.login(this.member);
-        console.log(response);
+        const response = await memberAPI.login(this.member);
 
         if(response.data.result === 'success') {
           this.$store.dispatch("saveAuth", {

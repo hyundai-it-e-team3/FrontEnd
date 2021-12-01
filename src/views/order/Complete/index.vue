@@ -1,13 +1,17 @@
 <!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-    <v-card class="mt-14 mb-12 ml-1 mr-1" flat>
-      <v-card-title></v-card-title>
-      <v-card-subtitle>No.{{this.$route.query.orderNo}}</v-card-subtitle>
-      <v-card-text>{{order.orderDate}}</v-card-text>
+    <v-card flat>
+      <v-card-title>No.{{this.$route.query.orderNo}}</v-card-title>
+      <v-card-subtitle>{{order.orderDate}}</v-card-subtitle>
       <v-divider/>
-      <v-row v-for="(orderDetail, i) in orderDetailList" :key="i">
-      <product-component :orderDetail=orderDetail />
-      </v-row>
+      <v-card-text>
+        
+      <v-card v-for="(orderDetail, i) in orderDetailList" :key="i" class="ma-1">
+        <product-component :orderDetail=orderDetail />
+      </v-card>
+      </v-card-text>
+
+      <v-card-text>
       <v-expansion-panels accordion flat>
         <v-expansion-panel>
             <v-expansion-panel-header class="pa-0 pl-4 pr-2">
@@ -66,9 +70,14 @@
             </v-expansion-panel-content>
         </v-expansion-panel>
     </v-expansion-panels>
+    </v-card-text>
     <v-card-actions>
-        <v-btn tile width="70%">배송지 수정</v-btn>
-        <v-btn tile width="30%">주문 취소</v-btn>
+        <v-col cols="8">
+        <v-btn width="100%">배송지 수정</v-btn>
+        </v-col>
+        <v-col cols="4">
+        <v-btn  width="100%">주문 취소</v-btn>
+        </v-col>
     </v-card-actions>
     </v-card>  
 </template>
@@ -132,5 +141,8 @@ export default {
 
 <!-- 컴포넌트 스타일 정의 -->
 <style scoped>
-
+    *{
+        margin:0px;
+        padding:0px;
+    }
 </style>
