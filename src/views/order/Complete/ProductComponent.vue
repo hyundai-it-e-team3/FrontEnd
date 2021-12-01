@@ -1,29 +1,34 @@
 <!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-    <v-card>
+    <v-card height="180">
+      <v-card-text>
       <v-row>
           <v-col cols="5" class="pa-0 pl-2 pb-2">
-            <v-img max-height="170" :src="productDetail.thumbnail"/>
+            <div class="d-flex align-center js">
+            <v-img height="170" width="170" class="mt-1" :src="productDetail.thumbnail"/>
+            </div>
           </v-col>
           <v-col cols="7" class="pa-1 pl-2">
             <v-row>
               <v-col class="pa-4">
-                <div class="font-weight-bold">{{orderDetail.brandName}}</div>
-                <div>{{orderDetail.productName}}</div>
-                <div> {{orderDetail.productDetailId}} / {{orderDetail.psize}} / {{orderDetail.amounts}}개 </div>
+                <div class="font-weight-bold">[{{productDetail.brandName}}]</div>
+                <div>{{productDetail.name}}</div>
+                <div> {{orderDetail.productDetailId}}</div>
+                <div>{{orderDetail.psize}} / {{orderDetail.amounts}}개 </div> 
+                <div class="font-weight-bold"> {{orderDetail.price}}원 </div>
+
+                <v-divider class="mt-3"/>
                 <div> 처리 상태 : {{orderDetail.state}} </div>
               </v-col>
             </v-row>
-            <v-row>
-              <v-col cols="3" class="pa-0 text-left">금액</v-col>
-              <v-col cols="9" class="pa-0 text-right pr-4">{{orderDetail.price}}원</v-col>
-            </v-row>
           </v-col>
         </v-row>
+      </v-card-text>
     </v-card>  
 </template>
 
 <script>
+import dayjs from 'dayjs';
 import productAPI from "@/apis/product";
 export default {
     //컴포넌트의 대표이름 (devtools에 나오는 이름)
