@@ -112,6 +112,24 @@ function getMemberCoupon(memberId) {
 
 function getPointList(memberId) {
   return memberAPI.get(`/point/list/${memberId}`)
+
+  function getWishBrandList(memberId){
+  return memberAPI.get(`/fvbrand/${memberId}`)
+}
+
+function insertBrand(memberId,brandName){
+  return memberAPI.post('/fvbrand',{
+    memberId,
+    brandName
+  })
+}
+
+function deleteBrand(memberId,brandName){
+  return memberAPI.delete(`fvbrand/${memberId}/${brandName}`)
+}
+
+function getWishList(memberId){
+  return member
 }
 
 export default {
@@ -130,5 +148,8 @@ export default {
   deleteAccount,
   updateAccountPassword,
   getMemberCoupon,
-  getPointList
+  getPointList,
+  getWishBrandList,
+  insertBrand,
+  deleteBrand
 };

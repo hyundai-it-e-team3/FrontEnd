@@ -1,7 +1,7 @@
 <template>
-  <v-card class="pa-0">
+  <v-card class="pa-0 mt-11">
   <v-container>
-    <v-row>
+    <v-row v-if="false">
       <v-col cols="6" class="mb-2">
         <v-btn small>
         전체 {{cartList.length}}개
@@ -19,12 +19,10 @@
       <cart-component   :productDetailId=cart.productDetailId
                         :psize=cart.psize
                         :amount=cart.amount
-                        :cartId=cart.cartId />
+                        :cartId=cart.cartId
+                        @check-checkbox="handleCheckbox" />
    </v-row>
     </v-card>
-
-
-
   </v-container>
   <alert-dialog v-if="alertDialog"
               :loading="loading"
@@ -50,7 +48,8 @@ export default {
       alertDialog: false,
       alertDialogMessage: "",
       loading: false,
-      cartLength: null
+      cartLength: null,
+      cartIdList: []
     };
   },
   methods: {
@@ -75,6 +74,14 @@ export default {
               this.alertDialogMessage = "네트워크 통신 오류";
           }
       });
+    },
+    handleCheckbox(cartId, value) {
+      if(value) {
+        this.cartIdList.push(cartId);
+      } else {
+        const idx = this.cartIdList.indexOf(cartId);
+        this.cartIdList.splice(idx,1);
+      }
     }
 
   },
@@ -82,11 +89,15 @@ export default {
     this.handleCartList();
   },
   mounted(){
-    this.$store.commit("setPageFlag",'product');
+    this.$store.commit("setPageFlag",'cart');
   },
+  watch: {
+    cartIdList (to, from) {
+      this.$store.commit("product/setCartIdList", to);
+    }
+  }
 }
 </script>
 
 <style scoped>
-
 </style>

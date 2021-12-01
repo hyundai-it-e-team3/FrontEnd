@@ -64,7 +64,7 @@ export default {
       this.$router.push(`/product/categoryProduct?categoryId=${categoryId}`).catch(()=>{});
     }
   },
-  beforeMount(){
+  created(){
     this.menuList = this.$store.getters["category/getCategory"];
   }
 }

@@ -52,6 +52,10 @@ function deleteCart(cartno) {
     return orderAPI.delete(`/cart/${cartno}`);
 }
 
+function getCartInfo(cartId) {
+    return orderAPI.get(`/cart/${cartId}`);
+}
+
 export default {
     getOrderList,
     getOrderDetailList,
@@ -63,5 +67,6 @@ export default {
     deleteCart,
     addAuthHeader,
     insertOrderDetail,
-    insertOrderPayment
+    insertOrderPayment,
+    getCartInfo
 }
