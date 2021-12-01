@@ -110,6 +110,10 @@ function getMemberCoupon(memberId) {
   return memberAPI.get(`/member/coupon/list/${memberId}`)
 }
 
+function getPointList(memberId) {
+  return memberAPI.get(`/point/list/${memberId}`)
+}
+
 export default {
   joinMember,
   login,
@@ -125,5 +129,6 @@ export default {
   insertAccount,
   deleteAccount,
   updateAccountPassword,
-  getMemberCoupon
+  getMemberCoupon,
+  getPointList
 };
