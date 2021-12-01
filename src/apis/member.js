@@ -110,6 +110,21 @@ function getMemberCoupon(memberId) {
   return memberAPI.get(`/member/coupon/list/${memberId}`)
 }
 
+function getWishBrandList(memberId){
+  return memberAPI.get(`/fvbrand/${memberId}`)
+}
+
+function insertBrand(memberId,brandName){
+  return memberAPI.post('/fvbrand',{
+    memberId,
+    brandName
+  })
+}
+
+function deleteBrand(memberId,brandName){
+  return memberAPI.delete(`fvbrand/${memberId}/${brandName}`)
+}
+
 export default {
   joinMember,
   login,
@@ -125,5 +140,8 @@ export default {
   insertAccount,
   deleteAccount,
   updateAccountPassword,
-  getMemberCoupon
+  getMemberCoupon,
+  getWishBrandList,
+  insertBrand,
+  deleteBrand
 };

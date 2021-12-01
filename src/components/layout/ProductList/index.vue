@@ -214,6 +214,7 @@ export default {
       .catch((error) => {
         console.log(error);
       });
+    console.log(this.newList);
   },
   destroyed() {
     this.$store.commit("pager/resetRowCount");

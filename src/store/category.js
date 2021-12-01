@@ -3,7 +3,8 @@ export default{
   namespaced: true,
   state:{
     category:[],
-    brandCategory:[]
+    brandCategory:[],
+    wishBrand:[],
   },
   getters:{
     getCategory(state,getters,rootState,rootGetters){
@@ -11,6 +12,9 @@ export default{
     },
     getBrandCategory(state,getters,rootState,rootGetters){
       return state.brandCategory;
+    },
+    getWishBrand(state,getters,rootState,rootGetters){
+      return state.wishBrand;
     }
   },
   mutations:{
@@ -19,6 +23,16 @@ export default{
     },
     setBrandCategory(state,payload){
       state.brandCategory = payload;
+    },
+    setWishBrand(state,payload){
+      state.wishBrand = payload;
+    },
+    addWishBrand(state,payload){
+      state.wishBrand.push(payload);
+    },
+    removeWishBrand(state,payload){
+      const idx = state.wishBrand.indexOf(payload);
+      state.wishBrand.splice(idx,1);
     }
   },
   actions:{

@@ -61,7 +61,7 @@ export default {
     },
     goList(categoryId){
       console.log(categoryId);
-      this.$router.push(`product/categoryProduct?categoryId=${categoryId}`).catch(()=>{});
+      this.$router.push(`/product/categoryProduct?categoryId=${categoryId}`).catch(()=>{});
     }
   },
   created(){
