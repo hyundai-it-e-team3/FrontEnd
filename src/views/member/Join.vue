@@ -230,6 +230,9 @@ export default {
       this.$router.push("/member/mypage");
     }
   },
+  mounted() {
+    this.$store.commit("setPageFlag", "default");
+  },
 }
 </script>
 

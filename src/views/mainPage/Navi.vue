@@ -1,12 +1,9 @@
 <template>
-  <div class="d-flex justify-center">
-    <div absolut class="pa-0 mt-2">
-          <v-btn class="mr-2" dark color="black" to="/">홈</v-btn>
-          <v-btn class="mr-2" dark color="black" to="/mainpage/newitem">신상품</v-btn>
-          <v-btn class="mr-2" dark color="black" to="/mainpage/bestitem">베스트</v-btn>
-          <v-btn class="mr-2" dark color="black" to="/mainpage/eventpage">이벤트</v-btn>
-    </div>
-  </div>
+  <v-app-bar height="40">
+    <v-tabs v-model="tab" background-color="black" dark color="white" slider-color="black" centered>
+      <v-tab v-for="tabs in tabs" :key="tabs">{{tabs}}</v-tab>
+    </v-tabs>
+  </v-app-bar>
 </template>
 
 <script>
@@ -16,6 +13,8 @@ export default {
   },
   data() {
     return {
+      tab: '',
+      tabs: ['HOME', 'NEW', 'BEST', 'EVENT'],
     };
   },
   methods: {

@@ -133,7 +133,7 @@ export default {
         }
     },
     mounted(){
-        this.$store.commit("setPageFlag",'title');
+        this.$store.commit("setPageFlag",'main');
     }
     ,created() {
         this.handleOrderInfo();

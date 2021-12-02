@@ -4,17 +4,17 @@
 
     <v-col class="mt-1 mb-2">
       <v-row>
-        <img src="@/assets/images/event.png" />
+        <!-- <img src="@/assets/images/event.png" /> -->
       </v-row>
     </v-col>
     <v-col class="mb-2">
       <v-row>
-        <img src="@/assets/images/event.png" />
+        <!-- <img src="@/assets/images/event.png" /> -->
       </v-row>
     </v-col>
     <v-col class="mb-2">
       <v-row>
-        <img src="@/assets/images/event.png" />
+        <!-- <img src="@/assets/images/event.png" /> -->
       </v-row>
     </v-col>
   </v-container>

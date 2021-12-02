@@ -56,8 +56,9 @@ export default {
     let memberId = this.$store.getters.getMemberId;
     this.getPointList(memberId);
   }
+
 };
 </script>
 
 <style scoped>
-</style>
+</style>s

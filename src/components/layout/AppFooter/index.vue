@@ -1,48 +1,42 @@
-<!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-    <v-footer color="black footer" class="pa-2 pt-3" dark absolute>
-        <main-footer v-if="pageFlag==='main'"/>
-        <product-footer v-if="pageFlag==='product'"/>
-        <order-footer v-if="pageFlag==='order'" />
-        <cart-footer v-if="pageFlag==='cart'"/>
-    </v-footer>
+  <v-footer class="pa-0" :color="bgcolor" height="50" dark fixed app>
+    <main-footer v-if="pageFlag === 'main' || pageFlag === 'default'"  />
+    <product-footer v-if="pageFlag === 'product'" />
+    <cart-footer v-if="pageFlag === 'cart'"/>
+  </v-footer>
 </template>
 
 <script>
-import MainFooter from './MainFooter';
-import ProductFooter from './ProductFooter';
-import OrderFooter from './OrderFooter.vue';
-import CartFooter from './CartFooter.vue';
+import MainFooter from "./MainFooter";
+import ProductFooter from "./ProductFooter";
+import CartFooter from "./CartFooter.vue";
+
 export default {
-    //컴포넌트의 대표이름 (devtools에 나오는 이름)
-    name: "AppFooter",
-    //추가하고 싶은 컴포넌트 등록
-    components: {
-        MainFooter,
-        ProductFooter,
-        OrderFooter,
-        CartFooter
+  name: "AppFooter",
+  components: {
+    MainFooter,
+    ProductFooter,
+    CartFooter,
+  },
+  data: function () {
+    return {
+      bgcolor: 'black',
+    };
+  },
+  methods: {},
+  computed: {
+    pageFlag() {
+      return this.$store.state.pageFlag;
     },
-    //컴포넌트 데이터 정의
-    data: function() {
-        return {
-        };
-    },
-    //컴포넌트 메소드 정의
-    methods: {
-    },
-    computed: { 
-        pageFlag() {
-            return this.$store.state.pageFlag;
-        }
-    },
-    created(){
-        //console.log(this.$store.state.footerFlag);
-    },
-}
+  },
+  beforeUpdate() {
+    if (this.pageFlag === 'cart') {
+      this.bgcolor = '#085942'; 
+    } else {
+      this.bgcolor = 'black'; 
+    }
+  },
+};
 </script>
 
-<!-- 컴포넌트 스타일 정의 -->
-<style scoped>
-
-</style>
+<style scoped></style>

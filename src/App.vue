@@ -1,17 +1,12 @@
 <template>
   <v-app>
-    <app-header/>
-    <v-main class="mt-5">
-      <v-sheet
-        id="scrolling-techniques-3"
-        class="overflow-y-auto gray"
-        max-height="750px"
-      >
-        <router-view/>
-      </v-sheet>
+    <app-header />
+    
+    <v-main>
+      <router-view/>
     </v-main>
     
-    <app-footer/>
+    <app-footer v-if="!(this.$route.path === '/order/orderForm')"/>
   </v-app>
 </template>
 
@@ -19,10 +14,12 @@
 import AppFooter from './components/layout/AppFooter';
 import AppHeader from './components/layout/AppHeader';
 import CategoryModule from "@/modules/categoryModule";
+
 export default {
   components: { 
     AppFooter ,
-    AppHeader
+    AppHeader,
+    
   },
   name: 'App',
   data: () => ({
@@ -63,10 +60,9 @@ beforeCreate() {
 
 <style>
 * {
-	/* Default Font & Text */
-	font-family: "Apple SD Gothic Neo", Roboto, "Noto Sans KR", sans-serif;
-	font-size: 12px;
   padding : 0;
   margin : 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 600;
 }
 </style>
