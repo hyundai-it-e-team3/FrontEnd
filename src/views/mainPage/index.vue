@@ -2,7 +2,9 @@
   <v-container fluid class="pa-0">
     <v-row class="mt-2">
       <v-col class="pa-0">
-        <event-component/>
+        <v-layout color="#385F73" dark>
+          <img src="@/assets/images/event.png" width="100%">
+        </v-layout>
         <category-nav/>
         <v-col>
           <v-card-title class="text-h6 pa-1">신상품</v-card-title>
@@ -22,7 +24,6 @@
               v-slot="{ active }"
             >
               <v-card
-                :color="active ? undefined : 'grey lighten-1'"
                 class="ma-1"
                 height="200"
                 width="100"
@@ -35,27 +36,22 @@
                     :src="newList[index-1].thumbnail"
                     class="white--text align-end"
                     gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                    height="200px"
+                    height="120px"
                 >
-                  <v-card-title class="body-2">{{newList[index-1].brandName}}</v-card-title>
-                  <v-card-subtitle class="caption">
-                    <div>{{newList[index-1].name}}</div>
-                    <div>{{newList[index-1].price}}₩</div>
-                  </v-card-subtitle>
                 </v-img>
                 <v-img
                     v-if="index-1!=newList.length-2"
                     :src="newList[index-1].thumbnail"
                     class="white--text align-end"
                     gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                    height="200px"
+                    height="120px"
                 >
-                  <v-card-title class="body-2">{{newList[index-1].brandName}}</v-card-title>
-                  <v-card-subtitle class="caption">
-                    <div>{{newList[index-1].name}}</div>
-                    <div>{{newList[index-1].price}}₩</div>
-                  </v-card-subtitle>
                 </v-img>
+                  <v-card-title class="body-2 mt-0 pt-1 card-title">{{newList[index-1].brandName}}</v-card-title>
+                  <v-card-subtitle class="caption card-desc">
+                    <div class="card-desc">{{newList[index-1].name}}</div>
+                    <div class="card-desc">{{newList[index-1].price}}₩</div>
+                  </v-card-subtitle>
                 <v-row
                   class="fill-height"
                   align="center"
@@ -106,27 +102,22 @@
                     :src="bestList[index-1].thumbnail"
                     class="white--text align-end"
                     gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                    height="200px"
+                    height="120px"
                 >
-                  <v-card-title class="body-2">{{bestList[index-1].brandName}}</v-card-title>
-                  <v-card-subtitle class="caption">
-                    <div>{{bestList[index-1].name}}</div>
-                    <div>{{bestList[index-1].price}}₩</div>
-                  </v-card-subtitle>
                 </v-img>
                 <v-img
                     v-if="index-1!=bestList.length-2"
                     :src="bestList[index-1].thumbnail"
                     class="white--text align-end"
                     gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                    height="200px"
+                    height="120px"
                 >
-                  <v-card-title class="body-2">{{bestList[index-1].brandName}}</v-card-title>
-                  <v-card-subtitle class="caption">
-                    <div>{{bestList[index-1].name}}</div>
-                    <div>{{bestList[index-1].price}}₩</div>
-                  </v-card-subtitle>
                 </v-img>
+                <v-card-title class="body-2">{{bestList[index-1].brandName}}</v-card-title>
+                <v-card-subtitle class="caption">
+                  <div class="card-desc">{{bestList[index-1].name}}</div>
+                  <div class="card-desc">{{bestList[index-1].price}}₩</div>
+                </v-card-subtitle>
                 <v-row
                   class="fill-height"
                   align="center"
@@ -154,12 +145,10 @@
 <script>
 import PagerModule from "@/modules/pagerModule";
 import CategoryNav from "@/components/layout/CategoryNav";
-import EventComponent from './eventComponent.vue';
 export default {
   name: "mainPage",
   components: {
     CategoryNav,
-    EventComponent
   },
   data() {
     return {
@@ -244,5 +233,10 @@ export default {
 </script>
 
 <style scoped>
-
+  .card-desc{
+    font-size: 9px;
+  }
+  .card-title{
+    font-size:8px;
+  }
 </style>

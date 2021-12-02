@@ -46,7 +46,7 @@
             }}</v-card-title>
             <v-card-subtitle class="caption">
               <div>{{ newList[index * 2 - 1].name }}</div>
-              <div class="font-weight-blacksss">{{ newList[index * 2 - 1].price.toLocaleString() }}₩</div>
+              <div>{{ newList[index * 2 - 1].price.toLocaleString() }}₩</div>
             </v-card-subtitle>
           </v-card>
           <v-card
@@ -68,7 +68,7 @@
             }}</v-card-title>
             <v-card-subtitle class="caption">
               <div>{{ newList[index * 2 - 1].name }}</div>
-              <div class="font-weight-black">{{ newList[index * 2 - 1].price.toLocaleString() }}₩</div>
+              <div>{{ newList[index * 2 - 1].price.toLocaleString() }}₩</div>
             </v-card-subtitle>
           </v-card>
         </v-col>
@@ -201,27 +201,47 @@ export default {
     },
   },
   created() {
-    PagerModule.getProductList(
-      this.listType,
-      this.brandName,
-      this.categoryId,
-      1,
-      10,
-      this.sortId
-    )
-      .then((response) => {
-        console.log(response.data);
-        this.newList = response.data;
-        this.$store.commit("pager/resetRowCount");
-        this.$store.commit("pager/plusRowCount", 11);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    console.log(this.newList);
+    let stCategoryId = this.$store.getters["pager/getCategoryId"];
+    let stBrandName = this.$store.getters["pager/getBrandName"];
+    let stSortId = this.$store.getters["pager/getSortId"];
+
+    if(this.categoryId==stCategoryId&&this.brandName==stBrandName&&this.sortId==stSortId){
+      console.log("카테고리가 같음");
+      this.newList = this.$store.getters["pager/getProductList"];
+    }else{
+      console.log(stCategoryId+" "+stBrandName+" "+stSortId+" "+this.categoryId+" "+this.brandName+" "+this.sortId)
+      this.$store.commit("pager/resetRowCount");
+      this.$store.commit("pager/resetProductList");
+      this.$store.commit("pager/setCategoryId",this.categoryId);
+      this.$store.commit("pager/setBrandName",this.brandName);
+      this.$store.commit("pager/setSortId",this.sortId);
+      PagerModule.getProductList(
+        this.listType,
+        this.brandName,
+        this.categoryId,
+        1,
+        10,
+        this.sortId
+      )
+        .then((response) => {
+          console.log(response.data);
+          this.newList = response.data;
+          this.$store.commit("pager/resetRowCount");
+          this.$store.commit("pager/plusRowCount", 11);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      console.log(this.newList);
+    }
   },
   destroyed() {
-    this.$store.commit("pager/resetRowCount");
+    this.$store.commit("pager/setCategoryId",this.categoryId);
+    this.$store.commit("pager/setBrandName",this.brandName);
+    this.$store.commit("pager/setSortId",this.sortId);
+    this.$store.commit("pager/setProductList",this.newList);
+    console.log(this.categoryId,this.brandName,this.sortId,this.newList)
+    console.log(this.$store.getters["pager/getCategoryId"],this.$store.getters["pager/getBrandName"],this.$store.getters["pager/getSortId"],this.newList)
   },
   watch: {
     categoryId() {

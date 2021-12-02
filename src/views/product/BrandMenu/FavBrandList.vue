@@ -1,5 +1,6 @@
 <!-- 컴포넌트 UI 정의 -->
 <template>
+  <v-app>
     <v-list dense nav>
       <v-list-item   v-for="(item, index) in wishList"
             :key="index" @click="goBrand(item.name,item.index)">
@@ -10,6 +11,7 @@
         </v-list-item-content>
       </v-list-item>
     </v-list>
+  </v-app>
 </template>
 
 <script>

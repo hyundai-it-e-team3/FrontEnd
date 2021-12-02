@@ -1,8 +1,8 @@
 <!-- 컴포넌트 UI 정의 -->
 <template>
   <v-app>
-    <v-list v-for="(brand,index) in brandMenuList" v-bind:key="brand.name" dense nav>
-      <v-list-item @click="goBrand(brand.brandName,index)">
+    <v-list  dense nav>
+      <v-list-item v-for="(brand,index) in brandMenuList" v-bind:key="brand.name" @click="goBrand(brand.brandName,index)">
         <v-list-item-icon>
         </v-list-item-icon>
         <v-list-item-content>
