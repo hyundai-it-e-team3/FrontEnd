@@ -13,36 +13,10 @@
                 <div> {{orderDetail.productDetailId}} / {{orderDetail.psize}} / {{orderDetail.amount}}개 </div>
               </v-col>
             </v-row>
-            <v-expansion-panels accordion flat >
-                <v-expansion-panel>
-                    <v-expansion-panel-header class="pa-0">
-                        <v-row>
-                        <v-col cols="6">주문 금액</v-col>
-                        <v-spacer></v-spacer>
-                        <v-col cols="6" class="text-right">{{orderDetail.price}}원</v-col>
-                        </v-row>
-                    </v-expansion-panel-header>
-                    <v-expansion-panel-content>
-                        <v-row>
-                            <v-col cols="6">상품 금액</v-col>
-                            <v-spacer></v-spacer>
-                            <v-col cols="6" class="text-right">454,000원</v-col>
-
-                            <v-col cols="6">상품 할인</v-col>
-                            <v-spacer></v-spacer>
-                            <v-col cols="6" class="text-right red--text">-80,000원</v-col>
-
-                            <v-col cols="6">쿠폰 할인</v-col>
-                            <v-spacer></v-spacer>
-                            <v-col cols="6" class="text-right red--text">-15,000원</v-col>
-
-                            <v-col cols="6">포인트 사용</v-col>
-                            <v-spacer></v-spacer>
-                            <v-col cols="6" class="text-right red--text">-5,000원</v-col>
-                        </v-row>
-                    </v-expansion-panel-content>
-                </v-expansion-panel>
-            </v-expansion-panels>
+            <v-row>
+              <v-col cols="6">주문 금액</v-col>
+              <v-col cols="6" class="text-right">{{orderDetail.price}}원</v-col>
+            </v-row>
           </v-col>
         </v-row>
     </v-card>  
@@ -102,5 +76,8 @@ export default {
 
 <!-- 컴포넌트 스타일 정의 -->
 <style scoped>
-
+  *{
+    padding:0;
+    margin:0;
+  }
 </style>
