@@ -2,7 +2,6 @@
   <v-card
     class="mt-2 pa-0"
     >
-      
       <v-row>
         <v-col cols="4">
           <v-img :src="productDetail.thumbnail" height="180" class="d-flex flex-row pl-2 pt-0"
@@ -23,8 +22,8 @@
           <v-col cols="8" v-if="!changeFlag" class="pa-2">
             <v-row  class="d-flex justify-space-between">
               <v-col cols="11">
-                <div >[{{productDetail.brandName}}]</div>
-                <h2>{{productDetail.name}}</h2>
+                <div>[{{productDetail.brandName}}]</div>
+                <div>{{productDetail.name}}</div>
                 <div class="font-weight-bold">{{productDetail.price * amount}}원</div>
               </v-col>
               <v-col cols="1">
@@ -61,38 +60,33 @@
           </v-col>
           
           <v-col cols="8" v-if="changeFlag" class="d-flex align-center justify-center">
-            <div>
-            <v-row>
-              <v-col cols="3" class="d-flex align-center">색상 </v-col>
-              <v-col cols="9">
-                  <div v-for="(colorChip, index) in colorChips" :key="index">
-                    <img :src="colorChip" width="30" @click="handleColor(index)"/>
-                  </div>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="3" class="d-flex align-center">사이즈</v-col>
-              <v-col cols="2" v-for="(stock, index) in productDetail.stockList" :key="index">
-                <v-btn small v-if="sizeIdx==index" color="success" dark>{{stock.psize}}</v-btn>
-                <v-btn small v-else-if="productDetail.stockList[index].amount==0" color="secondary" dark>{{stock.psize}}</v-btn>
-                <v-btn small v-else-if="sizeIdx!=index" @click="selectSize(index)">{{stock.psize}}</v-btn>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col class="d-flex justify-center">
-                <v-btn small  @click="changeFlag = !changeFlag" class="mr-2">취소</v-btn>
-                <v-btn small @click="handleUpdate" class="ml-2">변경하기</v-btn>
-              </v-col>
-            </v-row>
-            </div>
+            
+            <v-card width="100%" class="pa-3" flat>
+              <v-card-text>
+                <v-row>
+                  <v-col cols="3" class="d-flex align-center">색상 </v-col>
+                  <v-col cols="9" class="d-flex align-center">
+                      <div class="mr-2" v-for="(pd, index) in productDetail.productDetailList" :key="index">
+                        <img :src="pd.colorChip" width="30" @click="changeColor(index)"/>
+                      </div>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="3" class="d-flex align-center">사이즈</v-col>
+                  <v-col cols="9" class="d-flex align-center">
+                    <div class="mr-2" v-for="(stock, index) in productDetail.productDetailList[this.colorIdx].stockList" :key="index">
+                      <v-btn v-if="stock.amount == 0" x-small secondary disabled> {{stock.psize}} </v-btn>
+                      <v-btn v-if="stock.amount != 0" x-small @click="handleUpdate(stock)" v-value="stock.psize">{{stock.psize}}</v-btn>
+                    </div>
+                  </v-col>
+                </v-row>
+                <v-divider class="mt-3 mb-3"/>
+                <v-row class="d-flex justify-end">
+                  <div @click="changeDetail" class="mt-7">취소</div>
+                </v-row>
+              </v-card-text>
+            </v-card>
           </v-col>
-
-
-
-
-
-
-
 
       </v-row>
   </v-card>
@@ -109,11 +103,12 @@ export default {
     return {
       changeFlag: false,
       productDetail: {
-        thumbnail: "@/assets/images/event.png",
+        thumbnail: null,
         productDetailList: [{}]
       },
       colorChips: null,
-      cartSelected: false
+      cartSelected: false,
+      colorIdx: 0,
     };
   },
   props: [
@@ -125,7 +120,9 @@ export default {
   methods: {
     changeDetail() {
       this.changeFlag = !this.changeFlag
-      
+    },
+    changeColor(index) {
+      this.colorIdx = index;
     },
     plusAmount() {
       if(this.amount+1 > this.stock) {
@@ -150,7 +147,6 @@ export default {
             this.alertDialog = false;
             this.$destroy();
             this.$el.parentNode.removeChild(this.$el);
-
         } catch(error) {
             if(error.response) {
                 if(error.response.status === 403) {
@@ -170,9 +166,6 @@ export default {
       const response = productAPI.getCartProduct(this.productDetailId).then(response => {
           this.productDetail = response.data; 
 
-          for(let i = 0; i < this.productDetail.productDetailList.length; i++){
-            this.colorChips.push(this.productDetail.productDetailList[i].colorChip);
-          }
           this.loading = false;
           this.alertDialog = false;
           }).catch(error => {
@@ -192,17 +185,71 @@ export default {
     } ,
     handleCheckbox() {
       this.$emit("check-checkbox", this.cartId, this.cartSelected);
-    } 
+    },
+    async handleUpdate(stock) {
+      try {
+          this.loading = true;
+          this.alertDialog = true;
+          
+          const multipartFormData = new FormData();
+          multipartFormData.append("cartId", this.cartId);
+          multipartFormData.append("productDetailId", stock.productDetailId);
+          multipartFormData.append("psize", stock.psize);
+          multipartFormData.append("amount", this.amount);
+
+          this.psize = stock.psize;
+          this.productDetailId = stock.productDetailId;
+
+          const response = await orderAPI.updateCart(this.cartId, multipartFormData);
+          this.loading = false;
+          this.alertDialog = false;
+          this.$el.parentNode.replaceChild(this.$el);
+      } catch(error) {
+          if(error.response) {
+              if(error.response.status === 403) {
+                  this.loading = false;
+                  this.alertDialog = false;
+              } else {
+                  this.loading = false;
+                  this.alertDialogMessage = "네트워크 통신 오류";
+              }
+          }
+      }
+      this.changeFlag = !this.changeFlag;
+    },
+    async handleUpdateAmount(amount) {
+      try {
+          this.loading = true;
+          this.alertDialog = true;
+          const response = await orderAPI.updateCartAmount(this.cartId, amount);
+          this.loading = false;
+          this.alertDialog = false;
+          this.$el.parentNode.replaceChild(this.$el);
+      } catch(error) {
+          if(error.response) {
+              if(error.response.status === 403) {
+                  this.loading = false;
+                  this.alertDialog = false;
+              } else {
+                  this.loading = false;
+                  this.alertDialogMessage = "네트워크 통신 오류";
+              }
+          }
+      }
+    },
   },
   created() {
     this.handleProductInfo();
-    
-    
-
   },
   onClickOutside () {
     this.active = false
+  },
+  watch: {
+    amount(to, from) {
+      this.handleUpdateAmount(to);
+    }
   }
+  
 }
 </script>
 
@@ -210,5 +257,6 @@ export default {
   *{
     margin: 0px;
     padding: 0px;
+    
   }
 </style>
