@@ -13,7 +13,7 @@
                           outlined
                           hide-details>
             </v-text-field>
-            <span class="errormessage col-12 mt-0 ml-15 pl-9 mb-0">{{ errors[0] }}</span>
+            <span class="errormessage col-9 mt-0 ml-15 pl-9 mb-0">{{ errors[0] }}</span>
           </v-row>
         </validation-provider>
 
@@ -25,7 +25,7 @@
                           hide-details>
             </v-text-field>
             <span class="telComment ml-15 pl-9">'-'를 포함해 입력바랍니다.</span>
-            <span class="errormessage col-12 mt-0 ml-15 pl-9 mb-0">{{ errors[0] }}</span>
+            <span class="errormessage col-9 mt-0 ml-15 pl-9 mb-0">{{ errors[0] }}</span>
           </v-row>
         </validation-provider>
 
@@ -36,7 +36,7 @@
                           outlined
                           hide-details>
             </v-text-field>
-            <span class="errormessage col-12 mt-0 ml-15 pl-9 mb-0">{{ errors[0] }}</span>
+            <span class="errormessage col-9 mt-0 ml-15 pl-9 mb-0">{{ errors[0] }}</span>
           </v-row>
         </validation-provider>
 
@@ -47,7 +47,7 @@
                           outlined
                           hide-details>
             </v-text-field>
-            <span class="errormessage col-12 mt-0 ml-15 pl-9 mb-0">{{ errors[0] }}</span>
+            <span class="errormessage col-9 mt-0 ml-15 pl-9 mb-0">{{ errors[0] }}</span>
           </v-row>
         </validation-provider>
 
@@ -58,7 +58,7 @@
                           outlined
                           hide-details>
             </v-text-field>
-            <span class="errormessage col-12 mt-0 ml-15 pl-9 mb-0">{{ errors[0] }}</span>
+            <span class="errormessage col-9 mt-0 ml-15 pl-9 mb-0">{{ errors[0] }}</span>
           </v-row>
         </validation-provider>
         

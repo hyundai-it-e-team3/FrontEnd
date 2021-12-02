@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col class="text-center">회원 정보 수정</v-col>
+      <v-col class="title text-center my-4">회원 정보 수정</v-col>
     </v-row>
     
     <validation-observer ref="observer" v-slot="{ invalid }">
@@ -164,10 +164,9 @@ export default {
 </script>
 
 <style scoped>
-#scrolling-techniques-3 > div > div > div {
-  font-size: 25px;
-  font-weight: 500;
-  margin: 5px  0px 10px 0px;
+.title {
+  font-size: 30px;
+  font-weight: 600;
 }
 .contentname {
   font-size: 13px;
@@ -175,15 +174,12 @@ export default {
 .content {
   font-size: 15px;
 }
-.v-btn {
-  font-size: 3em;
-}
 .col {
-  font-size: 1.3em;
+  font-size: 15px;
   padding: 1%;
 }
 .v-text-field >>> input {
-  font-size: 1.3em;
+  font-size: 15px;
 }
 .errormessage {
   color: red;

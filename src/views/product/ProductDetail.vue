@@ -1,19 +1,9 @@
 <!-- 컴포넌트 UI 정의 -->
 <template>
-  <v-card
-    max-width="374"
-  >
-    <template slot="progress">
-      <v-progress-linear
-        color="deep-purple"
-        height="10"
-        indeterminate
-      ></v-progress-linear>
-    </template>
-
+  <v-card tile>
     <v-carousel
       cycle
-      height="400"
+      height="500"
       hide-delimiter-background
       show-arrows-on-hover
     >
@@ -40,12 +30,11 @@
         </v-sheet>
       </v-carousel-item>
     </v-carousel>
-    <v-card-title>{{product.name}}</v-card-title>
-    <div class="mt-3"  
-      >
+
+    <v-card-title class="font-weight-black pa-3">{{product.name}}</v-card-title>
       <v-container>
         <v-row>
-          <v-col cols="3" class="d-flex align-center">색상 </v-col>
+          <v-col cols="3" class="d-flex align-center">색상</v-col>
           <v-col cols="2" v-for="(colorChip, index) in colorChips" :key="index">
             <img :src="colorChip" width="30" @click="goProductDetail(index)"/>
           </v-col>
@@ -53,7 +42,7 @@
         <v-row>
           <v-col cols="3" class="d-flex align-center">사이즈</v-col>
           <v-col cols="2" v-for="(stock, index) in productDetail.stockList" :key="index">
-            <v-btn small v-if="sizeIdx==index" color="success" dark>{{stock.psize}}</v-btn>
+            <v-btn small v-if="sizeIdx==index" color="#85A182" dark>{{stock.psize}}</v-btn>
             <v-btn small v-else-if="productDetail.stockList[index].amount==0" color="secondary" dark>{{stock.psize}}</v-btn>
             <v-btn small v-else-if="sizeIdx!=index" @click="selectSize(index)">{{stock.psize}}</v-btn>
           </v-col>
@@ -65,7 +54,7 @@
               <v-col cols="2">
                 <v-icon @click="plusAmount()" >mdi-plus-circle-outline</v-icon>
               </v-col>
-              <v-col cols="2" class="text-center"><input type="text" v-model="cart.amount"/></v-col>
+              <v-col cols="2"><input type="text" v-model="cart.amount"/></v-col>
               <v-col cols="2">
                 <v-icon @click="minusAmount()">mdi-minus-circle-outline</v-icon>
               </v-col>
@@ -73,8 +62,7 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="3"></v-col>
-          <v-col cols="7">
+          <v-col>
             <v-alert
               v-if="alertFlag==1"
               dense
@@ -102,15 +90,15 @@
           </v-col>
         </v-row>
       </v-container>
-    </div>
+    
     <v-card-text>
       <v-row
         align="center"
         class="mx-0"
       >
 
-        <div class="grey--text">
-          {{product.price}}₩
+        <div class="font-weight-font-weight-medium black--text" style="font-size: 25px;">
+          {{product.price.toLocaleString()}} ₩
         </div>
       </v-row>
 
@@ -126,33 +114,26 @@
     <v-divider></v-divider>
 
     <v-card-text>
-      <div><span class="mr-4">한섬 마일리지</span> <span>6,750P(5%)</span></div>
-      <div><span class="mr-11">H.Point</span> <span>135P (0.1%)</span></div>
+      <div><span class="mr-3">한섬 마일리지</span> <span>6,750P(5%)</span></div>
+      <div><span class="mr-13">H.Point</span> <span>135P (0.1%)</span></div>
       <div><span class="mr-14">배송비</span> <span>30,000원 이상 무료배송(실결제 기준)</span></div>
-      <div><span class="mr-7">카드사 혜택</span> <span>카드사 혜택 상세보기 ></span></div>
+      <div><span class="mr-6">카드사 혜택</span> <span>카드사 혜택 상세보기 ></span></div>
     </v-card-text>
-    
-    
-    
     
     <v-divider/>
 
-
-
-
-
-    <v-card class="mb-8">
-      <v-card-title>함께 코디한 상품</v-card-title>
-      <v-card-text>
-        <div class="text-subtitle-1">
+    <v-card elevation="0">
+      <v-card-title class="pa-3 pb-0 body-2">함께 코디한 상품</v-card-title>
+      <v-card-text class="pa-1">
+        <!-- <div class="text-subtitle-1">
           {{productDetail.withProduct}}
-        </div>
+        </div> -->
         <v-item-group>
           <v-container>
             <v-row>
               <v-col
                 cols="4"
-                md="4"
+                class="pa-1"
                 v-for="(refProduct, i) in productDetail.withImgList"
                 :key="i"    
               >
@@ -160,6 +141,8 @@
                   <v-card
                     class="d-flex align-center"
                     height="100%"
+                    tile
+                    elevation="0"
                   >
                     <v-img
                       :src="refProduct.img"

@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-        <v-col class="logo text-center">HANSOME</v-col>
+        <v-col class="logo text-center mt-4 pb-0">HANSOME</v-col>
     </v-row>
     <v-row>
       <v-col class="col-12 pl-5 pr-5 pb-0">
@@ -14,7 +14,7 @@
           <span>{{ errors[0] }}</span>
         </validation-provider>
       </v-col>
-      <v-col class="col-12 pl-5 pr-5 pt-0 mb-4">
+      <v-col class="col-12 pl-5 pr-5 pt-0">
         <validation-provider name="password" rules="passwordRequired" v-slot="{ errors }">
           <v-text-field label="비밀번호 입력"
                         v-model="member.password"
@@ -28,11 +28,13 @@
         </validation-provider>
       </v-col>
     </v-row>
-    <v-row class="justify-center ma-0">
-        <v-btn class="black white--text" width="165" depressed large color="black" :disabled="disableButton" @click="handleLogin">로그인</v-btn>
-        <v-btn class="ml-2" width="165" depressed large color="#fae100">카카오로 로그인</v-btn>
+    <v-row class="justify-center mb-4">
+        <v-btn class="black white--text" depressed large color="black" :disabled="disableButton" @click="handleLogin">로그인</v-btn>
+        <v-btn class="ml-2" depressed large color="#fae100">카카오로 로그인</v-btn>
     </v-row>
-    <v-divider class="ma-4" />
+
+    <v-divider class="my-4" />
+    
     <v-row class="justify-center border">
       <v-btn class="grey--text" plain to="/member/join">회원가입</v-btn>
     </v-row>
@@ -120,9 +122,6 @@ export default {
 .v-text-field >>> input {
     font-size: 1.2em;
     font-weight: 400;
-}
-.v-btn {
-    font-size: 3em;
 }
 span {
   color: red;

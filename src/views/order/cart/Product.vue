@@ -19,7 +19,7 @@
               <v-col class="pa-4">
                 <div class="font-weight-bold">{{brandName}}</div>
                 <div>{{name}}</div>
-                <div>{{price}}원</div>
+                <div>{{price.toLocaleString()}}원</div>
               </v-col>
             </v-row>
             <v-row>

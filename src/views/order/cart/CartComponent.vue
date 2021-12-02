@@ -1,63 +1,55 @@
 <template>
-  <v-card
-    class="mt-2 pa-0"
-    >
+  <v-card class="mb-1" outlined>
       <v-row>
         <v-col cols="4">
-          <v-img :src="productDetail.thumbnail" height="180" class="d-flex flex-row pl-2 pt-0"
-          gradient="to top, rgba(0,0,0,.3), rgba(0,0,0,.3)" >
-        <v-row class="d-flex justify-space-between">     
-          <v-checkbox x-large
-            class="ma-0"
-            color="grey darken-3"
-            :value="cartId"
-            v-model="cartSelected"
-            @click="handleCheckbox()"
-        ></v-checkbox>
-        </v-row>
-        </v-img>
-              </v-col>
+          <v-img :src="productDetail.thumbnail" height="auto" class="d-flex flex-row pl-2 pt-0">
+          <v-row class="d-flex justify-space-between">     
+            <v-checkbox x-large
+              class="ma-0 mt-1"
+              color="grey darken-3"
+              :value="cartId"
+              v-model="cartSelected"
+              @click="handleCheckbox()"
+          ></v-checkbox>
+          </v-row>
+          </v-img>
+        </v-col>
 
+        <v-col cols="8" v-if="!changeFlag" class="pa-2">
+          <v-row  class="d-flex justify-space-between">
+            <v-col cols="11">
+              <div class="font-weight-bold">[{{productDetail.brandName}}]</div>
+              <div>{{productDetail.name}}</div>
+              <div>{{(productDetail.price * amount).toLocaleString()}}원</div>
+            </v-col>
+            <v-col cols="1">
+              <v-icon small @click="handleDelete()" class="ma-0">mdi-close</v-icon>
+            </v-col>
+          </v-row>
 
-          <v-col cols="8" v-if="!changeFlag" class="pa-2">
-            <v-row  class="d-flex justify-space-between">
-              <v-col cols="11">
-                <div>[{{productDetail.brandName}}]</div>
-                <div>{{productDetail.name}}</div>
-                <div class="font-weight-bold">{{productDetail.price * amount}}원</div>
-              </v-col>
-              <v-col cols="1">
-                <v-icon small @click="handleDelete()" class="ma-0">mdi-close</v-icon>
-              </v-col>
-            </v-row>
+          <v-row class="d-flex justify-end">
+            <v-col cols="2">
+              <v-icon small @click="minusAmount">mdi-minus</v-icon>
+            </v-col>
+            <v-col cols="3" class="text-center">{{amount}}</v-col>
+            <v-col cols="2">
+              <v-icon small @click="plusAmount">mdi-plus</v-icon>
+            </v-col>
+          </v-row>
+          <v-divider/>
 
-
-
-            <v-row class="d-flex justify-end mt-5 ">
-              <v-col cols="2">
-                <v-icon small @click="minusAmount">mdi-minus</v-icon>
-              </v-col>
-              <v-col cols="3" class="text-center">{{amount}}</v-col>
-              <v-col cols="2">
-                <v-icon small @click="plusAmount">mdi-plus</v-icon>
-              </v-col>
-            </v-row>
-            <v-divider/>
-
-
-
-            <v-row class="d-flex justify-end">
-              <v-col>
-                <v-row class="d-flex align-center">
-                  <v-col cols="12" >
-                    <div class="text-right mt-1">{{productDetailId}}</div>
-                    <div class="text-right">사이즈 : {{psize}}</div>
-                  </v-col>
-                  <v-col cols="12" class="text-right mt-3" @click="changeDetail">변경</v-col>
-                </v-row>
-              </v-col>
-            </v-row>
-          </v-col>
+          <v-row class="d-flex justify-end">
+            <v-col>
+              <v-row class="d-flex align-center">
+                <v-col cols="12" >
+                  <!-- <div class="text-right mt-1">{{productDetailId}}</div> -->
+                  <div class="text-right pt-1" style="font-size: 13px;">사이즈 : {{psize}}</div>
+                </v-col>
+                <v-col cols="12" class="text-right" style="font-size: 15px;" @click="changeDetail">변경</v-col>
+              </v-row>
+            </v-col>
+          </v-row>
+        </v-col>
           
           <v-col cols="8" v-if="changeFlag" class="d-flex align-center justify-center">
             
@@ -76,7 +68,7 @@
                   <v-col cols="9" class="d-flex align-center">
                     <div class="mr-2" v-for="(stock, index) in productDetail.productDetailList[this.colorIdx].stockList" :key="index">
                       <v-btn v-if="stock.amount == 0" x-small secondary disabled> {{stock.psize}} </v-btn>
-                      <v-btn v-if="stock.amount != 0" x-small @click="handleUpdate(stock)" v-value="stock.psize">{{stock.psize}}</v-btn>
+                      <v-btn v-if="stock.amount != 0" x-small elevation="0" color="#E2E3DE" @click="handleUpdate(stock)" v-value="stock.psize">{{stock.psize}}</v-btn>
                     </div>
                   </v-col>
                 </v-row>

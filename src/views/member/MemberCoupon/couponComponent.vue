@@ -4,7 +4,7 @@
       <div class="couponName font-weight-bold">{{memberCoupon.name}}</div>
     </v-expansion-panel-header>
     <v-expansion-panel-content>
-      <div class="couponAmount font-weight-medium blue--text">{{memberCoupon.amount}}
+      <div class="couponAmount font-weight-bold blue--text">{{memberCoupon.amount}}
         <span v-if="memberCoupon.type === '1'">원</span>
         <span v-if="memberCoupon.type === '2'">%</span>
          할인
@@ -34,6 +34,6 @@ export default {
   font-size: 15px;
 }
 .couponAmount  {
-  font-size: 1.3em;
+  font-size: 20px;
 }
 </style>

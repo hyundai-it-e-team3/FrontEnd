@@ -3,12 +3,13 @@
     <v-row>
       <v-col>
         <v-row class="ml-1 mt-1">
-          <v-col class="memberName d-flex pb-0 text-center">{{member.name}} 
-            <span class="pt-1 pl-1" @click="goMemberUpdate"><v-icon class="align-center" size="40">mdi-chevron-right</v-icon></span>
-          </v-col>
+          <v-col class="memberName pb-0 d-flex align-end col-4">{{member.name}}</v-col>
+          <v-col class="col-8 pb-0 d-flex align-end" @click="goMemberUpdate"><v-icon size="40">mdi-chevron-right</v-icon></v-col>
         </v-row>
+
         <v-row class="ml-1 mb-2">
-          <v-col class="level d-flex pl-4 pt-0 pr-0">{{member.memberLevel}} Lv. <span class="pt-1 pl-1"><v-icon size="21" @click="goLevel(member.memberLevel)">mdi-information-outline</v-icon></span></v-col>
+          <v-col class="level col-2 d-flex pl-4 pt-0 pr-0">{{member.memberLevel}} Lv. </v-col>
+          <v-col class="col-8 d-flex pt-0 pr-0 pl-0" @click="goMemberUpdate"><v-icon size="21" @click="goLevel(member.memberLevel)">mdi-information-outline</v-icon></v-col>
         </v-row>
       </v-col>
     </v-row>
@@ -17,15 +18,18 @@
 
     <v-row class="d-flex pl-4 pr-4">
       <v-col class="col-4 d-flex flex-column" @click="goOrderList">
-        <v-icon size="50" color="black">mdi-truck-outline</v-icon>
+        <!-- <v-icon size="50" color="black">mdi-truck-outline</v-icon> -->
+        <img src="@/assets/images/truck.png" />
         <v-row class="menu3">주문내역</v-row>
       </v-col>
       <v-col class="col-4 d-flex flex-column" @click="goMemberCoupon">
-        <v-icon size="50" color="black">mdi-ticket-percent-outline</v-icon>
+        <!-- <v-icon size="50" color="black">mdi-ticket-percent-outline</v-icon> -->
+        <img src="@/assets/images/coupon.png" />
         <v-row class="menu3">쿠폰</v-row>
       </v-col>
       <v-col class="col-4 d-flex flex-column" @click="goMemberPoint">
-        <v-icon size="50" color="black">mdi-alpha-p-circle-outline</v-icon>
+        <!-- <v-icon size="50" color="black">mdi-alpha-p-circle-outline</v-icon> -->
+        <img class="ma-3" src="@/assets/images/letter.png" height="65px" width="65px" />
         <v-row class="menu3">{{member.point}} 점</v-row>
       </v-col>
     </v-row>
@@ -170,6 +174,6 @@ export default {
 }
 .memberMenu {
   color: black;
-  font-size: 15px;
+  font-size: 17px;
 }
 </style>

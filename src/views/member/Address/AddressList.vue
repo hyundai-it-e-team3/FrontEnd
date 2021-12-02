@@ -11,8 +11,8 @@
       <v-row class="addressTel pl-4">
           {{address.tel}}
       </v-row>
-      <v-row class="pb-2">
-        <span class="defaultAddress pl-4 pt-1" v-if="address.defaultAddress === '1'">기본 배송지</span>
+      <v-row class="pb-0">
+        <span class="defaultAddress pl-4 pt-2" v-if="address.defaultAddress === '1'">기본 배송지</span>
         <span class="pa-2" v-if="address.defaultAddress !== '1'"></span>
       </v-row>
       <v-row class="pl-4">
@@ -69,6 +69,7 @@ export default {
 }
 .defaultAddress {
   color: dodgerblue;
-  font-weight: 400;
+  font-size: 12px;
+  font-weight: 600;
 }
 </style>
