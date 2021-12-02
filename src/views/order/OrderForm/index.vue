@@ -94,31 +94,31 @@
                 <v-row height="50px">
                 <v-col cols="4">아이디</v-col>
                 <v-spacer></v-spacer>
-                <v-col cols="8" class="text-right">kjw12344</v-col>
+                <v-col cols="8" class="text-right">{{member.memberId}}</v-col>
                 </v-row>
                 <v-row height="50px">
                 <v-col cols="4" class="d-flex align-center">이름</v-col>
                 <v-spacer></v-spacer>
-                <v-col cols="8" class="text-right">회원명</v-col>
+                <v-col cols="8" class="text-right">{{member.name}}</v-col>
                 </v-row>
 
                 <v-row height="50px">
                 <v-col cols="4" class="d-flex align-center">전화번호</v-col>
                 <v-spacer></v-spacer>
                 <v-col cols="8" class="text-right">        
-                    회원 전화번호
+                    {{member.tel}}
                 </v-col>
                 </v-row>
 
                 <v-row height="50px">
                 <v-col cols="4">등급</v-col>
                 <v-spacer></v-spacer>
-                <v-col cols="8" class="text-right">Lv.4</v-col>
+                <v-col cols="8" class="text-right">Lv.{{member.memberLevel}}</v-col>
                 </v-row>
                 <v-row height="50px">
                 <v-col cols="4">포인트</v-col>
                 <v-spacer></v-spacer>
-                <v-col cols="8" class="text-right">30,000P</v-col>
+                <v-col cols="8" class="text-right">{{member.point}}P</v-col>
                 </v-row>
             </v-expansion-panel-content>
         </v-expansion-panel>
@@ -134,7 +134,7 @@
                 <v-row>
                     <v-col cols="4" class="d-flex align-center">받으시는 분</v-col>
                     <v-spacer></v-spacer>
-                    <v-col cols="8" class="text-right"><v-text-field :rules="rules" label="Name" :value=order.recName></v-text-field></v-col>
+                    <v-col cols="8" class="text-right"><v-text-field label="Name" :value=order.name></v-text-field></v-col>
                 </v-row>
                 <v-row>
                     <v-col cols="4" class="d-flex align-center">연락처</v-col>
@@ -143,7 +143,7 @@
                         <v-text-field
                         label="Phone Number"
                         required
-                        value="010-1234-5678"
+                        :value=order.tel
                         ></v-text-field>
                     </v-col>
                 </v-row>
@@ -163,7 +163,11 @@
                         </div>
                     </v-col>
                 </v-row>
-
+                <v-row>
+                    <v-col cols="4" class="d-flex align-center">배송메세지</v-col>
+                    <v-spacer></v-spacer>
+                    <v-col cols="8" class="text-right"><v-text-field label="request" :value=order.request></v-text-field></v-col>
+                </v-row>
             </v-expansion-panel-content>
         </v-expansion-panel>
     </v-expansion-panels>
@@ -175,38 +179,20 @@
             </v-expansion-panel-header>
             <v-expansion-panel-content>
                 <v-row>
-                    <v-col cols="4" class="d-flex align-center">받으시는 분</v-col>
+                    <v-col cols="4" class="d-flex align-center">포인트</v-col>
                     <v-spacer></v-spacer>
-                    <v-col cols="8" class="text-right"><v-text-field :rules="rules" label="Name" :value=order.recName></v-text-field></v-col>
+                    <v-col cols="8" class="text-right"><v-text-field :rules="rules" label="Point"></v-text-field></v-col>
                 </v-row>
                 <v-row>
-                    <v-col cols="4" class="d-flex align-center">연락처</v-col>
+                    <v-col cols="4" class="d-flex align-center">쿠폰</v-col>
                     <v-spacer></v-spacer>
                     <v-col cols="8" class="text-right">        
                         <v-text-field
-                        label="Phone Number"
+                        label="Coupon"
                         required
-                        value="010-1234-5678"
                         ></v-text-field>
                     </v-col>
                 </v-row>
-                <v-row>
-                    <v-col cols="4" class="d-flex align-center">배송지</v-col>
-                    <v-spacer></v-spacer>
-                    <v-col cols="8">
-                        <div>
-                            <v-text-field
-                            label="우편번호" :value=order.zipCode
-                            ></v-text-field>        
-                            <v-text-field
-                            label="주소"
-                            :value=order.address1
-                            ></v-text-field>
-                            <v-text-field label="상세주소" :value=order.address2></v-text-field>
-                        </div>
-                    </v-col>
-                </v-row>
-
             </v-expansion-panel-content>
         </v-expansion-panel>
     </v-expansion-panels>
@@ -223,8 +209,9 @@
 </template>
 
 <script>
-import orderAPI from "@/apis/order"
+import orderAPI from "@/apis/order";
 import productAPI from "@/apis/product";
+import memberAPI from "@/apis/member";
 import ProductComponent from './ProductComponent.vue';
 export default {
     //컴포넌트의 대표이름 (devtools에 나오는 이름)
@@ -257,17 +244,13 @@ export default {
         cartFlag: false,
         temp: null,
         order: {
-            totalPrice: 100000,
-            discountPrice: 10000,
-            state: 1,
-            request: "배송 빨리 해주세요",
-            zipCode: "15032",
-            address1: "경기도 용인시",
-            address2: "수지구 상현동",
-            tel: "010-3243-1231",
-            recName: "홍길동",
+            request: null,
+            zipCode: null,
+            address1: null,
+            address2: null,
+            tel: null,
+            name: null,
             couponId: null,
-            orderId: null,
         },
         paymentList : [
             {
@@ -289,15 +272,13 @@ export default {
                 const multipartFormData = new FormData();
 
                 multipartFormData.append("memberId", this.$store.state.memberId);
-                multipartFormData.append("totalPrice", this.order.totalPrice);
-                multipartFormData.append("discountPrice", this.order.discountPrice);
                 multipartFormData.append("state", 1);
                 multipartFormData.append("request", this.order.request);
                 multipartFormData.append("zipCode", this.order.zipCode);
                 multipartFormData.append("address1", this.order.address1);
                 multipartFormData.append("address2", this.order.address2);
                 multipartFormData.append("tel", this.order.tel);
-                multipartFormData.append("recName", this.order.recName);
+                multipartFormData.append("name", this.order.name);
                 multipartFormData.append("couponId", this.order.couponId);
 
                 console.log(multipartFormData);
@@ -439,29 +420,55 @@ export default {
             this.alertDialog = false;
         },
         addOrderDetail() {
-            this.loading = true;
-            this.alertDialog = true;
             productAPI.getCartProduct(this.orderDetail.productDetailId).then(response => {
                 console.log(response.data);
                 const temp = response.data; 
                 this.orderDetail.price = temp.price;
                 console.log(this.orderDetail);
-                this.loading = false;
-                this.alertDialog = false;
                 }).catch(error => {
                 if(error.response) {
                     if(error.response.status === 403) {
-                        this.loading = false;
-                        this.alertDialog = false;
-                        this.$router.push("/menu07/auth/jwtauth")
+                        this.$router.push("/auth/jwtauth")
                     }
                 } else {
-                    this.loading = false;
-                    this.alertDialogMessage = "네트워크 통신 오류";
+                    console.log("네트워크 통신 오류");
                 }
             });
-            this.loading = false;
-            this.alertDialog = false;
+        },
+        handleMemberInfo() {
+            memberAPI.getMember(this.$store.state.memberId).then(response => {
+                console.log(response.data);
+                this.member = response.data; 
+                }).catch(error => {
+                if(error.response) {
+                    if(error.response.status === 403) {
+                        this.$router.push("/auth/jwtauth")
+                    }
+                } else {
+                    console.log("네트워크 통신 오류");
+                }
+            });
+
+        },
+        handleAddressInfo() {
+            memberAPI.getDefaultAddress(this.$store.state.memberId).then(response => {
+                    console.log(response.data);
+                    const address = response.data; 
+                    this.order.zipCode = address.zipCode;
+                    this.order.address1 = address.address1;
+                    this.order.address2 = address.address2;
+                    this.order.tel = address.tel;
+                    this.order.name = address.name;
+                    
+                }).catch(error => {
+                if(error.response) {
+                    if(error.response.status === 403) {
+                        this.$router.push("/auth/jwtauth")
+                    }
+                } else {
+                    console.log("네트워크 통신 오류");
+                }
+            });
         }
     },
     mounted(){
@@ -480,6 +487,8 @@ export default {
             }
             this.cartFlag = true;
         }
+        this.handleAddressInfo();
+        this.handleMemberInfo();
     },
     
 

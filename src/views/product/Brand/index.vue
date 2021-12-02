@@ -34,7 +34,7 @@
         </v-row>
       </v-card-text>
     </v-card>
-
+    
     <v-card elevation="0" >
       <v-toolbar flat>
         <v-toolbar-title>MD's Pick</v-toolbar-title>
@@ -49,7 +49,12 @@
                   class="white--text align-end"
                   gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
                   height="auto">
-                  <v-icon color="red" class="ml-2 mb-2" dense>mdi-heart</v-icon>
+                  <v-icon v-if="$store.getters['member/getWishList'].includes(item.productId)" color="red" class="ml-2 mb-2" dense
+                    >mdi-heart</v-icon
+                  >
+                  <v-icon v-if="!$store.getters['member/getWishList'].includes(item.productId)" dark class="ml-2 mb-2" dense
+                    >mdi-heart-outline</v-icon
+                  >
                 </v-img>
 
                 <v-card-title class="brandname body-2 pa-3 pb-1">{{ brandName }}</v-card-title>

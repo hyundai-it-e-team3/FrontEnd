@@ -144,6 +144,10 @@ function removeWishList(memberId,productDetailId){
   return memberAPI.delete(`wishlist/${memberId}/${productDetailId}`);
 }
 
+function getDefaultAddress(memberId) {
+  return memberAPI.get(`/address/member/${memberId}`)
+}
+
 export default {
   joinMember,
   login,
@@ -164,7 +168,8 @@ export default {
   getWishBrandList,
   insertBrand,
   deleteBrand,
-  getWishList,
   addWishList,
-  removeWishList
+  getWishList,
+  removeWishList,
+  getDefaultAddress
 };

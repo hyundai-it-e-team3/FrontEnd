@@ -46,9 +46,9 @@
             </v-expansion-panel-header>
             <v-expansion-panel-content>
                 <v-row>
-                    <v-col cols="4">받으시는 분</v-col>
+                    <v-col cols="4">받으실 분</v-col>
                     <v-spacer></v-spacer>
-                    <v-col cols="8" class="text-right">{{order.recName}}</v-col>
+                    <v-col cols="8" class="text-right">{{order.name}}</v-col>
                 </v-row>
                 <v-row>
                     <v-col cols="4">연락처</v-col>

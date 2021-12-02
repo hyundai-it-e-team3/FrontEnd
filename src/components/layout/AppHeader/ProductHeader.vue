@@ -1,4 +1,3 @@
-<!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
   <v-row class="pl-2 pr-2">
     <v-icon class="col-1" @click="goBack">mdi-chevron-left</v-icon>

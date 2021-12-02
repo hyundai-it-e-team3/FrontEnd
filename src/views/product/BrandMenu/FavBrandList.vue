@@ -1,10 +1,10 @@
 <template>
-    <v-list>
-      <v-list-item v-for="(item, index) in wishList"
-            :key="index" @click="goBrand(item.name,item.index)">
-        <v-list-item-title class="ml-4">{{item.name}}</v-list-item-title>
-      </v-list-item>
-    </v-list>
+  <v-list>
+    <v-list-item v-for="(item, index) in wishList"
+          :key="index" @click="goBrand(item.name,item.index)">
+      <v-list-item-title class="ml-4">{{item.name}}</v-list-item-title>
+    </v-list-item>
+  </v-list>
 </template>
 
 <script>

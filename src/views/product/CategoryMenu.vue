@@ -47,24 +47,19 @@ export default {
       main["parent"] = null;
       let middle = main.categoryList[middleIndex];
       middle["parent"] = main;
-      let sub = middle.categoryList[middleIndex];
+      let sub = middle.categoryList[subIndex];
       sub["parent"] = middle;
 
-      console.log(sub);
       let cateList = [main, middle, sub];
-      console.log(cateList);
-      this.$store.commit("category/setSelectedCategory", cateList);
-      this.$store.commit("category/setCurCategory", sub);
-      console.log(this.$store.getters["category/getSelectedCategory"]);
-      this.$router
-        .push(`/product/categoryProduct?categoryId=${categoryId}`)
-        .catch(() => {});
-    },
+      this.$store.commit("category/setSelectedCategory",cateList);
+      this.$store.commit("category/setCurCategory",sub);
+      this.$router.push(`/product/categoryProduct?categoryId=${categoryId}`).catch(()=>{});
+    }
   },
   created() {
     this.menuList = this.$store.getters["category/getCategory"];
   },
 };
 </script>
-<!-- 컴포넌트 스타일 정의 -->
+
 <style scoped></style>

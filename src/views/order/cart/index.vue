@@ -1,5 +1,5 @@
 <template>
-  <v-card class="pa-0 mt-11">
+  <v-card class="pa-0 mt-6">
   <v-container>
     <v-row v-if="false">
       <v-col cols="6" class="mb-2">

@@ -1,6 +1,5 @@
 <!-- 컴포넌트 UI 정의 -->
 <template>
-  <div>
   <v-card
     max-width="374"
   >
@@ -176,7 +175,6 @@
       </v-card-text>
     </v-card>
   </v-card>
-  </div>
 </template>
 
 <script>
@@ -272,6 +270,7 @@ export default {
 
   },
   mounted(){
+    console.log("프로덕트임------");
     this.$store.commit("setPageFlag",'product');
   },
   created() {

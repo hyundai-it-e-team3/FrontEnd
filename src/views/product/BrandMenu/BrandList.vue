@@ -1,4 +1,3 @@
-<!-- 컴포넌트 UI 정의 -->
 <template>
   <v-app>
     <v-list v-for="(brand,index) in brandMenuList" v-bind:key="brand.name" nav>

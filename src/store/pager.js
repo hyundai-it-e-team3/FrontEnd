@@ -3,7 +3,11 @@ export default{
   namespaced: true,
   state:{
     rowCount: 1,
-    productList :[]
+    productList :[],
+    categoryId:"null",
+    brandName:"null",
+    sortId:"null",
+    text:"null"
   },
   getters:{
     getRowCount(state,getters,rootState,rootGetters){
@@ -12,6 +16,18 @@ export default{
     getProductList(state,getters,rootState,rootGetters){
       return state.productList;
     },
+    getCategoryId(state,getters,rootState,rootGetters){
+      return state.categoryId
+    },
+    getBrandName(state,getters,rootState,rootGetters){
+      return state.brandName
+    },
+    getSortId(state,getters,rootState,rootGetters){
+      return state.sortId
+    },
+    getText(state,getters,rootState,rootGetters){
+      return state.text
+    }
   },
   mutations:{
     plusRowCount(state,payload){
@@ -22,12 +38,27 @@ export default{
     },
     addProductList(state,payload){
       for(let item of payload){
-        this.productList.push(item);
+        state.productList.push(item);
       }
+    },
+    setProductList(state,payload){
+      state.productList = payload;
     }
     ,
     resetProductList(state,payload){
-      this.productList = [];
+      state.productList = [];
+    },
+    setCategoryId(state,payload){
+      state.categoryId = payload
+    },
+    setBrandName(state,payload){
+      state.brandName = payload
+    },
+    setSortId(state,payload){
+      state.sortId = payload;
+    },
+    setText(state,payload){
+      state.text = payload;
     }
   },
   actions:{

@@ -45,7 +45,7 @@ beforeCreate() {
 
     CategoryModule.getWishBrandList()
       .then(response=>{
-        this.$store.commit("category/getWishBrand",response.data);
+        this.$store.commit("category/setWishBrand",response.data);
         console.log(response.data);
       })
       .catch(error => {
@@ -54,7 +54,15 @@ beforeCreate() {
   },
   created() {
     this.$store.dispatch("loadAuth");
-  }
+  },
+  methods: {
+    goBack(){
+      this.$router.go(-1);
+    },
+    goHome(){
+      this.$router.push("/");
+    },
+  },
 };
 </script>
 
