@@ -29,11 +29,29 @@ function getProductListText(text,startRow,rowCount,sortId){
   return productAPI.get(`/product/list/text/${text}/${startRow}/${rowCount}/${sortId}`);
 }
 
+function minusStock(amount,productDetailId,psize){
+  return productAPI.post("/stock/minus",{
+    amount,
+    productDetailId,
+    psize
+  })
+}
+
+function plusStock(amount,productDetailId,psize){
+  return productAPI.post("/stock/plus",{
+    amount,
+    productDetailId,
+    psize
+  })
+}
+
 export default{
   getProdct,
   getCartProduct,
   addAuthHeader,
   getproductDetailPrice,
   getProductWishList,
-  getProductListText
+  getProductListText,
+  minusStock,
+  plusStock
 }
