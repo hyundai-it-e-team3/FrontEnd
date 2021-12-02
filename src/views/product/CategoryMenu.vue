@@ -64,7 +64,7 @@ export default {
       main["parent"] = null;
       let middle = main.categoryList[middleIndex];
       middle["parent"] = main;
-      let sub = middle.categoryList[middleIndex];
+      let sub = middle.categoryList[subIndex];
       sub["parent"] = middle;
 
       console.log(sub);
@@ -72,8 +72,8 @@ export default {
       console.log(cateList);
       this.$store.commit("category/setSelectedCategory",cateList);
       this.$store.commit("category/setCurCategory",sub);
+      console.log("fawfwefew");
       console.log(this.$store.getters["category/getSelectedCategory"])
-      console.log("--1-1-1-1-1-1-");
       this.$router.push(`/product/categoryProduct?categoryId=${categoryId}`).catch(()=>{});
     }
   },

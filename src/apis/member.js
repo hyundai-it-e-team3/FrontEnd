@@ -167,5 +167,9 @@ export default {
   getPointList,
   getWishBrandList,
   insertBrand,
-  deleteBrand
+  deleteBrand,
+  addWishList,
+  getWishList,
+  removeWishList,
+  getDefaultAddress
 };
