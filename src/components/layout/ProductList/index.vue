@@ -6,7 +6,7 @@
         ><v-icon>mdi-swap-vertical</v-icon>
         <v-bottom-sheet v-model="sortSheet" width="100%">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="purple" dark v-bind="attrs" v-on="on" small>
+            <v-btn color="red" dark v-bind="attrs" v-on="on" small>
               {{ sortList[sortId] }}
             </v-btn>
           </template>
@@ -38,7 +38,8 @@
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
               height="200px"
             >
-              <v-icon color="red" class="ml-2 mb-2" dense>mdi-heart</v-icon>
+              <v-icon v-if="$store.getters['member/getWishList'].includes(newList[index * 2 - 1].productId)" color="red" class="ml-2 mb-2" dense>mdi-heart</v-icon>
+              <v-icon v-if="!$store.getters['member/getWishList'].includes(newList[index * 2 - 1].productId)" dark class="ml-2 mb-2" dense>mdi-heart-outline</v-icon>
             </v-img>
             <v-card-title class="body-2">{{
               newList[index * 2].brandName
@@ -59,7 +60,8 @@
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
               height="200px"
             >
-              <v-icon dense color="white" class="ml-2 mb-2">mdi-heart-outline</v-icon>
+              <v-icon v-if="$store.getters['member/getWishList'].includes(newList[index * 2 - 1].productId)" color="red" class="ml-2 mb-2" dense>mdi-heart</v-icon>
+              <v-icon v-if="!$store.getters['member/getWishList'].includes(newList[index * 2 - 1].productId)"  dark class="ml-2 mb-2" dense>mdi-heart-outline</v-icon>
             </v-img>
             <v-card-title class="body-2">{{
               newList[index * 2 - 1].brandName
@@ -83,7 +85,8 @@
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
               height="200px"
             >
-              <v-icon  class="ml-2 mb-2" dense>mdi-heart-outline</v-icon>
+              <v-icon v-if="$store.getters['member/getWishList'].includes(newList[index * 2].productId)" color="red" class="ml-2 mb-2" dense>mdi-heart</v-icon>
+              <v-icon v-if="!$store.getters['member/getWishList'].includes(newList[index * 2].productId)"  dark class="ml-2 mb-2" dense>mdi-heart-outline</v-icon>
             </v-img>
             <v-card-title class="body-2">{{
               newList[index * 2].brandName
@@ -105,7 +108,8 @@
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
               height="200px"
             >
-              <v-icon color="red" class="ml-2 mb-2" dense>mdi-heart</v-icon>
+              <v-icon v-if="$store.getters['member/getWishList'].includes(newList[index * 2].productId)" color="red" class="ml-2 mb-2" dense>mdi-heart</v-icon>
+              <v-icon v-if="!$store.getters['member/getWishList'].includes(newList[index * 2].productId)" dark class="ml-2 mb-2" dense>mdi-heart-outline</v-icon>
             </v-img>
             <v-card-title class="body-2">{{
               newList[index * 2].brandName

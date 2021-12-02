@@ -6,11 +6,19 @@
         {{getProduct()}}
         -->
         <v-row class="d-flex justify-center">
-            <v-col cols="2" @click="goWishList">
+            <v-col v-if="!this.$store.getters['member/getWishList'].includes(this.$store.getters['product/getProduct'].productDetailId.slice(0,-3))"    cols="2" @click="addWishList">
             <v-row class="d-flex justify-center">
                 <v-icon>mdi-cards-heart-outline</v-icon>
             </v-row>
             </v-col>
+
+            <v-col v-if="this.$store.getters['member/getWishList'].includes(this.$store.getters['product/getProduct'].productDetailId.slice(0,-3))"    cols="2" @click="removeWishList">
+            <v-row class="d-flex justify-center">
+                <v-icon color="red">mdi-cards-heart</v-icon>
+            </v-row>
+            </v-col>
+
+
             <v-col cols="2" @click="handleInsertCart" style="background-color:blue">
             <v-row class="d-flex justify-center">
                 <v-icon>mdi-cart-variant</v-icon>
@@ -28,6 +36,7 @@
 
 <script>
 import orderAPI from "@/apis/order";
+import memberAPI from "@/apis/member";
 export default {
     //컴포넌트의 대표이름 (devtools에 나오는 이름)
     name: "ProductFooter",
@@ -86,9 +95,23 @@ export default {
         insertCart(){
             this.$router.push("/member/cart");
         },
-        goWishList(){
-            this.$router.push("/member/wishlist");
+        async addWishList(){
+            let productId = this.$store.getters["product/getProduct"].productDetailId.slice(0,-3);
+            let memberId = this.$store.getters.getMemberId;
+            await memberAPI.addWishList(memberId,productId);
+            this.$store.commit("member/addWishList",productId);
+            console.log(this.$store.getters['member/getWishList']);
+        },
+
+        async removeWishList(){
+            let productId = this.$store.getters["product/getProduct"].productDetailId.slice(0,-3);
+            let memberId = this.$store.getters.getMemberId;
+            console.log(productId+" "+memberId);
+            await memberAPI.removeWishList(memberId,productId);
+            this.$store.commit("member/removeWishList",productId);
+            console.log(this.$store.getters['member/getWishList']);
         }
+
     },
     computed: {
         computedProduct() {

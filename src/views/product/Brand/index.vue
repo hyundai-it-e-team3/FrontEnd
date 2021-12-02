@@ -252,6 +252,9 @@ export default {
       }
     }
   },
+  destroyed(){
+    console.log("-----------------");
+  }
 };
 </script>
 <!-- 컴포넌트 스타일 정의 -->

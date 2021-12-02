@@ -12,7 +12,7 @@
           :input-value="active"
           active-class="purple white--text"
           depressed
-          @click="goDetailCategory(category.categoryId,index)"
+          @click="goDetailCategory(category,index)"
         >
           {{ category.name }}
         </v-btn>
@@ -36,10 +36,14 @@ export default {
   ],
   //컴포넌트 메소드 정의
   methods: {
-    goDetailCategory(categoryId,index){
+    goDetailCategory(category,index){
       this.categoryList = this.categoryList[index].categoryList;
-      console.log(this.categoryList);
-      this.$router.push(`/product/category/?categoryId=${categoryId}`);
+    
+      this.$store.commit("category/setCurCategory",category);
+      this.$store.commit("category/setSelectedCategory",[category]);
+      console.log("ooeoeoeoeoeoe");
+      console.log(category);
+      this.$router.push(`/product/categoryProduct/?categoryId=${category.categoryId}`);
     }
   },
   created(){

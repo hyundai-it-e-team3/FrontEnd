@@ -136,6 +136,21 @@ export default {
       .catch(error => {
         console.log(error);
     });
+
+    memberAPI.getWishList(memberId)
+      .then(response=>{
+        let tempList = [];
+        let resList = response.data;
+        for(let res of resList){
+          tempList.push(res.productDetailId);
+        }
+        this.$store.commit("member/setWishList",tempList);
+        console.log(tempList);
+        console.log("this is wish list");
+      })
+      .catch(error => {
+        console.log(error);
+    });
   },
 }
 </script>

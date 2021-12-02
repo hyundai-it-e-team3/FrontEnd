@@ -239,6 +239,7 @@ export default {
     },
     goProductDetail(index){
       this.productDetail = this.product.productDetailList[index];
+      console.log(this.productDetail.productDetailId);
       this.sizeIdx = -1;
       this.cart.productDetailId = this.productDetail.productDetailId;
       this.alertFlag = 0;
@@ -275,6 +276,9 @@ export default {
   },
   created() {
     this.$store.commit("product/setProduct", this.cart);
+  },
+  destroyed(){
+    this.$store.commit("setPageFlag",'main');
   },
   watch:{
     cart: {

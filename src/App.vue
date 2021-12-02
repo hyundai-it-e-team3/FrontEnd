@@ -31,6 +31,7 @@ beforeCreate() {
     CategoryModule.getCategory()
       .then(response=>{
         this.$store.commit("category/setCategory",response.data);
+        console.log(response.data);
       })
       .catch(error => {
         console.log(error);
@@ -39,6 +40,15 @@ beforeCreate() {
     CategoryModule.getBrand()
       .then(response=>{
         this.$store.commit("category/setBrandCategory",response.data);
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+    });
+
+    CategoryModule.getWishBrandList()
+      .then(response=>{
+        this.$store.commit("category/getWishBrand",response.data);
         console.log(response.data);
       })
       .catch(error => {
