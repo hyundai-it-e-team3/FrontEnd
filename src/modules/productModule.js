@@ -9,7 +9,12 @@ async function getProductWishList(idStr){
   return await productAPI.getProductWishList(idStr);
 }
 
+async function getProductListText(text,startRow,rowCount,sortId){
+  return await productAPI.getProductListText(text,startRow,rowCount,sortId);
+}
+
 export default{
   getProduct,
-  getProductWishList
+  getProductWishList,
+  getProductListText
 }

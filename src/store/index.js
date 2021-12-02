@@ -14,7 +14,8 @@ export default new Vuex.Store({
   state: {
     memberId: "",
     authToken: "",
-    pageFlag:'main'
+    pageFlag:'main',
+    text:""
   },
   getters:{
     getMemberId(state) {
@@ -25,6 +26,9 @@ export default new Vuex.Store({
     },
     getPageFlag(state){
       return state.pageFlag;
+    },
+    getText(state){
+      return state.text;
     }
   },
   mutations: {
@@ -36,6 +40,9 @@ export default new Vuex.Store({
     },
     setPageFlag(state, payload){
       state.pageFlag = payload
+    },
+    setTextFlag(state,payload){
+      state.text = payload
     }
   },
   actions: {

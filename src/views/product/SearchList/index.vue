@@ -1,5 +1,14 @@
+<!-- 컴포넌트 UI 정의 -->
 <template>
   <v-container class="pa-0">
+    
+      <v-text-field
+            label="Keyword"
+            hide-details="auto"
+            v-model="text"
+            class="mx-2 mt-2"
+            ></v-text-field>
+    
     <v-row class="mt-4">
       <v-col cols="8"></v-col>
       <v-col cols="4" @click="sortList"
@@ -46,7 +55,7 @@
             }}</v-card-title>
             <v-card-subtitle class="caption">
               <div>{{ newList[index * 2 - 1].name }}</div>
-              <div class="font-weight-blacksss">{{ newList[index * 2 - 1].price.toLocaleString() }}₩</div>
+              <div>{{ newList[index * 2 - 1].price.toLocaleString() }}₩</div>
             </v-card-subtitle>
           </v-card>
           <v-card
@@ -68,7 +77,7 @@
             }}</v-card-title>
             <v-card-subtitle class="caption">
               <div>{{ newList[index * 2 - 1].name }}</div>
-              <div class="font-weight-black">{{ newList[index * 2 - 1].price.toLocaleString() }}₩</div>
+              <div>{{ newList[index * 2 - 1].price.toLocaleString() }}₩</div>
             </v-card-subtitle>
           </v-card>
         </v-col>
@@ -126,30 +135,32 @@
 </template>
 
 <script>
-import PagerModule from "@/modules/pagerModule";
+import productModule from "@/modules/productModule";
 export default {
-  name: "productList",
-  components: {},
-  data: () => ({
+  //컴포넌트의 대표이름(devtools에 나오는 이름이다.) 이름을 정하지 않으면 파일명으로
+  name:"",
+  // 추가하고 싶은 컴포넌트를 등록
+  components: {
+  },
+  //컴포넌트 데이터를 정의
+  data:()=>({
     newList: [],
     sortList: ["신상품", "저가순", "고가순", "인기순"],
     sortFlag: 0,
     sortSheet: false,
     sortId: 0,
-    fab: false,
+    text:""
   }),
-  props: ["listType", "categoryId", "brandName","text"],
-  methods: {
-    onIntersect(entries, observer, isIntersecting) {
+  //컴포넌트 메소드 정의
+  methods:{
+      onIntersect(entries, observer, isIntersecting) {
       if (isIntersecting == true) {
         console.log("----------------------");
         let startRow = this.$store.getters["pager/getRowCount"];
         console.log(startRow, this.sortId);
 
-        PagerModule.getProductList(
-          this.listType,
-          this.brandName,
-          this.categoryId,
+        productModule.getProductListText(
+          this.text,
           startRow,
           3,
           this.sortId
@@ -182,10 +193,11 @@ export default {
       else if (sort == "고가순") this.sortId = 2;
       else this.sortId = 3;
 
-      PagerModule.getProductList(
-        this.listType,
-        this.brandName,
-        this.categoryId,
+      let resText = this.text;
+      if(resText=='')
+        resText = '0'
+      productModule.getProductListText(
+        resText,
         1,
         10,
         this.sortId
@@ -200,36 +212,13 @@ export default {
         });
     },
   },
-  created() {
-    PagerModule.getProductList(
-      this.listType,
-      this.brandName,
-      this.categoryId,
-      1,
-      10,
-      this.sortId
-    )
-      .then((response) => {
-        console.log(response.data);
-        this.newList = response.data;
-        this.$store.commit("pager/resetRowCount");
-        this.$store.commit("pager/plusRowCount", 11);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    console.log(this.newList);
-  },
-  destroyed() {
-    this.$store.commit("pager/resetRowCount");
-  },
-  watch: {
-    categoryId() {
-      console.log(this.categoryId);
-      PagerModule.getProductList(
-        this.listType,
-        this.brandName,
-        this.categoryId,
+  watch:{
+    text(){
+      let resText = this.text;
+      if(resText=='')
+        resText = '0'
+      productModule.getProductListText(
+        resText,
         1,
         10,
         this.sortId
@@ -244,7 +233,12 @@ export default {
         });
     }
   },
-};
+  destroyed(){
+    this.$store.commit("setSearchFlag",false);
+  }
+}
 </script>
+<!-- 컴포넌트 스타일 정의 -->
+<style scoped>
 
-<style scoped></style>
+</style>

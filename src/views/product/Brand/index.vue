@@ -71,10 +71,14 @@
                       gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
                       height="200px"
                     >
-                      <v-icon color="red" class="ml-2 mb-2" dense
+                      <v-icon v-if="$store.getters['member/getWishList'].includes(item.productId)" color="red" class="ml-2 mb-2" dense
                         >mdi-heart</v-icon
                       >
+                      <v-icon v-if="!$store.getters['member/getWishList'].includes(item.productId)" dark class="ml-2 mb-2" dense
+                        >mdi-heart-outline</v-icon
+                      >
                     </v-img>
+                    
                     <v-card-title class="body-2">
                       {{ brandName }}
                     </v-card-title>

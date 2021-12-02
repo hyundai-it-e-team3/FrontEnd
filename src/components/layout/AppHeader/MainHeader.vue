@@ -5,7 +5,7 @@
         height="50px"
     >
         <template heigth="50px">
-            <v-btn icon>
+            <v-btn icon @click="searchOpen">
                 <v-icon small>mdi-magnify</v-icon>
             </v-btn>
             <v-spacer></v-spacer>
@@ -38,8 +38,11 @@ export default {
         goHome(){
             this.$router.push("/");
         },
+        searchOpen(){
+            console.log("ododododo");
+            this.$router.push("product/searchList");
+        }
     }
-    ,
 }
 </script>
 

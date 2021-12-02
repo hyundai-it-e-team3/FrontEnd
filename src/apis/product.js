@@ -25,10 +25,15 @@ function getProductWishList(idStr){
   return productAPI.get(`/product/list/${idStr}`);
 }
 
+function getProductListText(text,startRow,rowCount,sortId){
+  return productAPI.get(`/product/list/text/${text}/${startRow}/${rowCount}/${sortId}`);
+}
+
 export default{
   getProdct,
   getCartProduct,
   addAuthHeader,
   getproductDetailPrice,
-  getProductWishList
+  getProductWishList,
+  getProductListText
 }
