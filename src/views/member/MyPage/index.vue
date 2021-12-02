@@ -19,6 +19,9 @@ export default {
     AfterLogin,
     BeforeLogin,
   },
+  mounted() {
+    this.$store.commit("setPageFlag", "default");
+  },
 }
 </script>
 

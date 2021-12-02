@@ -40,14 +40,6 @@ export default[
     component: () => import(/* webpackChunkName: "product" */ '../views/product/CategoryProduct')
   },
   {
-    path: '/product/category',
-    name: 'product_category',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "product" */ '../views/product/Category')
-  },
-  {
     path: '/product/searchList',
     name: 'product_searchList',
     // route level code-splitting

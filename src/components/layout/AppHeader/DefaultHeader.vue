@@ -1,5 +1,5 @@
 <template>
-  <v-row class="pl-2 pr-2">
+  <v-row class="pl-1 pr-1">
     <v-icon class="col-1" @click="goBack">mdi-chevron-left</v-icon>
 
     <v-toolbar-title class="d-flex justify-center col-10" @click="goHome">| THE | HANDSOME |</v-toolbar-title>
@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: "ProductHeader",
+  name: "DefaultHeader",
   components: {},
   data: function () {
     return {};

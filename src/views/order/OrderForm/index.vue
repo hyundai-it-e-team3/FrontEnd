@@ -472,7 +472,7 @@ export default {
         }
     },
     mounted(){
-        this.$store.commit("setPageFlag",'order');
+        this.$store.commit("setPageFlag",'product');
     },
     created(){
         const linkKey = this.$route.query.link;
