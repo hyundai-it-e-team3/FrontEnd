@@ -44,8 +44,14 @@ function insertCart(multipartFormData) {
         "/cart",multipartFormData);
 }
 
-function updateCart(multipartFormData) {
-    return axios.update("/cart", multipartFormData);
+function updateCart(cartId,multipartFormData) {
+    return orderAPI.post(`/cart/${cartId}`, multipartFormData);
+}
+
+function updateCartAmount(cartId, value) {
+    return orderAPI.patch(`/cart/${cartId}`, 
+        {amount : value}
+    );
 }
 
 function deleteCart(cartno) {
@@ -68,5 +74,6 @@ export default {
     addAuthHeader,
     insertOrderDetail,
     insertOrderPayment,
-    getCartInfo
+    getCartInfo,
+    updateCartAmount
 }
