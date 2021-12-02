@@ -1,22 +1,24 @@
 <!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-    <v-app-bar
-      color="black"
-      dark
-      absolute
-      hide-on-scroll
-      height="50px"
-    >
-        <template heigth="50px">
-        <v-btn icon  @click="goBack">
-            <v-icon small >mdi-chevron-left</v-icon>
-        </v-btn>
-        <v-spacer></v-spacer>
-        <v-btn icon to="/order/cart">
-            <v-icon small>mdi-cart-minus</v-icon>
-        </v-btn>
-        </template>
-    </v-app-bar>
+    <v-app>
+        <v-app-bar
+        color="black"
+        dark
+        absolute
+        hide-on-scroll
+        height="50px"
+        >
+            <template heigth="50px">
+            <v-btn icon  @click="goBack">
+                <v-icon small >mdi-chevron-left</v-icon>
+            </v-btn>
+            <v-spacer></v-spacer>
+            <v-btn icon to="/order/cart">
+                <v-icon small>mdi-cart-minus</v-icon>
+            </v-btn>
+            </template>
+        </v-app-bar>
+    </v-app>
 </template>
 
 <script>
