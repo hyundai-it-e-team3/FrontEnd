@@ -37,6 +37,7 @@
             <v-card-subtitle class="caption">
               <div class="content">{{ newList[index * 2 - 1].name }}</div>
               <div class="content">{{ newList[index * 2 - 1].price.toLocaleString() }}₩</div>
+            </v-card-subtitle>
           </v-card>
           <v-card
             tile

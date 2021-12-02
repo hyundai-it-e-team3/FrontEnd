@@ -1,49 +1,62 @@
 <template>
-  <v-container class="d-flex pa-0">
-    <v-col class="col-6 pa-2" v-for="item in list" :key="item.productId">
-      <v-card elevation="0" height="300px" tile
-        @click="goProductDetail(item.productId)">
-
-        <v-img
-          :src="item.thumbnail"
-          class="white--text align-end"
-          height="auto">
-          <v-icon
-            v-if="$store.getters['member/getWishList'].includes(item.productId)"
-            color="red"
-            class="ml-2 mb-2">
-            mdi-heart</v-icon>
-        </v-img>
-
-        <v-card-title class="brandname body-2">{{ item.brandName }}</v-card-title>
-        <v-card-subtitle class="caption">
-          <div class="content">{{ item.name }}</div>
-          <div class="content">{{ item.price.toLocaleString() }} ₩</div>
-        </v-card-subtitle>
-
-      </v-card>
-    </v-col>
+  <v-container class="pa-0">
+    <v-row dense class="mt-3">
+      <v-col cols="6" v-for="item in list" :key="item.productId">
+        <v-card
+          @click="goProductDetail(item.productId)"
+          elevation="0"
+        >
+          <v-img
+            :src="item.thumbnail"
+            class="white--text align-end"
+            gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+            height="200px"
+          >
+            <v-icon
+              v-if="
+                $store.getters['member/getWishList'].includes(
+                  item.productId
+                )
+              "
+              color="red"
+              class="ml-2 mb-2"
+              dense
+              >mdi-heart</v-icon
+            >
+          </v-img>
+          <v-card-title class="body-2">{{
+            item.brandName
+          }}</v-card-title>
+          <v-card-subtitle class="caption">
+            <div>{{ item.name }}</div>
+            <div class="font-weight-blacksss">
+              {{ item.price.toLocaleString() }}₩
+            </div>
+          </v-card-subtitle>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script>
 import ProductModule from "@/modules/productModule";
-
 export default {
+  //컴포넌트의 대표이름 (devtools에 나오는 이름)
   name: "wishList",
+  //추가하고 싶은 컴포넌트 등록
   components: {},
+  //컴포넌트 데이터 정의
   data: () => ({
     box: [],
     list: [],
   }),
+  //컴포넌트 메소드 정의
   methods: {
     goProductDetail(productId) {
-      console.log(productId);
-      this.$router.push(`/product/productDetail?productId=${productId}`);
+        console.log(productId);
+        this.$router.push(`/product/productDetail?productId=${productId}`);
     },
-  },
-  mounted() {
-    this.$store.commit("setPageFlag", "default");
   },
   created() {
     this.box = this.$store.getters["member/getWishList"];
@@ -68,14 +81,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.brandname {
-  font-weight: 500;
-  color: black;
-}
-.content {
-  font-weight: 500;
-  font-size: 11px;
-  color: black;
-}
-</style>
+<style scoped></style>
