@@ -19,7 +19,7 @@
       <v-slide-group show-arrows>
         <v-slide-item
           class="ma-0"
-          v-for="category in categoryList" :key="category.name">
+          v-for="category in categoryList" :key="category.name" v-slot="{ active }">
           <v-btn
             class="ml-2"
             :input-value="active"
