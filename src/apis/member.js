@@ -122,11 +122,22 @@ function insertBrand(memberId,brandName){
 }
 
 function deleteBrand(memberId,brandName){
-  return memberAPI.delete(`fvbrand/${memberId}/${brandName}`)
+  return memberAPI.delete(`fvbrand/${memberId}/${brandName}`);
 }
 
 function getWishList(memberId){
-  return member
+  return memberAPI.get(`wishlist/${memberId}`);
+}
+
+function addWishList(memberId,productDetailId){
+  return memberAPI.post("wishlist",{
+    memberId,
+    productDetailId
+  });
+}
+
+function removeWishList(memberId,productDetailId){
+  return memberAPI.delete(`wishlist/${memberId}/${productDetailId}`);
 }
 
 export default {
@@ -147,5 +158,8 @@ export default {
   getMemberCoupon,
   getWishBrandList,
   insertBrand,
-  deleteBrand
+  deleteBrand,
+  getWishList,
+  addWishList,
+  removeWishList
 };

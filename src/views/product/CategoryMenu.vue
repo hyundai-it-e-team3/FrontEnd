@@ -2,20 +2,20 @@
 <template>
   <v-card>
     <v-card-title></v-card-title>
-    <v-card-text >
-      <v-list dense v-for="(mainList) in menuList" v-bind:key="mainList.name">
+    <v-card-text>
+      <v-list dense v-for="(mainList,mainIndex) in menuList" v-bind:key="mainList.name">
         <v-list-group
-          :value="true"
+          :value="false"
           prepend-icon="mdi-account-circle"
         >
           <template v-slot:activator>
             <v-list-item-title>{{mainList.name}}</v-list-item-title>
           </template>
           <v-list-group
-            :value="true"
+            :value="false"
             no-action
             sub-group
-            v-for="(middleList) in mainList.categoryList" v-bind:key="middleList.name">
+            v-for="(middleList,middleIndex) in mainList.categoryList" v-bind:key="middleList.name">
             <template v-slot:activator>
               <v-list-item-content>
                 <v-list-item-title>{{middleList.name}}</v-list-item-title>
@@ -23,10 +23,10 @@
             </template>
 
             <v-list-item
-              v-for="(subList) in middleList.categoryList" v-bind:key="subList.name"
+              v-for="(subList,subIndex) in middleList.categoryList" v-bind:key="subList.name"
               link
             >
-              <v-list-item-title @click="goList(subList.categoryId)">{{subList.name}}</v-list-item-title>
+              <v-list-item-title @click="goList(subList.categoryId,mainIndex,middleIndex,subIndex)">{{subList.name}}</v-list-item-title>
               <v-list-item-icon>
               </v-list-item-icon>
             </v-list-item>
@@ -59,8 +59,21 @@ export default {
     backUrl(){
       this.$router.go(-1);
     },
-    goList(categoryId){
-      console.log(categoryId);
+    goList(categoryId,mainIndex,middleIndex,subIndex){
+      let main = this.menuList[mainIndex];
+      main["parent"] = null;
+      let middle = main.categoryList[middleIndex];
+      middle["parent"] = main;
+      let sub = middle.categoryList[middleIndex];
+      sub["parent"] = middle;
+
+      console.log(sub);
+      let cateList = [main,middle,sub];
+      console.log(cateList);
+      this.$store.commit("category/setSelectedCategory",cateList);
+      this.$store.commit("category/setCurCategory",sub);
+      console.log(this.$store.getters["category/getSelectedCategory"])
+      console.log("--1-1-1-1-1-1-");
       this.$router.push(`/product/categoryProduct?categoryId=${categoryId}`).catch(()=>{});
     }
   },

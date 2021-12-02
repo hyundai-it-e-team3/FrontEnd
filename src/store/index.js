@@ -6,6 +6,7 @@ import axiosConfig from '@/apis/axiosConfig';
 import orderAPI from '@/apis/order';
 import productAPI from '@/apis/product';
 import product from "./product";
+import member from "./member";
 
 Vue.use(Vuex)
 
@@ -86,7 +87,8 @@ export default new Vuex.Store({
   modules: {
     pager,
     category,
-    product
+    product,
+    member
   }
   
 })

@@ -21,9 +21,14 @@ function getproductDetailPrice(productDetailId){
   return productAPI.get(`/productDetail/price/${productDetailId}`);
 }
 
+function getProductWishList(idStr){
+  return productAPI.get(`/product/list/${idStr}`);
+}
+
 export default{
   getProdct,
   getCartProduct,
   addAuthHeader,
-  getproductDetailPrice
+  getproductDetailPrice,
+  getProductWishList
 }
