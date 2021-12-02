@@ -1,8 +1,8 @@
 <!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-    <v-card flat>
-      <v-card-title>No.{{this.$route.query.orderNo}}</v-card-title>
-      <v-card-subtitle>{{order.orderDate}}</v-card-subtitle>
+    <v-card flat class="mt-7" width="100%">
+      <v-card-title class="ma-1">No.{{this.$route.query.orderNo}}</v-card-title>
+      <v-card-subtitle class="ma-1">{{order.orderDate}}</v-card-subtitle>
       <v-divider/>
       <v-card-text>
         
@@ -56,10 +56,10 @@
                     <v-col cols="8" class="text-right">{{order.tel}}</v-col>
                 </v-row>
                 <v-row>
-                    <v-col cols="4">배송지</v-col>
+                    <v-col cols="12">배송지</v-col>
                     <v-spacer></v-spacer>
-                    <v-col cols="8" class="text-right">{{order.address1}}</v-col>
-                    {{order.address2}}
+                    <v-col cols="12">{{order.address1}}</v-col>
+                    <v-col cols="12">{{order.address2}}</v-col>
                 </v-row>
                 <v-row >
                      <v-col>배송 메세지</v-col>
@@ -83,6 +83,7 @@
 </template>
 
 <script>
+import dayjs from 'dayjs';
 import orderAPI from '@/apis/order';
 import ProductComponent from './ProductComponent.vue';
 export default {
@@ -133,8 +134,10 @@ export default {
     },
     mounted(){
         this.$store.commit("setPageFlag",'title');
-    },created() {
+    }
+    ,created() {
         this.handleOrderInfo();
+        this.order.orderDate = dayjs(this.order.orderDate).format("YYYY.MM.DD. HH:MM")
     }
 }
 </script>

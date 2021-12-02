@@ -1,17 +1,18 @@
 <!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
     <v-card
-    class="ma-1 pa-0" height="100" flat
+    class="ma-1 pa-0" height="120"
     >
+      <v-card-text>
       <v-row>
-        <v-col cols="5">
-          <v-img :src="product.thumbnail" height="100" width="100%" class="d-flex flex-row pl-2 pt-0"
+        <v-col cols="4">
+          <v-img :src="product.thumbnail" height="120" width="120" class="d-flex flex-row pl-2 pt-0"
           gradient="to top, rgba(0,0,0,.3), rgba(0,0,0,.3)" >
             <v-row class="d-flex justify-space-between">     
             </v-row>
           </v-img>
         </v-col>
-          <v-col cols="7" class="pa-2 d-flex align-center justify-end">
+          <v-col cols="8" class="pa-2 d-flex align-center justify-end">
               <div>
                 <div class="text-right">[{{product.brandName}}]</div>
                 <h2 class="text-right">{{product.name}}</h2>
@@ -20,6 +21,7 @@
               </div>
           </v-col>
       </v-row>
+      </v-card-text>
   </v-card>
 </template>
 

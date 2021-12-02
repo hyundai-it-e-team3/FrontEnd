@@ -8,7 +8,7 @@
           </v-col>
         </v-row>
         <v-row class="ml-1 mb-2">
-          <v-col class="level d-flex pl-4 pt-0 pr-0">{{member.memberLevel}} Lv. <span class="pt-1 pl-1"><v-icon size="21">mdi-information-outline</v-icon></span></v-col>
+          <v-col class="level d-flex pl-4 pt-0 pr-0">{{member.memberLevel}} Lv. <span class="pt-1 pl-1"><v-icon size="21" @click="goLevel(member.memberLevel)">mdi-information-outline</v-icon></span></v-col>
         </v-row>
       </v-col>
     </v-row>
@@ -112,6 +112,9 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    goLevel(level) {
+      this.$router.push(`/member/memberlevel?level=${level}`);
     }
   },
   created() {

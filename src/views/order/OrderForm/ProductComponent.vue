@@ -10,7 +10,7 @@
               <v-col class="pa-4">
                 <div class="font-weight-bold">{{product.brandName}}</div>
                 <div>{{product.name}}</div>
-                <div> {{cart.productDetailId}} / {{cart.psize}} / {{cart.amount}}개 </div>
+                <div> {{orderDetail.productDetailId}} / {{orderDetail.psize}} / {{orderDetail.amount}}개 </div>
               </v-col>
             </v-row>
             <v-expansion-panels accordion flat >
@@ -19,7 +19,7 @@
                         <v-row>
                         <v-col cols="6">주문 금액</v-col>
                         <v-spacer></v-spacer>
-                        <v-col cols="6" class="text-right">{{product.price}}원</v-col>
+                        <v-col cols="6" class="text-right">{{orderDetail.price}}원</v-col>
                         </v-row>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import productAPI from "@/apis/product"
 export default {
     //컴포넌트의 대표이름 (devtools에 나오는 이름)
     name: "productComponent",
@@ -59,19 +60,42 @@ export default {
     //컴포넌트 데이터 정의
     data: function() {
         return {
+          product : null
         };
     },
     //컴포넌트 메소드 정의
     methods: {
-      
-      
+      handleProductInfo() {
+            this.loading = true;
+            this.alertDialog = true;
+            console.log(this.orderDetail);
+            const response = productAPI.getCartProduct(this.orderDetail.productDetailId).then(response => {
+                console.log(response.data);
+                this.product = response.data; 
+                this.loading = false;
+
+                this.alertDialog = false;
+                }).catch(error => {
+                if(error.response) {
+                    if(error.response.status === 403) {
+                        this.loading = false;
+                        this.alertDialog = false;
+                        this.$router.push("/menu07/auth/jwtauth")
+                    }
+                } else {
+                    this.loading = false;
+                    this.alertDialogMessage = "네트워크 통신 오류";
+                }
+            });
+            this.loading = false;
+            this.alertDialog = false;
+        },
     },
     props: [
-      "cart",
-      "product"
+      "orderDetail"
     ],
     created() {
-
+      this.handleProductInfo();
     }
 }
 </script>

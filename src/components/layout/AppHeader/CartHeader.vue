@@ -12,9 +12,9 @@
             <v-icon small >mdi-chevron-left</v-icon>
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn icon to="/order/cart">
-            <v-icon small>mdi-cart-minus</v-icon>
-        </v-btn>
+        장바구니
+        <v-spacer></v-spacer>
+
         </template>
     </v-app-bar>
 </template>
