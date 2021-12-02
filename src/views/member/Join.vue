@@ -54,7 +54,7 @@
         </validation-provider>
 
         <validation-provider name="member.tel" rules="telRequired|telType" v-slot="{ errors }">
-          <v-col>전화번호<span class="red--text">*</span> <span class="telComment">'-'를 포함해 입력바랍니다.</span></v-col>
+          <v-col>전화번호<span class="red--text">*</span> <span class="telComment grey--text">'-'를 포함해 입력바랍니다.</span></v-col>
           <v-text-field placeholder="전화번호"
                         v-model="member.tel"
                         outlined
@@ -64,7 +64,7 @@
         </validation-provider>
 
         <validation-provider name="member.birthday" rules="birthdayRequired|birthdayType" v-slot="{ errors }">
-          <v-col>생년월일<span class="red--text">*</span> <span class="telComment">6자리만 입력바랍니다.</span></v-col>
+          <v-col>생년월일<span class="red--text">*</span> <span class="telComment grey--text">6자리만 입력바랍니다.</span></v-col>
           <v-text-field placeholder="생년월일"
                         v-model="member.birthday"
                         class="mr-2"
@@ -237,11 +237,8 @@ export default {
 </script>
 
 <style scoped>
-.v-btn {
-  font-size: 3em;
-}
 .col {
-  font-size: 1.3em;
+  font-size: 18px;
   padding: 1%;
 }
 .v-text-field >>> input {

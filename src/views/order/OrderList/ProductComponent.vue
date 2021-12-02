@@ -15,8 +15,8 @@
           <v-col cols="8" class="pa-2 d-flex align-center justify-end">
               <div>
                 <div class="text-right">[{{product.brandName}}]</div>
-                <h2 class="text-right">{{product.name}}</h2>
-                <div class="font-weight-bold text-right">{{orderDetail.price}}원</div>
+                <h3 class="text-right">{{product.name}}</h3>
+                <div class="font-weight-bold text-right">{{orderDetail.price.toLocaleString()}}원</div>
                 <div class="text-right ma-0" >사이즈 : {{orderDetail.psize}} / {{orderDetail.amount}} 개</div>
               </div>
           </v-col>

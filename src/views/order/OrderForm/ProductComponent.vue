@@ -1,21 +1,21 @@
 <!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-    <v-card>
+    <v-card outlined>
       <v-row>
-          <v-col cols="4" class="pa-0 pl-2 pb-2">
-            <v-img width="100%" :src="product.thumbnail"/>
+          <v-col cols="4" class="pa-0">
+            <v-img height="auto" :src="product.thumbnail"/>
           </v-col>
           <v-col cols="8" class="pa-1 pl-2">
             <v-row>
-              <v-col class="pa-4">
+              <v-col class="pa-4 pb-10">
                 <div class="font-weight-bold">{{product.brandName}}</div>
                 <div>{{product.name}}</div>
                 <div> {{orderDetail.productDetailId}} / {{orderDetail.psize}} / {{orderDetail.amount}}개 </div>
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols="6">주문 금액</v-col>
-              <v-col cols="6" class="text-right">{{orderDetail.price}}원</v-col>
+              <v-col class="pl-3" cols="6">주문 금액</v-col>
+              <v-col cols="6" class="pr-3 text-right">{{orderDetail.price.toLocaleString()}}원</v-col>
             </v-row>
           </v-col>
         </v-row>

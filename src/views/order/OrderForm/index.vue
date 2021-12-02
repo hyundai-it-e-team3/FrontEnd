@@ -1,15 +1,13 @@
 <!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-    <v-card>
-      <v-card-title></v-card-title>
-      <v-card-subtitle></v-card-subtitle>
-      <v-divider/>
+    <v-card tile>
         <v-row v-if="!cartFlag">
             <product-component :orderDetail=orderDetail />
         </v-row>
         <v-card-text v-if="cartFlag">
             <v-row v-for="(orderDetail, i) in orderDetailList" :key="i">
-                <product-component :orderDetail=orderDetail />
+                <product-component 
+                    :orderDetail=orderDetail />
             </v-row>
         </v-card-text>
     <v-expansion-panels flat v-if="false">
@@ -201,7 +199,7 @@
 
     
     <v-card-actions>
-        <v-btn width="100%" @click="handleInsertOrder">주문하기</v-btn>
+        <v-btn width="100%" color="#255938" dark class="font-weight-bold" @click="handleInsertOrder">주문하기</v-btn>
     </v-card-actions>
    
 

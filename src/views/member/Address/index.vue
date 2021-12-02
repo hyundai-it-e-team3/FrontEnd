@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="mt-2">
     <v-row v-for="(address) in address" :key="address.addressSeq" class="mb-2">
       <address-list 
         :address=address />

@@ -1,15 +1,14 @@
 <!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-    <v-card flat class="mt-7" width="100%">
-      <v-card-title class="ma-1">No.{{this.$route.query.orderNo}}</v-card-title>
-      <v-card-subtitle class="ma-1">{{order.orderDate}}</v-card-subtitle>
-      <v-divider/>
-      <v-card-text>
-        
-      <v-card v-for="(orderDetail, i) in orderDetailList" :key="i" class="ma-1">
-        <product-component :orderDetail=orderDetail />
-      </v-card>
-      </v-card-text>
+    <v-card flat class="ma-2">
+      <v-card-title class="ma-1 mb-0">No.{{this.$route.query.orderNo}}</v-card-title>
+      <v-card-subtitle class="ma-1 mt-0">{{new Date(order.orderDate).toLocaleDateString()}}</v-card-subtitle>
+
+      <v-divider class="py-1"/>
+
+        <v-card v-for="(orderDetail, i) in orderDetailList" :key="i" elevation="0">
+            <product-component :orderDetail=orderDetail />
+        </v-card>
 
       <v-card-text>
       <v-expansion-panels accordion flat>
@@ -71,12 +70,12 @@
         </v-expansion-panel>
     </v-expansion-panels>
     </v-card-text>
-    <v-card-actions>
-        <v-col cols="8">
-        <v-btn width="100%">배송지 수정</v-btn>
+    <v-card-actions class="d-flex justify-center mt-3">
+        <v-col cols="7">
+        <v-btn color="#255938" dark width="100%">배송지 수정</v-btn>
         </v-col>
         <v-col cols="4">
-        <v-btn  width="100%">주문 취소</v-btn>
+        <v-btn class="ml-1" color="#255938" dark width="100%">주문 취소</v-btn>
         </v-col>
     </v-card-actions>
     </v-card>  
@@ -86,6 +85,7 @@
 import dayjs from 'dayjs';
 import orderAPI from '@/apis/order';
 import ProductComponent from './ProductComponent.vue';
+
 export default {
     //컴포넌트의 대표이름 (devtools에 나오는 이름)
     name: "complete",

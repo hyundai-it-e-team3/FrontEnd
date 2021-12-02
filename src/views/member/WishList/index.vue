@@ -1,16 +1,17 @@
 <template>
-  <v-container class="pa-0">
-    <v-row dense class="mt-3">
+  <v-container class="pa-1">
+    <v-row dense>
       <v-col cols="6" v-for="item in list" :key="item.productId">
         <v-card
           @click="goProductDetail(item.productId)"
           elevation="0"
+          tile
         >
           <v-img
             :src="item.thumbnail"
             class="white--text align-end"
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-            height="200px"
+            height="auto"
           >
             <v-icon
               v-if="
@@ -24,12 +25,12 @@
               >mdi-heart</v-icon
             >
           </v-img>
-          <v-card-title class="body-2">{{
+          <v-card-title class="brandname body-2">{{
             item.brandName
           }}</v-card-title>
           <v-card-subtitle class="caption">
-            <div>{{ item.name }}</div>
-            <div class="font-weight-blacksss">
+            <div class="content">{{ item.name }}</div>
+            <div class="content">
               {{ item.price.toLocaleString() }}₩
             </div>
           </v-card-subtitle>
@@ -42,16 +43,12 @@
 <script>
 import ProductModule from "@/modules/productModule";
 export default {
-  //컴포넌트의 대표이름 (devtools에 나오는 이름)
   name: "wishList",
-  //추가하고 싶은 컴포넌트 등록
   components: {},
-  //컴포넌트 데이터 정의
   data: () => ({
     box: [],
     list: [],
   }),
-  //컴포넌트 메소드 정의
   methods: {
     goProductDetail(productId) {
         console.log(productId);
@@ -81,4 +78,15 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.brandname {
+  font-weight: 500;
+  color: black;
+  padding: 0,5em;
+}
+.content {
+  font-weight: 500;
+  font-size: 11px;
+  color: black;
+}
+</style>

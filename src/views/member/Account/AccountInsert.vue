@@ -25,7 +25,7 @@
             <v-col class="col-9 pa-0" v-if="account.payType === '2'">
               <v-select :items="bankType2" outlined hide-details v-model="account.bank"></v-select>
             </v-col>
-            <span class="errormessage col-12 mt-0 ml-15 pl-9 mb-0">{{ errors[0] }}</span>
+            <span class="errormessage mt-0 ml-15 pl-9 mb-0">{{ errors[0] }}</span>
           </v-row>
         </validation-provider>
 
@@ -36,7 +36,7 @@
                           outlined
                           hide-details>
             </v-text-field>
-            <span class="errormessage col-12 mt-0 ml-15 pl-9 mb-0">{{ errors[0] }}</span>
+            <span class="errormessage col-9 mt-0 ml-15 pl-9 mb-0">{{ errors[0] }}</span>
           </v-row>
         </validation-provider>
 
