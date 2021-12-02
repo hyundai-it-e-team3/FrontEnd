@@ -1,6 +1,6 @@
 <!-- 컴포넌트 UI 정의 -->
 <template>
-  <v-container class="pa-0">
+  <v-app class="pa-0">
     
       <v-text-field
             label="Keyword"
@@ -131,7 +131,7 @@
         </v-col>
       </v-row>
     </div>
-  </v-container>
+  </v-app>
 </template>
 
 <script>
@@ -158,9 +158,11 @@ export default {
         console.log("----------------------");
         let startRow = this.$store.getters["pager/getRowCount"];
         console.log(startRow, this.sortId);
-
+        let resText = this.text;
+        if(resText=='')
+          resText = '0'
         productModule.getProductListText(
-          this.text,
+          resText,
           startRow,
           3,
           this.sortId
@@ -211,6 +213,9 @@ export default {
           console.log(error);
         });
     },
+  },
+  created(){
+    this.text=" ";
   },
   watch:{
     text(){

@@ -40,7 +40,7 @@ export default {
         },
         searchOpen(){
             console.log("ododododo");
-            this.$router.push("product/searchList");
+            this.$router.push("/product/searchList");
         }
     }
 }
