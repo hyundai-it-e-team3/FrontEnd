@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pl-2 pr-2 pt-0 pb-0 mt-2">
+  <v-container class="pl-2 pr-2 pt-0 pb-0">
     <v-card class="pa-4"  outlined tile >
       <v-row class="accountName pt-4 pl-4">
           {{account.bank}}

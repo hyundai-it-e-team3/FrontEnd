@@ -9,7 +9,7 @@
 
         <v-row class="ml-1 mb-2">
           <v-col class="level col-2 d-flex pl-4 pt-0 pr-0">{{member.memberLevel}} Lv. </v-col>
-          <v-col class="col-8 d-flex pt-0 pr-0 pl-0" @click="goMemberUpdate"><v-icon size="21" @click="goLevel(member.memberLevel)">mdi-information-outline</v-icon></v-col>
+          <v-col class="col-8 d-flex pt-0 pr-0 pl-0" @click="goLevel(member.memberLevel)"><v-icon size="21">mdi-information-outline</v-icon></v-col>
         </v-row>
       </v-col>
     </v-row>

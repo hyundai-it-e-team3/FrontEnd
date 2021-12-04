@@ -1,7 +1,7 @@
 <!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-  <v-card>
-    <v-app-bar>
+  <v-card elevation="0">
+    <v-app-bar class="mb-1" elevation="0">
       <v-tabs v-model="tab" background-color="white" color="black" slider-color="black" centered>
         <v-tab v-for="tabs in tabs" :key="tabs">{{tabs}}</v-tab>
       </v-tabs>
