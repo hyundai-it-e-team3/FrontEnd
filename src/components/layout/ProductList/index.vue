@@ -120,10 +120,7 @@ export default {
   methods: {
     onIntersect(entries, observer, isIntersecting) {
       if (isIntersecting == true) {
-        console.log("----------------------");
         let startRow = this.$store.getters["pager/getRowCount"];
-        console.log(startRow, this.sortId);
-
         PagerModule.getProductList(
           this.listType,
           this.brandName,
@@ -133,13 +130,9 @@ export default {
           this.sortId
         )
           .then((response) => {
-            if (this.$store.getters["pager/getRowCount"] == 1) {
-              this.newList = response.data;
-            } else {
-              let resList = response.data;
-              for (let item of resList) {
+            let resList = response.data;
+            for (let item of resList) {
                 this.newList.push(item);
-              }
             }
             this.$store.commit("pager/plusRowCount", 4);
           })
@@ -184,10 +177,8 @@ export default {
     let stSortId = this.$store.getters["pager/getSortId"];
 
     if(this.categoryId==stCategoryId&&this.brandName==stBrandName&&this.sortId==stSortId){
-      console.log("카테고리가 같음");
       this.newList = this.$store.getters["pager/getProductList"];
     }else{
-      console.log(stCategoryId+" "+stBrandName+" "+stSortId+" "+this.categoryId+" "+this.brandName+" "+this.sortId)
       this.$store.commit("pager/resetRowCount");
       this.$store.commit("pager/resetProductList");
       this.$store.commit("pager/setCategoryId",this.categoryId);
@@ -218,12 +209,9 @@ export default {
     this.$store.commit("pager/setBrandName",this.brandName);
     this.$store.commit("pager/setSortId",this.sortId);
     this.$store.commit("pager/setProductList",this.newList);
-    console.log(this.categoryId,this.brandName,this.sortId,this.newList)
-    console.log(this.$store.getters["pager/getCategoryId"],this.$store.getters["pager/getBrandName"],this.$store.getters["pager/getSortId"],this.newList)
   },
   watch: {
     categoryId() {
-      console.log(this.categoryId);
       PagerModule.getProductList(
         this.listType,
         this.brandName,
