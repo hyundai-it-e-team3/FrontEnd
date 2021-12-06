@@ -13,8 +13,7 @@ function getProdct(productId){
 }
 
 function getCartProduct(productDetailId){
-  let productId = productDetailId.substr(0,productDetailId.indexOf("_"));
-  return productAPI.get(`/product/${productId}`);
+  return productAPI.get(`/product/cart/${productDetailId}`);
 }
 
 function getproductDetailPrice(productDetailId){

@@ -253,7 +253,6 @@ export default {
 
   },
   mounted(){
-    console.log("프로덕트임------");
     this.$store.commit("setPageFlag",'product');
   },
   created() {

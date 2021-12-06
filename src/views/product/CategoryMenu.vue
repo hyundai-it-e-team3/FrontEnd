@@ -43,14 +43,15 @@ export default {
       this.$router.go(-1);
     },
     goList(categoryId, mainIndex, middleIndex, subIndex) {
+
       let main = this.menuList[mainIndex];
       main["parent"] = null;
       let middle = main.categoryList[middleIndex];
       middle["parent"] = main;
       let sub = middle.categoryList[subIndex];
       sub["parent"] = middle;
-
       let cateList = [main, middle, sub];
+
       this.$store.commit("category/setSelectedCategory",cateList);
       this.$store.commit("category/setCurCategory",sub);
       this.$router.push(`/product/categoryProduct?categoryId=${categoryId}`).catch(()=>{});

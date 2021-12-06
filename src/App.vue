@@ -28,7 +28,6 @@ beforeCreate() {
     CategoryModule.getCategory()
       .then(response=>{
         this.$store.commit("category/setCategory",response.data);
-        console.log(response.data);
       })
       .catch(error => {
         console.log(error);
