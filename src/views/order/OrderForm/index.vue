@@ -1,19 +1,29 @@
 <!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
     <v-card tile>
-        <v-row v-if="!cartFlag">
-            <product-component :orderDetail=orderDetail />
+    <v-row v-for="(orderDetail, i) in order.orderDetailList" :key="i">
+        <product-component 
+            :orderDetail=orderDetail />
+    </v-row>
+
+    <v-card flat class="pa-10">
+        <v-row class="text-decoration-line-through">
+            총 상품 금액 : 
+            {{payInfo.totalPrice}}
         </v-row>
-        <v-card-text v-if="cartFlag">
-            <v-row v-for="(orderDetail, i) in orderDetailList" :key="i">
-                <product-component 
-                    :orderDetail=orderDetail />
-            </v-row>
-        </v-card-text>
-    <v-expansion-panels flat v-if="false">
+        <v-row class="red--text">
+            총 할인 금액 : {{payInfo.discountPrice}}
+        </v-row>
+        <v-row>
+            총 결제 금액 : {{payInfo.Price}} ({{payInfo.percent}}%)
+        </v-row>
+    </v-card>
+
+    <v-card>
+    <v-expansion-panels flat>
         <v-expansion-panel>
             <v-expansion-panel-header>
-                쿠폰 선택
+                쿠폰 선택 -{{payInfo.couponPrice}}
             </v-expansion-panel-header>
             <v-expansion-panel-content>
 
@@ -24,19 +34,19 @@
                     dense
                 >
                     <v-list-item-group
-                    v-model="selectedItem"
+                    v-model="selectedCoupon"
                     color="primary"
                     >
                     <v-list-item
-                        v-for="(item, i) in items"
+                        v-for="(item, i) in coupons"
                         :key="i"
                     >
 
                         <v-list-item-content>
                         <v-row>
-                            <v-col cols="8" v-text="item.text"></v-col>
-                            <v-spacer></v-spacer>
-                            <v-col cols="4" class="text-right" v-text="item.rate"></v-col>
+                            <marquee>
+                                {{item.name}} / ~{{item.expDate}}
+                            </marquee>
                         </v-row>
                         </v-list-item-content>
                     </v-list-item>
@@ -47,38 +57,16 @@
             </v-expansion-panel-content>
         </v-expansion-panel>
     </v-expansion-panels>
-     <v-expansion-panels flat v-if="false">
+     <v-expansion-panels flat>
         <v-expansion-panel>
             <v-expansion-panel-header>
-                포인트 사용
+                포인트 사용 -{{payInfo.pointPrice}}
             </v-expansion-panel-header>
             <v-expansion-panel-content>
                 <v-row>
-                    <v-col cols="8">
-                        <v-text-field
-                            label="Point"
-                        ></v-text-field> 
-                    </v-col>
+                    <v-col cols="4" class="d-flex align-center">포인트</v-col>
                     <v-spacer></v-spacer>
-                    <v-col cols="4" class="text-right d-flex align-center">
-                        <v-btn
-                        color="black" dark
-                        >적용</v-btn>
-                    </v-col>
-                </v-row>
-            </v-expansion-panel-content>
-        </v-expansion-panel>
-    </v-expansion-panels>
-    <v-expansion-panels flat v-if="false">
-        <v-expansion-panel>
-            <v-expansion-panel-header>
-                총 결제 금액
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-                <v-row>
-                   총 상품 금액 : {{order.totalPrice}}
-                   총 할인 금액 : {{order.discountPrice}}
-                   총 결제 금액 : {{order.totalPrice - order.discountPrices}}
+                    <v-col cols="8" class="text-right"><v-text-field label="Point" v-model=payInfo.pointPrice></v-text-field></v-col>
                 </v-row>
             </v-expansion-panel-content>
         </v-expansion-panel>
@@ -116,7 +104,7 @@
                 <v-row height="50px">
                 <v-col cols="4">포인트</v-col>
                 <v-spacer></v-spacer>
-                <v-col cols="8" class="text-right">{{member.point}}P</v-col>
+                <v-col cols="8" class="text-right">{{member.point}}</v-col>
                 </v-row>
             </v-expansion-panel-content>
         </v-expansion-panel>
@@ -169,37 +157,10 @@
             </v-expansion-panel-content>
         </v-expansion-panel>
     </v-expansion-panels>
-
-    <v-expansion-panels flat>
-        <v-expansion-panel>
-            <v-expansion-panel-header>
-                결제
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-                <v-row>
-                    <v-col cols="4" class="d-flex align-center">포인트</v-col>
-                    <v-spacer></v-spacer>
-                    <v-col cols="8" class="text-right"><v-text-field :rules="rules" label="Point"></v-text-field></v-col>
-                </v-row>
-                <v-row>
-                    <v-col cols="4" class="d-flex align-center">쿠폰</v-col>
-                    <v-spacer></v-spacer>
-                    <v-col cols="8" class="text-right">        
-                        <v-text-field
-                        label="Coupon"
-                        required
-                        ></v-text-field>
-                    </v-col>
-                </v-row>
-            </v-expansion-panel-content>
-        </v-expansion-panel>
-    </v-expansion-panels>
-    
-
-
+    </v-card>
     
     <v-card-actions>
-        <v-btn width="100%" color="#255938" dark class="font-weight-bold" @click="handleInsertOrder">주문하기</v-btn>
+        <v-btn width="100%" color="#255938" dark class="font-weight-bold" @click="handleOrderInsert">주문하기</v-btn>
     </v-card-actions>
    
 
@@ -228,16 +189,11 @@ export default {
             return pattern.test(value) || 'Invalid e-mail.'
             },
         ],
-        selectedItem: 0,
-        items: [
-        { text: '신규회원가입 환영쿠폰', rate: '5%' },
-        { text: '추석 이벤트 쿠폰', rate: '3,000₩' },
-        { text: '설날 이벤트 쿠폰', rate: '5,500₩' },
-        { text: '생일 쿠폰', rate: '15%' }
+        selectedCoupon: -1,
+        coupons: [
         ],
         member: null,
         orderDetail: null,
-        orderDetailList: [],
         product: null,
         cartFlag: false,
         temp: null,
@@ -249,39 +205,66 @@ export default {
             tel: null,
             name: null,
             couponId: null,
+            orderDetailList: [],
+            paymentList : [
+                {
+                    
+                }
+            ]
         },
-        paymentList : [
-            {
-                type: 1,
-                price: 10000,
-                state: 1,
-                accountNo: null,
-                bank: null,
-                installment: 0,
-            }
-        ]
+        couponPayment: {
+            type: 1,
+            price: 0,
+            state: 1,
+            accountNo: null,
+            bank: null,
+            installment: 0,
+        },
+        pointPayment: {
+            type: 2,
+            price: 0,
+            state: 1,
+            accountNo: null,
+            bank: null,
+            installment: 0,
+        },
+        userPayment: {
+            type: 3,
+            price: 0,
+            state: 1,
+            accountNo: null,
+            bank: null,
+            installment: 0,
+        },
+        point: 0,
+        couponId: null,
+        payInfo: {
+            totalPrice: 0,
+            discountPrice: 0,
+            couponPrice: 0,
+            pointPrice: 0,
+            Price: 0
+        }
+        
     }),
     //컴포넌트 메소드 정의
     methods: {
-         async handleInsertOrder() { 
+        async handleOrderInsert() {
             this.loading = true;
             this.alertDialog = true;
+            this.couponPayment.price = this.payInfo.couponPrice;
+            this.order.paymentList.push(this.couponPayment);
+            this.pointPayment.price = this.payInfo.pointPrice;
+            this.order.paymentList.push(this.pointPayment);
+            this.userPayment.price = this.payInfo.Price;
+            this.order.paymentList.push(this.userPayment);
+
             try {
-                const multipartFormData = new FormData();
 
-                multipartFormData.append("memberId", this.$store.state.memberId);
-                multipartFormData.append("state", 1);
-                multipartFormData.append("request", this.order.request);
-                multipartFormData.append("zipCode", this.order.zipCode);
-                multipartFormData.append("address1", this.order.address1);
-                multipartFormData.append("address2", this.order.address2);
-                multipartFormData.append("tel", this.order.tel);
-                multipartFormData.append("name", this.order.name);
-                multipartFormData.append("couponId", this.order.couponId);
 
-                console.log(multipartFormData);
-                const response = await orderAPI.insertOrder(multipartFormData);
-                this.order.orderId = response.data;
+                console.log(this.order);
+                const response = await orderAPI.insertOrder(this.order);
+                console.log("response: " + response);
                 this.loading = false;
                 this.alertDialog = false;
             }   catch(error) {
@@ -296,111 +279,18 @@ export default {
                     }
                 }
             }
-
-            if(!this.cartFlag) {
-                try {
-                    const multipartFormData = new FormData();
-
-                    multipartFormData.append("productDetailId", this.orderDetail.productDetailId);
-                    multipartFormData.append("psize", this.orderDetail.psize);
-                    multipartFormData.append("orderId", this.order.orderId);
-                    multipartFormData.append("amount", this.orderDetail.amount);
-                    multipartFormData.append("price", this.orderDetail.price);
-                    multipartFormData.append("state", 1);
-
-                    console.log(multipartFormData);
-                    await orderAPI.insertOrderDetail(multipartFormData);
-                    this.loading = false;
-                    this.alertDialog = false;
-                }   catch(error) {
-                    if(error.response) {
-                        if(error.response.status === 403) {
-                            this.loading = false;
-                            this.alertDialog = false;
-                            this.$router.push("/menu07/auth/jwtauth")
-                        } else {
-                            this.loading = false;
-                            this.alertDialogMessage = "네트워크 통신 오류";
-                        }
-                    }
-                }   
-            }
-
-            if(this.cartFlag) {
-                for(let i=0; i<this.orderDetailList.length; i++) {
-                    console.log(this.orderDetailList[i]);
-                    try {
-                        const multipartFormData = new FormData();
-
-                        multipartFormData.append("productDetailId", this.orderDetailList[i].productDetailId);
-                        multipartFormData.append("psize", this.orderDetailList[i].psize);
-                        multipartFormData.append("orderId", this.order.orderId);
-                        multipartFormData.append("amount", this.orderDetailList[i].amount);
-                        multipartFormData.append("price", this.orderDetailList[i].price);
-                        multipartFormData.append("state", 1);
-
-                        await orderAPI.insertOrderDetail(multipartFormData);
-                        this.loading = false;
-                        this.alertDialog = false;
-                    }   catch(error) {
-                        if(error.response) {
-                            if(error.response.status === 403) {
-                                this.loading = false;
-                                this.alertDialog = false;
-                                this.$router.push("/menu07/auth/jwtauth")
-                            } else {
-                                this.loading = false;
-                                this.alertDialogMessage = "네트워크 통신 오류";
-                            }
-                        }
-                    }   
-                }
-            }//if cart
-
-            for(let i=0; i<this.paymentList.length; i++) {
-                console.log(this.paymentList[i]);
-                try {
-                    const multipartFormData = new FormData();
-
-                    multipartFormData.append("type", this.paymentList[i].type);
-                    multipartFormData.append("price", this.paymentList[i].price);
-                    multipartFormData.append("accountNo", this.paymentList[i].accountNo);
-                    multipartFormData.append("bank", this.paymentList[i].bank);
-                    multipartFormData.append("installment", this.paymentList[i].installment);
-                    multipartFormData.append("state", this.paymentList[i].state);
-                    multipartFormData.append("orderId", this.order.orderId);
-
-                    console.log(multipartFormData);
-                    const response = await orderAPI.insertOrderPayment(multipartFormData);
-                    this.loading = false;
-                    this.alertDialog = false;
-                }   catch(error) {
-                    if(error.response) {
-                        if(error.response.status === 403) {
-                            this.loading = false;
-                            this.alertDialog = false;
-                            this.$router.push("/menu07/auth/jwtauth")
-                        } else {
-                            this.loading = false;
-                            this.alertDialogMessage = "네트워크 통신 오류";
-                        }
-                    }
-                }
-                
-            }
-            this.$router.push("/order/complete?orderNo="+this.order.orderId);
-            
         },
-        addOrderDetailList(id) {
+        addOrderDetailByCart(cartId) {
             this.loading = true;
             this.alertDialog = true;
 
-            orderAPI.getCartInfo(id).then(response => {
-                    let temp = response.data;
-                    const res = productAPI.getproductDetailPrice(temp.productDetailId)
+            orderAPI.getCartInfo(cartId).then(response => {
+                    let cartData = response.data;
+                    const res = productAPI.getproductDetailPrice(cartData.productDetailId)
                         .then(res => {
-                            temp.price = res.data;
-                            this.orderDetailList.push(JSON.parse(JSON.stringify(temp))); 
+                            cartData.price = res.data;
+                            this.payInfo.totalPrice += res.data;
+                            this.order.orderDetailList.push(JSON.parse(JSON.stringify(cartData))); 
                         });
                 }).catch(error => {
                 if(error.response) {
@@ -418,10 +308,12 @@ export default {
             this.alertDialog = false;
         },
         addOrderDetail() {
-            productAPI.getCartProduct(this.orderDetail.productDetailId).then(response => {
+            productAPI.getproductDetailPrice(this.orderDetail.productDetailId).then(response => {
                 console.log(response.data);
-                const temp = response.data; 
-                this.orderDetail.price = temp.price;
+                this.orderDetail.price =  response.data; 
+                this.payInfo.totalPrice += response.data;
+                console.log("orderDetail : " + this.orderDetail.price);
+                this.order.orderDetailList.push(JSON.parse(JSON.stringify(this.orderDetail)));
                 console.log(this.orderDetail);
                 }).catch(error => {
                 if(error.response) {
@@ -473,23 +365,55 @@ export default {
         this.$store.commit("setPageFlag",'product');
     },
     created(){
+        this.order.memberId = this.$store.state.memberId;
+
+        memberAPI.getMemberCoupon(this.$store.state.memberId).then(response => {
+                console.log("COUPON : " + response.data);
+                this.coupons = response.data;
+            }).catch(error => {
+            if(error.response) {
+                if(error.response.status === 403) {
+                    this.$router.push("/auth/jwtauth")
+                }
+            } else {
+                console.log("네트워크 통신 오류");
+            }
+        });
+
         const linkKey = this.$route.query.link;
         if(linkKey == 'product') {
             this.orderDetail = this.$store.getters["product/getProduct"];
-            console.log(this.orderDetail);
             this.addOrderDetail();
         } else if(linkKey == 'cart') {
             this.cartIdList = this.$store.getters["product/getCartIdList"];
             for(var cartId of this.cartIdList) {
-                this.addOrderDetailList(cartId);
+                this.addOrderDetailByCart(cartId);
             }
             this.cartFlag = true;
         }
         this.handleAddressInfo();
         this.handleMemberInfo();
     },
-    
-
+    watch: {
+        selectedCoupon (to, from) {
+            this.order.couponId = this.coupons[to].couponId;
+            if(this.coupons[to].type == 1) {
+                this.payInfo.couponPrice = this.coupons[to].amount;
+            } else {
+                this.payInfo.couponPrice = parseInt(this.coupons[to].amount) / 100 * this.payInfo.totalPrice ;
+            }
+        },
+        payInfo: {
+            deep: true,
+            handler: function (val) {
+                console.log(val);
+                this.payInfo.discountPrice = this.payInfo.couponPrice + parseInt(this.payInfo.pointPrice);
+                this.payInfo.Price = this.payInfo.totalPrice - this.payInfo.discountPrice;
+                this.payInfo.percent = parseInt(this.payInfo.discountPrice / this.payInfo.totalPrice * 100) ;
+            }
+        }
+        
+    }
 }
 </script>
 

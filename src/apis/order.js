@@ -4,6 +4,11 @@ const orderAPI = axios.create({
     baseURL: 'http://kosa1.iptime.org:50214'
   });
 
+const headers = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+ };
+
   // 요청 http에 Authorization 헤더 추가, 값은 JWT로 설정
 function addAuthHeader(authToken){
     orderAPI.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
@@ -14,13 +19,14 @@ function getOrderList(memberId) {
 }
 
 function getOrderDetailList(orderId) {
-    return orderAPI.get(`/order/${orderId}/list`)
+    return orderAPI.get(`/order/${orderId}/list`);
 }
 
-function insertOrder(multipartFormData) {
-    return orderAPI.post(
-        "/order",multipartFormData);
+function insertOrder(order) {
+    //TEST 전체 한번에 insert
+    orderAPI.post("/order", order);
 }
+
 function insertOrderDetail(multipartFormData) {
     return orderAPI.post(
         "/order/detail",multipartFormData);
@@ -65,7 +71,6 @@ function getCartInfo(cartId) {
 export default {
     getOrderList,
     getOrderDetailList,
-    insertOrder,
     getOrder,
     getCartList,
     insertCart,
@@ -75,5 +80,6 @@ export default {
     insertOrderDetail,
     insertOrderPayment,
     getCartInfo,
-    updateCartAmount
+    updateCartAmount,
+    insertOrder
 }
