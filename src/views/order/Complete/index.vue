@@ -64,21 +64,152 @@
                      <v-col>배송 메세지</v-col>
                      <v-col>{{order.request}}</v-col>
                 </v-row>
-                
-
             </v-expansion-panel-content>
         </v-expansion-panel>
     </v-expansion-panels>
     </v-card-text>
-    <v-card-actions class="d-flex justify-center mt-3">
-        <v-col cols="7">
-        <v-btn color="#255938" dark width="100%">배송지 수정</v-btn>
-        </v-col>
-        <v-col cols="4">
-        <v-btn class="ml-1" color="#255938" dark width="100%">주문 취소</v-btn>
-        </v-col>
+    <v-card-actions>
+        <v-row class="d-flex justify-center mt-3" v-if="this.order.stateCode == 1">
+            <v-col cols="7">
+                    <v-btn
+                        color="#255938"
+                        dark
+                        width="100%"
+                        @click="dialog=true"
+                    >
+                    배송지 수정
+                    </v-btn> 
+            </v-col>
+            <v-col cols="4">
+            <v-btn class="ml-1" color="#255938" dark width="100%">주문 취소</v-btn>
+            </v-col>
+        </v-row>
+        <v-row class="d-flex justify-center mt-3" v-if="this.order.stateCode != 1">
+            <v-col cols="7">
+                    <v-btn
+                        color="#255938"
+                        dark
+                        width="100%"
+                        @click="handleAddressUpdateForm"
+                    >
+                    배송지 수정
+                    </v-btn> 
+            </v-col>
+            <v-col cols="4">
+            <v-btn class="ml-1" color="#255938" dark width="100%">주문 취소</v-btn>
+            </v-col>
+        </v-row>
     </v-card-actions>
-    </v-card>  
+
+
+
+    <!-- 배송지 수정 dialog -->
+    <v-row justify="center">
+        <v-dialog
+            v-model="dialog"
+            persistent
+            max-width="600px"
+        >
+
+        <v-card>
+            <v-card-title>
+            <span class="text-h5">배송지 변경</span>
+            </v-card-title>
+            <v-card-text>
+            <v-container>
+                <v-row>
+                <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                >
+                    <v-text-field
+                    label="받으실 분*"
+                    v-model = tempOrder.name
+                    required
+                    ></v-text-field>
+                </v-col>
+                <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                >
+                    <v-text-field
+                    label="연락처*"
+                    v-model = tempOrder.tel
+                    ></v-text-field>
+                </v-col>
+                <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                >
+                    <v-text-field
+                    label="우편번호*"
+                    v-model = tempOrder.zipCode
+                    required
+                    ></v-text-field>
+                </v-col>
+                                <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                >
+                    <v-text-field
+                    label="주소*"
+                    v-model = tempOrder.address1
+                    required
+                    ></v-text-field>
+                </v-col>
+                <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                >
+                    <v-text-field
+                    label="상세주소*"
+                    v-model = tempOrder.address2
+                    required
+                    ></v-text-field>
+                </v-col>
+                <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                >
+                    <v-text-field
+                    label="배송 메세지"
+                    v-model = tempOrder.request
+                    required
+                    ></v-text-field>
+                </v-col>                
+                </v-row>
+            </v-container>
+            <small>*필수입력</small>
+            </v-card-text>
+            <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+                color="blue darken-1"
+                text
+                @click="dialog = false"
+            >
+                취소
+            </v-btn>
+            <v-btn
+                color="blue darken-1"
+                text
+                @click="handleAddressUpdate"
+            >
+                변경
+            </v-btn>
+            </v-card-actions>
+        </v-card>
+
+        </v-dialog>
+    </v-row>
+
+    </v-card>      
 </template>
 
 <script>
@@ -99,7 +230,9 @@ export default {
             order: null,
             orderDetailList: null,
             paymentList: null,
-            orderNo: this.$route.query.orderNo
+            orderNo: this.$route.query.orderNo,
+            tempOrder: null,
+            dialog: false
         };
     },
     //컴포넌트 메소드 정의
@@ -113,6 +246,9 @@ export default {
                 console.log(response.data.order);
 
                 this.order = response.data.order;
+                this.order.orderId = this.orderNo;
+                this.tempOrder = JSON.parse(JSON.stringify(this.order));
+                
                 this.orderDetailList = response.data.orderDetails;
                 this.paymentList = response.data.payments;
 
@@ -130,6 +266,32 @@ export default {
                     this.alertDialogMessage = "네트워크 통신 오류";
                 }
             });
+        },
+        handleAddressUpdate() {
+            orderAPI.updateAddress(this.tempOrder)
+                .then(response => {
+                    console.log(response.data);
+                    if(response.data.result == 'success') {
+                        this.dialog=false;
+                        this.order = JSON.parse(JSON.stringify(this.tempOrder));
+                    }
+
+                }).catch(error => {
+                if(error.response) {
+                    if(error.response.status === 403) {
+                        this.loading = false;
+                        this.alertDialog = false;
+                        this.$router.push("/menu07/auth/jwtauth")
+                    }
+                } else {
+                    this.loading = false;
+                    this.alertDialogMessage = "네트워크 통신 오류";
+                }
+            });
+        },
+        handleAddressUpdateForm() {
+            this.tempOrder = JSON.parse(JSON.stringify(this.order));
+            this.dialog=true;
         }
     },
     mounted(){
