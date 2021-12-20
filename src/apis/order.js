@@ -15,11 +15,11 @@ function addAuthHeader(authToken){
 }
 
 function getOrderList(memberId) {
-    return orderAPI.get("/order/list", {params:{memberId}});
+    return axios.get("/order/list", {params:{memberId}});
 }
 
 function getOrderDetailList(orderId) {
-    return orderAPI.get(`/order/${orderId}/list`);
+    return axios.get(`/order/${orderId}/list`);
 }
 
 function insertOrder(order) {
@@ -37,7 +37,7 @@ function insertOrderPayment(multipartFormData) {
 }
 
 function getOrder(orderId) {
-    return orderAPI.get(`/order/${orderId}`);
+    return axios.get(`/order/${orderId}`);
 }
 
 
@@ -68,6 +68,10 @@ function getCartInfo(cartId) {
     return orderAPI.get(`/cart/${cartId}`);
 }
 
+function updateAddress(order) {
+    return axios.patch("/order/address", order);
+}
+
 export default {
     getOrderList,
     getOrderDetailList,
@@ -81,5 +85,6 @@ export default {
     insertOrderPayment,
     getCartInfo,
     updateCartAmount,
-    insertOrder
+    insertOrder,
+    updateAddress
 }
