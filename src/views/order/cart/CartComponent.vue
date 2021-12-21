@@ -214,6 +214,8 @@ export default {
           this.loading = true;
           this.alertDialog = true;
           const response = await orderAPI.updateCartAmount(this.cartId, amount);
+          console.log(response.data);
+          this.amount = response.data.amount;
           this.loading = false;
           this.alertDialog = false;
           this.$el.parentNode.replaceChild(this.$el);

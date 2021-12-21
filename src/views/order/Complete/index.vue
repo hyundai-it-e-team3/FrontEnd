@@ -2,9 +2,11 @@
 <template>
     <v-card flat class="ma-2">
       <v-card-title class="ma-1 mb-0">No.{{this.$route.query.orderNo}}</v-card-title>
+      
       <v-card-subtitle class="ma-1 mt-0">{{new Date(order.orderDate).toLocaleDateString()}}</v-card-subtitle>
 
       <v-divider class="py-1"/>
+      <v-card-title class="ma-1 mb-0">{{this.order.state}}</v-card-title>
 
         <v-card v-for="(orderDetail, i) in orderDetailList" :key="i" elevation="0">
             <product-component :orderDetail=orderDetail />
@@ -68,7 +70,7 @@
         </v-expansion-panel>
     </v-expansion-panels>
     </v-card-text>
-    <v-card-actions>
+    <v-card-actions v-if="this.order.stateCode != 0">
         <v-row class="d-flex justify-center mt-3" v-if="this.order.stateCode == 1">
             <v-col cols="7">
                     <v-btn
@@ -81,22 +83,22 @@
                     </v-btn> 
             </v-col>
             <v-col cols="4">
-            <v-btn class="ml-1" color="#255938" dark width="100%">주문 취소</v-btn>
+            <v-btn class="ml-1" color="#255938" dark width="100%" @click="handleCancelOrder">주문 취소</v-btn>
             </v-col>
         </v-row>
         <v-row class="d-flex justify-center mt-3" v-if="this.order.stateCode != 1">
-            <v-col cols="7">
+            <v-col cols="11">
                     <v-btn
                         color="#255938"
                         dark
                         width="100%"
-                        @click="handleAddressUpdateForm"
+                        @click="handleConfirm"
                     >
-                    배송지 수정
+                    주문 확정
                     </v-btn> 
             </v-col>
-            <v-col cols="4">
-            <v-btn class="ml-1" color="#255938" dark width="100%">주문 취소</v-btn>
+            <v-col cols="4" v-if="false">
+            <v-btn class="ml-1" color="#255938" dark width="100%">교환/반품</v-btn>
             </v-col>
         </v-row>
     </v-card-actions>
@@ -281,7 +283,6 @@ export default {
                     if(error.response.status === 403) {
                         this.loading = false;
                         this.alertDialog = false;
-                        this.$router.push("/menu07/auth/jwtauth")
                     }
                 } else {
                     this.loading = false;
@@ -292,6 +293,26 @@ export default {
         handleAddressUpdateForm() {
             this.tempOrder = JSON.parse(JSON.stringify(this.order));
             this.dialog=true;
+        },
+        handleCancelOrder() {
+            console.log("주문 취소 실행");
+            orderAPI.cancleOrder(this.order)
+                .then(response => {
+                    console.log(response.data);
+                    this.$router.push("/order/orderlist")
+                }).catch(error => {
+                if(error.response) {
+                    if(error.response.status === 403) {
+                        //
+                    }
+                } else {
+                    this.loading = false;
+                    this.alertDialogMessage = "네트워크 통신 오류";
+                }
+            });
+        },
+        handleConfirm() {
+            //주문 확정 로직
         }
     },
     mounted(){
