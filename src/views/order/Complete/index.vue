@@ -17,24 +17,13 @@
         <v-expansion-panel>
             <v-expansion-panel-header class="pa-0 pl-4 pr-2">
                 최종 결제 정보
+                
             </v-expansion-panel-header>
             <v-expansion-panel-content>
-                <v-row>
-                <v-col cols="4">상품 총 합계</v-col>
+                <v-row v-for="(payment, index) in paymentList" :key="index">
+                <v-col cols="5">{{paymentList[index].type}} 사용 금액</v-col>
                 <v-spacer></v-spacer>
-                <v-col cols="8" class="text-right">{{order.totalPrice}}원</v-col>
-                </v-row>
-
-                <v-row>
-                <v-col cols="4" class="red--text">할인 총 합계</v-col>
-                <v-spacer></v-spacer>
-                <v-col cols="8" class="text-right red--text">-{{order.discountPrice}}원</v-col>
-                </v-row>
-
-                <v-row>
-                <v-col cols="4">결제 총 합계</v-col>
-                <v-spacer></v-spacer>
-                <v-col cols="8" class="text-right">{{order.totalPrice - order.discountPrcie}}원</v-col>
+                <v-col cols="7" class="text-right">{{paymentList[index].price}} 원</v-col>
                 </v-row>
             </v-expansion-panel-content>
         </v-expansion-panel>
@@ -86,7 +75,7 @@
             <v-btn class="ml-1" color="#255938" dark width="100%" @click="handleCancelOrder">주문 취소</v-btn>
             </v-col>
         </v-row>
-        <v-row class="d-flex justify-center mt-3" v-if="this.order.stateCode != 1">
+        <v-row class="d-flex justify-center mt-3" v-if="this.order.stateCode == 2">
             <v-col cols="11">
                     <v-btn
                         color="#255938"
@@ -299,7 +288,9 @@ export default {
             orderAPI.cancleOrder(this.order)
                 .then(response => {
                     console.log(response.data);
-                    this.$router.push("/order/orderlist")
+                    if(response.data == "success") {
+                        this.$router.push("/order/orderlist")
+                    }
                 }).catch(error => {
                 if(error.response) {
                     if(error.response.status === 403) {
@@ -313,6 +304,23 @@ export default {
         },
         handleConfirm() {
             //주문 확정 로직
+            console.log("주문 확정 실행");
+            orderAPI.confirmOrder(this.order)
+                .then(response => {
+                    console.log(response.data);
+                    if(response.data == "success") {
+                        this.$router.push("/order/orderlist")
+                    }
+                }).catch(error => {
+                if(error.response) {
+                    if(error.response.status === 403) {
+                        //
+                    }
+                } else {
+                    this.loading = false;
+                    this.alertDialogMessage = "네트워크 통신 오류";
+                }
+            });
         }
     },
     mounted(){

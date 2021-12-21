@@ -76,6 +76,10 @@ function cancleOrder(order) {
     return orderAPI.patch("/order", order);
 }
 
+function confirmOrder(order) {
+    return orderAPI.patch("/order/state", order);
+}
+
 export default {
     getOrderList,
     getOrderDetailList,
@@ -91,5 +95,6 @@ export default {
     updateCartAmount,
     insertOrder,
     updateAddress,
-    cancleOrder
+    cancleOrder,
+    confirmOrder
 }
