@@ -9,7 +9,9 @@
       <v-card-title class="ma-1 mb-0">{{this.order.state}}</v-card-title>
 
         <v-card v-for="(orderDetail, i) in orderDetailList" :key="i" elevation="0">
-            <product-component :orderDetail=orderDetail />
+            <product-component 
+                @check-button="handleCSButton"
+                :orderDetail=orderDetail />
         </v-card>
 
       <v-card-text>
@@ -76,7 +78,7 @@
             </v-col>
         </v-row>
         <v-row class="d-flex justify-center mt-3" v-if="this.order.stateCode == 2">
-            <v-col cols="11">
+            <v-col cols="12">
                     <v-btn
                         color="#255938"
                         dark
@@ -86,13 +88,8 @@
                     주문 확정
                     </v-btn> 
             </v-col>
-            <v-col cols="4" v-if="false">
-            <v-btn class="ml-1" color="#255938" dark width="100%">교환/반품</v-btn>
-            </v-col>
         </v-row>
     </v-card-actions>
-
-
 
     <!-- 배송지 수정 dialog -->
     <v-row justify="center">
@@ -200,12 +197,176 @@
         </v-dialog>
     </v-row>
 
+
+    <!-- CS dialog -->
+    <v-row justify="center">
+        <v-dialog
+            v-model="CSdialogReturn"
+            persistent
+            max-width="600px"
+        >
+        <v-card>
+            <v-card-title>
+            <span class="text-h5">반품</span>
+            </v-card-title>
+            <v-card-text>
+            <v-container>
+                <v-row>
+                <v-col
+                cols="12"
+                sm="6"
+                md="4"
+                >   
+                    <li>
+                    상품명 : {{orderCS.productName}}
+                    </li>
+                    <li>
+                    사이즈 : {{orderCS.psize}}
+                    </li>
+                    <li>
+                    상품코드 : {{orderCS.productDetailId}}
+                    </li>
+
+                </v-col>
+                <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                >
+                    <v-text-field
+                    label="접수 사유"
+                    v-model = orderCS.content
+                    required
+                    ></v-text-field>
+                </v-col>                
+                </v-row>
+            </v-container>
+            <small>*필수입력</small>
+            </v-card-text>
+            <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+                color="blue darken-1"
+                text
+                @click="CSdialogReturn = false"
+            >
+                취소
+            </v-btn>
+            <v-btn
+                color="blue darken-1"
+                text
+                @click="handleCS"
+            >
+                접수
+            </v-btn>
+            </v-card-actions>
+        </v-card>
+        </v-dialog>
+    </v-row>
+
+
+    <v-row justify="center">
+        <v-dialog
+            v-model="CSdialogChange"
+            persistent
+            max-width="600px"
+        >
+        <v-card>
+            <v-card-title>
+            <span class="text-h5">교환</span>
+            </v-card-title>
+            <v-card-text>
+            <v-container>
+                <v-row>
+                <v-col
+                cols="12"
+                sm="6"
+                >
+                </v-col>    
+                <v-col
+                cols="12"
+                sm="6"
+                md="4"
+                >   
+                    <li>
+                    상품명 : {{orderCS.productName}}
+                    </li>
+                    <li>
+                    사이즈 : {{orderCS.psize}}
+                    </li>
+                    <li>
+                    상품코드 : {{orderCS.productDetailId}}
+                    </li>
+                </v-col>
+                <v-col
+                    cols="12"
+                    sm="6"
+                >
+                <v-select
+                :items=colorList
+                item-text="colorCode"
+                item-value="productDetailId"
+                label="색상*"
+                required
+                v-model="newColor"
+                @change="handleSizeList"
+                ></v-select>
+                </v-col>
+                <v-col
+                    cols="12"
+                    sm="6"
+                >
+                <v-select
+                    :items=sizeList
+                    label="사이즈*"
+                    required
+                    v-model="orderCS.newPsize"
+                    ></v-select>
+                </v-col>
+                
+                <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                >
+                    <v-text-field
+                    label="접수 사유"
+                    v-model = tempOrder.request
+                    required
+                    ></v-text-field>
+                </v-col>                
+                </v-row>
+            </v-container>
+            <small>*필수입력</small>
+            </v-card-text>
+            <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+                color="blue darken-1"
+                text
+                @click="CSdialogChange = false"
+            >
+                취소
+            </v-btn>
+            <v-btn
+                color="blue darken-1"
+                text
+                @click="handleCS"
+            >
+                접수
+            </v-btn>
+            </v-card-actions>
+        </v-card>
+        </v-dialog>
+    </v-row>
+
     </v-card>      
 </template>
 
 <script>
 import dayjs from 'dayjs';
 import orderAPI from '@/apis/order';
+import productAPI from '@/apis/product';
 import ProductComponent from './ProductComponent.vue';
 
 export default {
@@ -218,12 +379,21 @@ export default {
     //컴포넌트 데이터 정의
     data: function() {
         return {
-            order: null,
-            orderDetailList: null,
-            paymentList: null,
+            order: {},
+            orderDetailList: [],
+            paymentList: [],
             orderNo: this.$route.query.orderNo,
-            tempOrder: null,
-            dialog: false
+            tempOrder: {},
+            dialog: false,
+            CSdialogReturn: false,
+            CSdialogChange: false,
+            orderCS: {
+            },
+            colorList:[],
+            sizeList:[],
+            productDetail:null,
+            newColor : null,
+            newPsize : null
         };
     },
     //컴포넌트 메소드 정의
@@ -321,7 +491,76 @@ export default {
                     this.alertDialogMessage = "네트워크 통신 오류";
                 }
             });
-        }
+        },
+        handleCSButton(productName, productDetailId, psize, type) {
+            this.orderCS.productName = productName;
+            this.orderCS.orderId = this.orderNo;
+            this.orderCS.productDetailId = productDetailId;
+            this.orderCS.psize = psize;
+            this.orderCS.typeCode = type;
+            
+            if(type == 1) this.CSdialogReturn = true;
+            if(type == 2) {
+                this.colorList = [];
+                const response = productAPI.getCartProduct(this.orderCS.productDetailId).then(response => {
+                    this.productDetail = response.data; 
+                    for(let i=0; i<this.productDetail.productDetailList.length; i++) {
+                        this.colorList.push(this.productDetail.productDetailList[i].colorCode);
+                    }
+                    this.colorList = this.productDetail.productDetailList;
+                    }).catch(error => {
+                        if(error.response) {
+                            if(error.response.status === 403) {
+                                console.log("권한 없음");
+                            }
+                        } else {
+                            this.loading = false;
+                            this.alertDialogMessage = "네트워크 통신 오류";
+                        }
+                    });
+                this.colorList = [];
+                this.CSdialogChange = true;
+            }
+            console.log(this.orderCS);
+        },
+        handleSizeList() {
+            this.orderCS.newProductDetailId = this.newColor;
+            this.sizeList = [];
+            for(let i = 0; i<this.productDetail.productDetailList.length; i++) {
+                if(this.productDetail.productDetailList[i].productDetailId == this.newColor) {
+                    for(let j=0; j<this.productDetail.productDetailList[i].stockList.length; j++) {
+                        if(this.productDetail.productDetailList[i].stockList[j].amount > 0)
+                            this.sizeList.push(this.productDetail.productDetailList[i].stockList[j].psize);
+                    }
+                    return;
+                }
+            }
+        },
+        handleCS() {
+            console.log("반품 신청");
+            if(this.orderCS.typeCode == 1) {
+                this.orderCS.newProductDetailId = null;
+                this.orderCS.newPsize = null;
+            }
+            orderAPI.insertOrderCS(this.orderCS)
+                .then(response => {
+                    console.log(response.data);
+                    if(response.data.result == 'success') {
+                        console.log("성공!");
+                        this.$router.push("/order/orderlist")
+                    }
+                }).catch(error => {
+                if(error.response) {
+                    if(error.response.status === 403) {
+                        //
+                    }
+                } else {
+                    this.loading = false;
+                    this.alertDialogMessage = "네트워크 통신 오류";
+                }
+            });
+        },
+
     },
     mounted(){
         this.$store.commit("setPageFlag",'main');

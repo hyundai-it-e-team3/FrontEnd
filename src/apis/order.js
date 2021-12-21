@@ -80,6 +80,10 @@ function confirmOrder(order) {
     return orderAPI.patch("/order/state", order);
 }
 
+function insertOrderCS(orderCS) {
+    return orderAPI.post("/cs", orderCS);
+}
+
 export default {
     getOrderList,
     getOrderDetailList,
@@ -96,5 +100,6 @@ export default {
     insertOrder,
     updateAddress,
     cancleOrder,
-    confirmOrder
+    confirmOrder,
+    insertOrderCS
 }

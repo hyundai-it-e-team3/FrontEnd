@@ -5,7 +5,8 @@
       <v-row>
           <v-col cols="5" class=" pa-1">
             <div class="d-flex align-center">
-            <v-img height="auto" :src="productDetail.thumbnail"/>
+            <v-img height="auto" :src="productDetail.thumbnail">
+            </v-img>
             </div>
           </v-col>
           <v-col cols="7">
@@ -19,6 +20,29 @@
 
                 <v-divider class="my-3"/>
                 <div> 처리 상태 : {{orderDetail.state}} </div>
+                <v-row v-if="orderDetail.state == '배송완료'">
+                  <v-col cols="6">
+                      <v-btn 
+                          class="ml-1" 
+                          color="#255938" 
+                          dark width="100%"
+                          @click="handleSelected(2)"
+                          >
+                          교환
+                          </v-btn>
+                  </v-col>
+                  <v-col cols="6">
+                      <v-btn 
+                          class="ml-1" 
+                          color="#255938" 
+                          dark width="100%"
+                          @click="handleSelected(1)"
+                          >
+                          반품
+                          </v-btn>
+                  </v-col>
+                </v-row>
+                
               </v-col>
             </v-row>
           </v-col>
@@ -66,7 +90,11 @@ export default {
           });
           this.loading = false;
           this.alertDialog = false;
-      } 
+      },
+      handleSelected(type) {
+        this.$emit("check-button", this.productDetail.name, this.orderDetail.productDetailId, this.orderDetail.psize, type);
+        console.log("클릭");
+      }
     },
     props: [
         "orderDetail"
