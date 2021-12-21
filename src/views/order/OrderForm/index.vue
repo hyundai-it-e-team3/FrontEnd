@@ -210,7 +210,8 @@ export default {
                 {
                     
                 }
-            ]
+            ],
+            totalPrice: 0
         },
         couponPayment: {
             typeCode: 1,
@@ -313,6 +314,7 @@ export default {
                 console.log(response.data);
                 this.orderDetail.price =  response.data; 
                 this.payInfo.totalPrice += response.data;
+                this.order.totalPrice += response.data;
                 console.log("orderDetail : " + this.orderDetail.price);
                 this.order.orderDetailList.push(JSON.parse(JSON.stringify(this.orderDetail)));
                 console.log(this.orderDetail);

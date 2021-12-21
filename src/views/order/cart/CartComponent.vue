@@ -52,7 +52,6 @@
         </v-col>
           
           <v-col cols="8" v-if="changeFlag" class="d-flex align-center justify-center">
-            
             <v-card width="100%" class="pa-3" flat>
               <v-card-text>
                 <v-row>
@@ -96,7 +95,7 @@ export default {
       changeFlag: false,
       productDetail: {
         thumbnail: null,
-        productDetailList: [{}]
+        productDetailList: []
       },
       colorChips: null,
       cartSelected: false,
