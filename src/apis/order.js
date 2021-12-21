@@ -15,16 +15,16 @@ function addAuthHeader(authToken){
 }
 
 function getOrderList(memberId) {
-    return axios.get("/order/list", {params:{memberId}});
+    return orderAPI.get("/order/list", {params:{memberId}});
 }
 
 function getOrderDetailList(orderId) {
-    return axios.get(`/order/${orderId}/list`);
+    return orderAPI.get(`/order/${orderId}/list`);
 }
 
 function insertOrder(order) {
     //TEST 전체 한번에 insert
-    orderAPI.post("/order", order);
+    return orderAPI.post("/order", order);
 }
 
 function insertOrderDetail(multipartFormData) {
@@ -37,7 +37,7 @@ function insertOrderPayment(multipartFormData) {
 }
 
 function getOrder(orderId) {
-    return axios.get(`/order/${orderId}`);
+    return orderAPI.get(`/order/${orderId}`);
 }
 
 
@@ -55,8 +55,8 @@ function updateCart(cartId,multipartFormData) {
 }
 
 function updateCartAmount(cartId, value) {
-    return orderAPI.patch(`/cart/${cartId}`, 
-        {amount : value}
+    return orderAPI.patch('/cart', 
+        {amount : value, cartId: cartId}
     );
 }
 
@@ -69,7 +69,11 @@ function getCartInfo(cartId) {
 }
 
 function updateAddress(order) {
-    return axios.patch("/order/address", order);
+    return orderAPI.patch("/order/address", order);
+}
+
+function cancleOrder(order) {
+    return orderAPI.patch("/order", order);
 }
 
 export default {
@@ -86,5 +90,6 @@ export default {
     getCartInfo,
     updateCartAmount,
     insertOrder,
-    updateAddress
+    updateAddress,
+    cancleOrder
 }

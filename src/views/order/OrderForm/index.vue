@@ -213,25 +213,25 @@ export default {
             ]
         },
         couponPayment: {
-            type: 1,
+            typeCode: 1,
             price: 0,
-            state: 1,
+            stateCode: 1,
             accountNo: null,
             bank: null,
             installment: 0,
         },
         pointPayment: {
-            type: 2,
+            typeCode: 2,
             price: 0,
-            state: 1,
+            stateCode: 1,
             accountNo: null,
             bank: null,
             installment: 0,
         },
         userPayment: {
-            type: 3,
+            typeCode: 3,
             price: 0,
-            state: 1,
+            stateCode: 1,
             accountNo: null,
             bank: null,
             installment: 0,
@@ -260,11 +260,12 @@ export default {
             this.order.paymentList.push(this.userPayment);
 
             try {
-
-
                 console.log(this.order);
                 const response = await orderAPI.insertOrder(this.order);
-                console.log("response: " + response);
+                console.log("response: " + response.data.result);
+                if(response.data.result == "success") {
+                    this.$router.push("/order/complete?orderNo="+response.data.order.orderId);
+                }
                 this.loading = false;
                 this.alertDialog = false;
             }   catch(error) {
