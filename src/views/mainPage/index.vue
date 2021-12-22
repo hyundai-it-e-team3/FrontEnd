@@ -4,38 +4,45 @@
 
     <event-component />
 
-    <v-container class="black pb-2">
-      <v-card-title class="mainTitle d-flex justify-center mt-1 pa-1 white--text">베스트</v-card-title>
+    <v-container class="black pb-3">
+      <v-card-title class="mainTitle d-flex justify-center pa-1 pt-3 white--text">베스트</v-card-title>
       <v-sheet class="mb-2">
-        <v-slide-group>
+        <v-slide-group class="black pl-2">
           <v-slide-item
             v-for="index in bestList.length" :key="index"
           >
             <v-card
-              color="#E2E3DE"
-              class="ma-1"
-              height="300px"
-              width="150px"
+              class="bestCard ma-1"
+              height="auto"
+              width="170px"
               elevation="0"
-              tile
               @click="goProductDetail(bestList[index - 1].productId)"
             >
+              
               <v-img
                 v-if="index - 1 >= bestList.length - 2"
                 v-intersect="onIntersect2"
                 :src="bestList[index - 1].thumbnail"
                 class="white--text align-end"
-                height="200px" />
+                height="auto" >
+                  <div class="rank-tag text-center">{{ index }}</div>
+                </v-img>
               <v-img
                 v-if="index - 1 < bestList.length - 2"
                 :src="bestList[index - 1].thumbnail"
                 class="white--text align-end"
-                height="200px" />
+                height="auto">
+                <div class="rank-tag text-center">{{ index }}</div>
+              </v-img>
 
-                <v-card-title class="brandname body-2 pa-3 pb-1">{{ bestList[index - 1].brandName }}</v-card-title>
-                <v-card-subtitle class="caption pa-3">
-                  <div class="content text-truncate" style="max-width: 130px;">{{ bestList[index - 1].name }}</div>
-                  <div class="content">{{ bestList[index - 1].price.toLocaleString() }} ₩</div>
+                
+                <v-card-title class="py-1 px-3 pb-0">
+                  <v-col class="best col-12" style="height: 20px">BEST</v-col>
+                  <v-col class="brandname col-12 text-truncate">{{ bestList[index - 1].brandName }}</v-col>
+                </v-card-title>
+                <v-card-subtitle class="px-3 py-3">
+                  <div class="content text-truncate">{{ bestList[index - 1].name }}</div>
+                  <div class="price">￦ {{ bestList[index - 1].price.toLocaleString() }}</div>
                 </v-card-subtitle>
 
             </v-card>
@@ -184,15 +191,30 @@ export default {
 }
 .mainTitle {
   font-size: 20px;
-  font-weight: 800;
+  font-weight: bold;
 }
 .brandname {
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 600;
   color: black;
 }
 .content {
-  font-weight: 500;
-  font-size: 11px;
+  font-size: 14px;
   color: black;
+}
+.price {
+  font-size: 14px;
+  font-weight: bold;
+  color: black;
+}
+.best {
+  font-size: 10px;
+  color: #FF7916;
+}
+.rank-tag {
+  background-color: #CF3705;
+  width: 25px;
+  height: 25px;
+  margin-bottom: 232px;
 }
 </style>
