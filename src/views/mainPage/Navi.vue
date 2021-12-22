@@ -1,7 +1,7 @@
 <template>
   <v-app-bar height="40">
-    <v-tabs v-model="tab" background-color="black" dark color="white" slider-color="black" centered>
-      <v-tab v-for="tabs in tabs" :key="tabs">{{tabs}}</v-tab>
+    <v-tabs v-model="tab" class="white" color="black" slider-color="#425745" centered>
+      <v-tab v-for="tabs in tabs" :key="tabs" class="black--text">{{tabs}}</v-tab>
     </v-tabs>
   </v-app-bar>
 </template>

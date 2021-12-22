@@ -69,7 +69,6 @@ beforeCreate() {
 * {
   padding : 0;
   margin : 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-weight: 600;
+  font-family: 'Noto Sans', sans-serif;
 }
 </style>
