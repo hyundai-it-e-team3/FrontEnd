@@ -1,7 +1,7 @@
 <template>
   <v-app-bar height="40">
     <v-tabs v-model="tab" class="white" color="black" slider-color="#425745" centered>
-      <v-tab v-for="tabs in tabs" :key="tabs" class="black--text">{{tabs}}</v-tab>
+      <v-tab v-for="tab in tabs" :key="tab" class="black--text" @click="goTab(tab)">{{tab}}</v-tab>
     </v-tabs>
   </v-app-bar>
 </template>
@@ -18,6 +18,13 @@ export default {
     };
   },
   methods: {
+    goTab(tab){
+      if(tab=='NEW'){
+        this.$store.commit("category/setSelectedCategory",[]);
+        this.$store.commit("pager/setSortId",0);
+        this.$router.push(`/product/categoryProduct?categoryId=`).catch(()=>{});
+      }
+    }
   }
 }
 </script>
