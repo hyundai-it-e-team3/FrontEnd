@@ -32,105 +32,47 @@
     <template>
       <div class="text-center"></div>
     </template>
-    <div v-for="index in parseInt(newList.length / 2)" :key="index">
-      <v-row dense class="mt-3">
-        <v-col cols="6">
+    <v-row dense class="mt-3">
+        <v-col cols="6" v-for="index in newList.length" :key="index">
           <v-card
-            v-if="index * 2 - 1 == newList.length - 2"
-            @click="goProductDetail(newList[index * 2 - 1].productId)"
-            elevation="0"
-          >
+            tile
+            v-if="index-1 >= newList.length -2"
+            @click="goProductDetail(newList[index-1].productId)"
+            elevation="0">
             <v-img
               v-intersect="onIntersect"
-              :src="newList[index * 2 - 1].thumbnail"
+              :src="newList[index-1].thumbnail"
               class="white--text align-end"
-              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="200px"
-            >
-              <v-icon v-if="$store.getters['member/getWishList'].includes(newList[index * 2 - 1].productId)" color="red" class="ml-2 mb-2" dense>mdi-heart</v-icon>
-              <v-icon v-if="!$store.getters['member/getWishList'].includes(newList[index * 2 - 1].productId)" dark class="ml-2 mb-2" dense>mdi-heart-outline</v-icon>
+              height="auto">
+              <v-icon v-if="$store.getters['member/getWishList'].includes(newList[index-1].productId)" color="red" class="ma-2" dense>mdi-heart</v-icon>
+              <v-icon v-if="!$store.getters['member/getWishList'].includes(newList[index-1].productId)" dark class="ma-2" dense>mdi-heart-outline</v-icon>
             </v-img>
-            <v-card-title class="body-2">{{
-              newList[index * 2].brandName
-            }}</v-card-title>
+            <v-card-title class="brandname body-2">{{ newList[index-1].brandName }}</v-card-title>
             <v-card-subtitle class="caption">
-              <div>{{ newList[index * 2 - 1].name }}</div>
-              <div>{{ newList[index * 2 - 1].price.toLocaleString() }}₩</div>
+              <div class="content">{{ newList[index-1].name }}</div>
+              <div class="content">{{ newList[index-1].price.toLocaleString() }}₩</div>
             </v-card-subtitle>
           </v-card>
           <v-card
-            v-if="index * 2 - 1 != newList.length - 2"
-            @click="goProductDetail(newList[index * 2 - 1].productId)"
-            elevation="0"
-          >
+            tile
+            v-if="index-1 < newList.length -2"
+            @click="goProductDetail(newList[index-1].productId)"
+            elevation="0">
             <v-img
-              v-bind:src="newList[index * 2 - 1].thumbnail"
+              v-bind:src="newList[index-1].thumbnail"
               class="white--text align-end"
-              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="200px"
-            >
-              <v-icon v-if="$store.getters['member/getWishList'].includes(newList[index * 2 - 1].productId)" color="red" class="ml-2 mb-2" dense>mdi-heart</v-icon>
-              <v-icon v-if="!$store.getters['member/getWishList'].includes(newList[index * 2 - 1].productId)"  dark class="ml-2 mb-2" dense>mdi-heart-outline</v-icon>
+              height="auto">
+              <v-icon v-if="$store.getters['member/getWishList'].includes(newList[index-1].productId)" color="red" class="ma-2" dense>mdi-heart</v-icon>
+              <v-icon v-if="!$store.getters['member/getWishList'].includes(newList[index-1].productId)"  dark class="ma-2" dense>mdi-heart-outline</v-icon>
             </v-img>
-            <v-card-title class="body-2">{{
-              newList[index * 2 - 1].brandName
-            }}</v-card-title>
+            <v-card-title class="brandname body-2">{{ newList[index-1].brandName }}</v-card-title>
             <v-card-subtitle class="caption">
-              <div>{{ newList[index * 2 - 1].name }}</div>
-              <div>{{ newList[index * 2 - 1].price.toLocaleString() }}₩</div>
-            </v-card-subtitle>
-          </v-card>
-        </v-col>
-        <v-col cols="6" v-if="index * 2 < newList.length">
-          <v-card
-            v-if="index * 2 == newList.length - 2"
-            @click="goProductDetail(newList[index * 2].productId)"
-            elevation="0"
-          >
-            <v-img
-              v-intersect="onIntersect"
-              :src="newList[index * 2].thumbnail"
-              class="white--text align-end"
-              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="200px"
-            >
-              <v-icon v-if="$store.getters['member/getWishList'].includes(newList[index * 2].productId)" color="red" class="ml-2 mb-2" dense>mdi-heart</v-icon>
-              <v-icon v-if="!$store.getters['member/getWishList'].includes(newList[index * 2].productId)"  dark class="ml-2 mb-2" dense>mdi-heart-outline</v-icon>
-            </v-img>
-            <v-card-title class="body-2">{{
-              newList[index * 2].brandName
-            }}</v-card-title>
-            <v-card-subtitle class="caption">
-              <div>{{ newList[index * 2].name }}</div>
-              <div>{{ newList[index * 2].price.toLocaleString() }}₩</div>
-            </v-card-subtitle>
-          </v-card>
-          <v-card
-            v-if="index * 2 != newList.length - 2"
-            @click="goProductDetail(newList[index * 2].productId)"
-            elevation="0"
-          >
-            <v-img
-              v-if="index * 2 != newList.length - 2"
-              v-bind:src="newList[index * 2].thumbnail"
-              class="white--text align-end"
-              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="200px"
-            >
-              <v-icon v-if="$store.getters['member/getWishList'].includes(newList[index * 2].productId)" color="red" class="ml-2 mb-2" dense>mdi-heart</v-icon>
-              <v-icon v-if="!$store.getters['member/getWishList'].includes(newList[index * 2].productId)" dark class="ml-2 mb-2" dense>mdi-heart-outline</v-icon>
-            </v-img>
-            <v-card-title class="body-2">{{
-              newList[index * 2].brandName
-            }}</v-card-title>
-            <v-card-subtitle class="caption">
-              <div>{{ newList[index * 2].name }}</div>
-              <div>{{ newList[index * 2].price.toLocaleString() }}₩</div>
+              <div class="content">{{ newList[index-1].name }}</div>
+              <div class="content">{{ newList[index-1].price.toLocaleString() }}₩</div>
             </v-card-subtitle>
           </v-card>
         </v-col>
       </v-row>
-    </div>
   </v-app>
 </template>
 
@@ -159,6 +101,7 @@ export default {
         let startRow = this.$store.getters["pager/getRowCount"];
         console.log(startRow, this.sortId);
         let resText = this.text;
+        console.log(resText);
         if(resText=='')
           resText = '0'
         productModule.getProductListText(
@@ -215,7 +158,6 @@ export default {
     },
   },
   created(){
-    this.text=" ";
   },
   watch:{
     text(){
