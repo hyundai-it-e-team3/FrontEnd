@@ -2,7 +2,7 @@ import member from "@/router/member";
 import axios from "axios";
 
 const memberAPI = axios.create({
-  baseURL: "http://kosa1.iptime.org:50212",
+  baseURL: "http://kosa1.iptime.org:50303/member-api",
 });
 
 function joinMember(member) {

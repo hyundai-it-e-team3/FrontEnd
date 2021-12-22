@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const productAPI = axios.create({
-  baseURL: 'http://kosa1.iptime.org:50203'
+  baseURL: 'http://kosa1.iptime.org:50303/product-api'
 });
 
 function addAuthHeader(authToken){

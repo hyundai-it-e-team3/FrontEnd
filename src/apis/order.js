@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const orderAPI = axios.create({
-    baseURL: 'http://kosa1.iptime.org:50214'
+    baseURL: 'http://kosa1.iptime.org:50303/order-api'
   });
 
 const headers = {
