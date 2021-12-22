@@ -1,6 +1,6 @@
 <template>
   <v-container class="orderFooter" @click="goOrder">
-    <v-row class="orderButten d-flex justify-center font-weight-black pt-1">구매하기</v-row>
+    <v-row class="orderButten d-flex justify-center white--text">구매하기</v-row>
   </v-container>
 </template>
 
@@ -22,5 +22,7 @@ export default {
 <style scoped>
 .orderButten {
     font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
 }
 </style>

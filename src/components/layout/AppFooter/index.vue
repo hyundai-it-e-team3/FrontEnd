@@ -1,5 +1,11 @@
 <template>
-  <v-footer class="pa-0" :color="bgcolor" height="50" dark fixed app>
+  <v-footer 
+    class="pa-0" 
+    :color="bgcolor" 
+    height="50" 
+    elevation="2"
+    fixed 
+    app>
     <main-footer v-if="pageFlag === 'main' || pageFlag === 'default'"  />
     <product-footer v-if="pageFlag === 'product'" />
     <cart-footer v-if="pageFlag === 'cart'"/>
@@ -20,7 +26,7 @@ export default {
   },
   data: function () {
     return {
-      bgcolor: 'black',
+      bgcolor: 'white',
     };
   },
   methods: {},
@@ -31,9 +37,9 @@ export default {
   },
   beforeUpdate() {
     if (this.pageFlag === 'cart') {
-      this.bgcolor = '#085942'; 
+      this.bgcolor = '#377C59'; 
     } else {
-      this.bgcolor = 'black'; 
+      this.bgcolor = 'white'; 
     }
   },
 };

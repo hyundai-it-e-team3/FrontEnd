@@ -2,19 +2,19 @@
   <v-container>
     <v-row>
       <v-col class="d-flex justify-center" cols="2.4" @click="goCategory">
-        <v-icon>mdi-format-list-bulleted</v-icon>
+        <v-icon color="black">mdi-menu</v-icon>
       </v-col>
       <v-col class="d-flex justify-center" cols="2.4" @click="goBrand">
-        <v-icon>mdi-tag-outline</v-icon>
+        <v-icon color="black">mdi-tag-search</v-icon>
       </v-col>
       <v-col class="d-flex justify-center" cols="2.4" @click="goHome">
-        <v-icon>mdi-home</v-icon>
+        <v-icon color="black">mdi-home-variant</v-icon>
       </v-col>
       <v-col class="d-flex justify-center" cols="2.4" @click="goWishList">
-        <v-icon>mdi-cards-heart</v-icon>
+        <v-icon color="black">mdi-cards-heart</v-icon>
       </v-col>
       <v-col class="d-flex justify-center" cols="2.4" @click="goMyPage">
-        <v-icon>mdi-account</v-icon>
+        <v-icon color="black">mdi-account</v-icon>
       </v-col>
     </v-row>
   </v-container>

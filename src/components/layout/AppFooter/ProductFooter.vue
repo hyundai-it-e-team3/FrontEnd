@@ -4,19 +4,19 @@
         <v-col class="wishlistIcon col-2 d-flex justify-center" @click="addWishList"
             v-if="!this.$store.getters['member/getWishList'].includes(
                 this.$store.getters['product/getProduct'].productDetailId.slice(0, -3))">
-            <v-icon light>mdi-cards-heart-outline</v-icon>
+            <v-icon color="black">mdi-cards-heart-outline</v-icon>
         </v-col>
         <v-col class="wishlistIcon col-2 d-flex justify-center" @click="removeWishList"
             v-if="this.$store.getters['member/getWishList'].includes(
                 this.$store.getters['product/getProduct'].productDetailId.slice(0, -3))">
-            <v-icon light color="red">mdi-cards-heart</v-icon>
+            <v-icon color="red">mdi-cards-heart</v-icon>
         </v-col>
 
         <v-col class="cartIcon col-2 d-flex justify-center" @click="handleInsertCart">
-            <v-icon>mdi-cart-variant</v-icon>
+            <v-icon color="white">mdi-cart-variant</v-icon>
         </v-col>
 
-        <v-col class="productFooterContent col-8 d-flex justify-center black" @click="handleOrder">
+        <v-col class="productFooterContent col-8 d-flex justify-center black white--text" @click="handleOrder">
             구매하기
         </v-col>
       </v-row>

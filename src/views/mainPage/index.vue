@@ -3,6 +3,46 @@
     <navi />
 
     <event-component />
+
+    <v-container class="black pb-2">
+      <v-card-title class="mainTitle d-flex justify-center mt-1 pa-1 white--text">베스트</v-card-title>
+      <v-sheet class="mb-2">
+        <v-slide-group>
+          <v-slide-item
+            v-for="index in bestList.length" :key="index"
+          >
+            <v-card
+              color="#E2E3DE"
+              class="ma-1"
+              height="300px"
+              width="150px"
+              elevation="0"
+              tile
+              @click="goProductDetail(bestList[index - 1].productId)"
+            >
+              <v-img
+                v-if="index - 1 == bestList.length - 2"
+                v-intersect="onIntersect2"
+                :src="bestList[index - 1].thumbnail"
+                class="white--text align-end"
+                height="200px" />
+              <v-img
+                v-if="index - 1 != bestList.length - 2"
+                :src="bestList[index - 1].thumbnail"
+                class="white--text align-end"
+                height="200px" />
+
+                <v-card-title class="brandname body-2 pa-3 pb-1">{{ bestList[index - 1].brandName }}</v-card-title>
+                <v-card-subtitle class="caption pa-3">
+                  <div class="content text-truncate" style="max-width: 130px;">{{ bestList[index - 1].name }}</div>
+                  <div class="content">{{ bestList[index - 1].price.toLocaleString() }} ₩</div>
+                </v-card-subtitle>
+
+            </v-card>
+          </v-slide-item>
+        </v-slide-group>
+      </v-sheet>
+    </v-container>
     
     <v-card-title class="mainTitle d-flex justify-center mt-1 pa-1">신상품</v-card-title>
     <v-sheet>
@@ -44,43 +84,6 @@
       </v-slide-group>
     </v-sheet>
 
-    <v-card-title class="mainTitle d-flex justify-center mt-1 pa-1">베스트</v-card-title>
-    <v-sheet class="mb-2">
-      <v-slide-group>
-        <v-slide-item
-          v-for="index in bestList.length" :key="index"
-        >
-          <v-card
-            color="#E2E3DE"
-            class="ma-1"
-            height="300px"
-            width="150px"
-            elevation="0"
-            tile
-            @click="goProductDetail(bestList[index - 1].productId)"
-          >
-            <v-img
-              v-if="index - 1 == bestList.length - 2"
-              v-intersect="onIntersect2"
-              :src="bestList[index - 1].thumbnail"
-              class="white--text align-end"
-              height="200px" />
-            <v-img
-              v-if="index - 1 != bestList.length - 2"
-              :src="bestList[index - 1].thumbnail"
-              class="white--text align-end"
-              height="200px" />
-
-              <v-card-title class="brandname body-2 pa-3 pb-1">{{ bestList[index - 1].brandName }}</v-card-title>
-              <v-card-subtitle class="caption pa-3">
-                <div class="content text-truncate" style="max-width: 130px;">{{ bestList[index - 1].name }}</div>
-                <div class="content">{{ bestList[index - 1].price.toLocaleString() }} ₩</div>
-              </v-card-subtitle>
-
-          </v-card>
-        </v-slide-item>
-      </v-slide-group>
-    </v-sheet>
   </v-container>
 </template>
 
