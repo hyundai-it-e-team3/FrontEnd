@@ -76,7 +76,7 @@ export default {
     sortId: 0,
     fab: false,
   }),
-  props: ["listType", "categoryId", "brandName","text"],
+  props: ["listType", "categoryId", "brandName","text","pSortId"],
   methods: {
     onIntersect(entries, observer, isIntersecting) {
       if (isIntersecting == true) {
@@ -137,7 +137,15 @@ export default {
     let stCategoryId = this.$store.getters["pager/getCategoryId"];
     let stBrandName = this.$store.getters["pager/getBrandName"];
     let stSortId = this.$store.getters["pager/getSortId"];
-
+    console.log("----------");
+    console.log(this.pSortId);
+    console.log(stSortId+" "+this.sortId+" "+this.category+" "+stCategoryId);
+    if(this.pSortId===undefined){
+      console.log(this.sortId);
+      console.log("dcac");
+    }else{
+      this.sortId = this.pSortId;
+    }
     if(this.categoryId==stCategoryId&&this.brandName==stBrandName&&this.sortId==stSortId){
       this.newList = this.$store.getters["pager/getProductList"];
     }else{

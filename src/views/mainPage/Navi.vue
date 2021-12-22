@@ -21,8 +21,10 @@ export default {
     goTab(tab){
       if(tab=='NEW'){
         this.$store.commit("category/setSelectedCategory",[]);
-        this.$store.commit("pager/setSortId",0);
-        this.$router.push(`/product/categoryProduct?categoryId=`).catch(()=>{});
+        this.$router.push(`/product/categoryProduct?categoryId=&sortId=${0}`).catch(()=>{});
+      }else if(tab=='BEST'){
+        this.$store.commit("category/setSelectedCategory",[]);
+        this.$router.push(`/product/categoryProduct?categoryId=&sortId=${3}`).catch(()=>{});
       }
     }
   }

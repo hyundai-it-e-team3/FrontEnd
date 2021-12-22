@@ -21,13 +21,13 @@
               @click="goProductDetail(bestList[index - 1].productId)"
             >
               <v-img
-                v-if="index - 1 == bestList.length - 2"
+                v-if="index - 1 >= bestList.length - 2"
                 v-intersect="onIntersect2"
                 :src="bestList[index - 1].thumbnail"
                 class="white--text align-end"
                 height="200px" />
               <v-img
-                v-if="index - 1 != bestList.length - 2"
+                v-if="index - 1 < bestList.length - 2"
                 :src="bestList[index - 1].thumbnail"
                 class="white--text align-end"
                 height="200px" />
@@ -46,9 +46,8 @@
     
     <v-card-title class="mainTitle d-flex justify-center mt-1 pa-1">신상품</v-card-title>
     <v-sheet>
-      <v-slide-group >
-        <v-slide-item
-          v-for="index in newList.length"
+      <v-row dense>
+        <v-col cols="6" v-for="index in newList.length"
           :key="index">
           <v-card
             color="#E2E3DE"
@@ -60,7 +59,7 @@
             @click="goProductDetail(newList[index - 1].productId)">
 
             <v-img
-              v-if="index - 1 == newList.length - 2"
+              v-if="index - 1 >= newList.length - 2"
               v-intersect="onIntersect1"
               :src="newList[index - 1].thumbnail"
               class="white--text align-end"
@@ -68,7 +67,7 @@
               width="150px" />
 
             <v-img
-              v-if="index - 1 != newList.length - 2"
+              v-if="index - 1 < newList.length - 2"
               :src="newList[index - 1].thumbnail"
               class="white--text align-end"
               height="200px" />
@@ -78,10 +77,9 @@
               <div class="content text-truncate" style="max-width: 130px;">{{ newList[index - 1].name }}</div>
               <div class="content">{{ newList[index - 1].price.toLocaleString() }} ₩</div>
             </v-card-subtitle>
-
           </v-card>
-        </v-slide-item>
-      </v-slide-group>
+        </v-col>
+      </v-row>
     </v-sheet>
 
   </v-container>
@@ -102,15 +100,15 @@ export default {
     return {
       newList: [],
       bestList: [],
-      newRowCount: 0,
-      bestRowCount: 0,
+      newRowCount: 11,
+      bestRowCount: 11,
     };
   },
   methods: {
     onIntersect1(entries, observer, isIntersecting) {
       if (isIntersecting == true) {
         let startRow = this.newRowCount;
-        PagerModule.getProductList("list", "null", "null", startRow, 3, 0)
+        PagerModule.getProductList("list", "null", "null", startRow, 4, 0)
           .then((response) => {
             if (this.newRowCount == 1) {
               this.newList = response.data;
@@ -120,7 +118,7 @@ export default {
                 this.newList.push(item);
               }
             }
-            this.newRowCount = this.newRowCount + 4;
+            this.newRowCount = this.newRowCount + 5;
           })
           .catch((error) => {
             console.log(error);
@@ -130,7 +128,8 @@ export default {
     onIntersect2(entries, observer, isIntersecting) {
       if (isIntersecting == true) {
         let startRow = this.bestRowCount;
-        PagerModule.getProductList("list", "null", "null", startRow, 3, 3)
+        console.log(startRow);
+        PagerModule.getProductList("list", "null", "null", startRow, 4, 3)
           .then((response) => {
             if (this.bestRowCount == 1) {
               this.bestList = response.data;
@@ -140,7 +139,7 @@ export default {
                 this.bestList.push(item);
               }
             }
-            this.bestRowCount = this.bestRowCount + 4;
+            this.bestRowCount = this.bestRowCount + 5;
           })
           .catch((error) => {
             console.log(error);

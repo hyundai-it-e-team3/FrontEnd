@@ -34,7 +34,7 @@
       </v-slide-group>
     </v-sheet>
 
-    <product-list listType="list" :categoryId="categoryId" />
+    <product-list listType="list" :categoryId="categoryId" :pSortId="sortId"/>
   </v-app>
 </template>
 
@@ -50,6 +50,7 @@ export default {
     categoryId: "KI",
     selectCategoryList: [],
     categoryList: [],
+    sortId:"",
   }),
   methods: {
     deleteCategory(category) {
@@ -77,6 +78,10 @@ export default {
     console.log(this.$store.getters["category/getCurCategory"]);
     console.log(this.$store.getters["category/getSelectedCategory"]);
     this.selectCategoryList = [];
+
+    if(this.$route.query.sortId!='')
+      this.sortId = this.$route.query.sortId;
+    
     let curCategory = this.$store.getters["category/getCurCategory"];
     if (curCategory == null) {
       this.categoryId = "0";
