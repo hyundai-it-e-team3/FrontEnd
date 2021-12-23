@@ -8,7 +8,7 @@
       <form @submit.prevent="handleInsert()">
         <validation-provider name="account.payType" rules="required">
           <v-row class="pa-0">
-            <v-col class="contentname col-4 d-flex justify-center align-center">계좌/카드</v-col>
+            <v-col class="contentname col-4 d-flex justify-center align-center font-weight-bold">계좌/카드</v-col>
             <v-radio-group v-model="account.payType" row>
               <v-radio name="account.payType" label="계좌" :value="'1'"></v-radio>
               <v-radio name="account.payType" label="카드" :value="'2'"></v-radio>
@@ -18,7 +18,7 @@
 
         <validation-provider name="account.bank" rules="required" v-slot="{ errors }">
           <v-row class="pa-3">
-            <v-col class="contentname col-3 pb-0 d-flex justify-center align-center">은행<br/>/카드사</v-col>
+            <v-col class="contentname col-3 pb-0 d-flex justify-center align-center font-weight-bold">은행<br/>/카드사</v-col>
             <v-col class="col-9 pa-0" v-if="account.payType === '1'">
               <v-select :items="bankType1" outlined hide-details v-model="account.bank"></v-select>
             </v-col>
@@ -31,7 +31,7 @@
 
         <validation-provider name="account.accountNo" rules="required|integer" v-slot="{ errors }">
           <v-row class="pa-3">
-            <v-col class="contentname col-3 pb-0 d-flex justify-center align-center">계좌번호<br/>/카드번호</v-col>
+            <v-col class="contentname col-3 pb-0 d-flex justify-center align-center font-weight-bold">계좌번호<br/>/카드번호</v-col>
             <v-text-field v-model="account.accountNo"
                           outlined
                           hide-details>
@@ -41,8 +41,8 @@
         </validation-provider>
 
         <v-row class="justify-center mt-5 mb-3 mr-1">
-          <v-btn large depressed tile outlined @click="goBack">취소</v-btn>
-          <v-btn class="ml-1 black white--text" large depressed tile :disabled="invalid" type="submit">추가</v-btn>
+          <v-btn large depressed outlined @click="goBack">취소</v-btn>
+          <v-btn class="ml-1" dark large depressed color="#425745" :disabled="invalid" type="submit">추가</v-btn>
         </v-row>
       </form>
 

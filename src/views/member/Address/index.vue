@@ -5,7 +5,7 @@
         :address=address />
     </v-row>
     <v-row class="d-flex justify-center mt-4">
-      <v-btn large outlined to="/member/address/insert">배송지 추가</v-btn>
+      <v-btn large dark color="#425745" to="/member/address/insert">배송지 추가</v-btn>
     </v-row>
   </v-container>
 </template>

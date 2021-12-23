@@ -57,7 +57,7 @@ export default {
             if (error.response.status === 403) {
               this.loading = false;
               this.alertDialog = false;
-              this.$router.push("/menu07/auth/jwtauth");
+              this.$router.push("/member/mypage");
             }
           } else {
             this.loading = false;

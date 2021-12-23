@@ -1,24 +1,26 @@
 <template>
   <v-container>
     <v-row>
-        <v-col class="logo text-center mt-4 pb-0">HANSOME</v-col>
+        <v-col class="logo text-center mt-4 pb-0 font-weight-bold">HANSOME</v-col>
     </v-row>
     <v-row>
-      <v-col class="col-12 pl-5 pr-5 pb-0">
+      <v-col class="col-12 pl-5 pr-5 py-0" style="height: 90px;">
         <validation-provider name="memberId" rules="memberIdRequired" v-slot="{ errors }">
           <v-text-field label="아이디 입력"
                         v-model="member.memberId"
                         outlined
+                        color="#425745"
                         hide-details>
           </v-text-field>
           <span>{{ errors[0] }}</span>
         </validation-provider>
       </v-col>
-      <v-col class="col-12 pl-5 pr-5 pt-0">
+      <v-col class="col-12 pl-5 pr-5 pt-0" style="height: 130px;">
         <validation-provider name="password" rules="passwordRequired" v-slot="{ errors }">
           <v-text-field label="비밀번호 입력"
                         v-model="member.password"
                         type="password"
+                        color="#425745"
                         @click:append="passwordIconShow = !passwordIconShow"
                         oninput="javascript: this.value = this.value.replace(/[\s]/g, '' );"
                         hide-details
@@ -36,7 +38,7 @@
     <v-divider class="my-4" />
     
     <v-row class="justify-center border">
-      <v-btn class="grey--text" plain to="/member/join">회원가입</v-btn>
+      <v-btn plain to="/member/join">회원가입</v-btn>
     </v-row>
 
     <alert-dialog :message="alertDialogMessage"

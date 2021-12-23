@@ -25,7 +25,6 @@
       <v-row dense class="mt-3">
         <v-col cols="6" v-for="index in newList.length" :key="index">
           <v-card
-            tile
             v-if="index-1 >= newList.length -1"
             @click="goProductDetail(newList[index-1].productId)"
             elevation="0">
@@ -46,7 +45,6 @@
           </v-card>
 
           <v-card
-            tile
             v-if="index-1 < newList.length -2"
             @click="goProductDetail(newList[index-1].productId)"
             elevation="0">

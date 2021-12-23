@@ -1,6 +1,6 @@
 <template>
   <v-container class="pl-2 pr-2 pt-0 pb-0">
-    <v-card class="pa-3" height="160" outlined tile >
+    <v-card class="pa-3" height="160" outlined >
       <v-row class="addressName pt-4 pl-4">
           {{address.name}}
           <v-col class="d-flex align-start justify-end pt-0 pb-0 pr-4">
@@ -12,7 +12,7 @@
           {{address.tel}}
       </v-row>
       <v-row class="pb-0">
-        <span class="defaultAddress pl-4 pt-2" v-if="address.defaultAddress === '1'">기본 배송지</span>
+        <span class="defaultAddress pl-4 pt-2" style="color: #FF7916" v-if="address.defaultAddress === '1'">기본 배송지</span>
         <span class="pa-2" v-if="address.defaultAddress !== '1'"></span>
       </v-row>
       <v-row class="pl-4">
