@@ -1,43 +1,40 @@
-<!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-    <v-card outlined>
-      <v-row>
-          <v-col cols="4" class="pa-0">
-            <v-img height="auto" :src="product.thumbnail"/>
-          </v-col>
-          <v-col cols="8" class="pa-1 pl-2">
-            <v-row>
-              <v-col class="pa-4 pb-10">
-                <div class="font-weight-bold">{{product.brandName}}</div>
-                <div>{{product.name}}</div>
-                <div> {{orderDetail.productDetailId}} / {{orderDetail.psize}} / {{orderDetail.amount}}개 </div>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col class="pl-3" cols="6">주문 금액</v-col>
-              <v-col cols="6" class="pr-3 text-right">{{orderDetail.price.toLocaleString()}}원</v-col>
-            </v-row>
+  <v-container class="pa-0">
+    <v-row>
+      <v-col class="pa-0" cols="3">
+        <v-img height="auto" :src="product.thumbnail"/>
+      </v-col>
+
+      <v-col cols="9">
+        <v-row>
+          <v-col>
+            <div class="font-weight-bold" style="font-size: 12px;">{{product.brandName}}</div>
+            <div style="font-size: 14px;">{{product.name}}</div>
+            <div class="mt-5" style="font-size: 12px;"> 컬러코드 / {{orderDetail.psize}} / {{orderDetail.amount}}개 </div>
           </v-col>
         </v-row>
-    </v-card>  
+
+        <v-divider class="my-1"/>
+
+        <v-row>
+          <v-col class="font-weight-bold text-right" style="font-size: 14px; color: #CF3705;">{{orderDetail.price.toLocaleString()}}원</v-col>
+        </v-row>
+      </v-col>
+    </v-row>
+  </v-container>  
 </template>
 
 <script>
 import productAPI from "@/apis/product"
 export default {
-    //컴포넌트의 대표이름 (devtools에 나오는 이름)
     name: "productComponent",
-    //추가하고 싶은 컴포넌트 등록
     components: {
-      
     },
-    //컴포넌트 데이터 정의
     data: function() {
         return {
           product : null
         };
     },
-    //컴포넌트 메소드 정의
     methods: {
       handleProductInfo() {
             this.loading = true;
@@ -74,10 +71,6 @@ export default {
 }
 </script>
 
-<!-- 컴포넌트 스타일 정의 -->
 <style scoped>
-  *{
-    padding:0;
-    margin:0;
-  }
+
 </style>

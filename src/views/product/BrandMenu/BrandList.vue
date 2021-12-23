@@ -1,11 +1,10 @@
 <template>
-  <v-app>
-    <v-list v-for="(brand,index) in brandMenuList" v-bind:key="brand.name" nav>
-      <v-list-item @click="goBrand(brand.brandName,index)">
+    <v-list>
+      <v-list-item v-for="(brand,index) in brandMenuList" v-bind:key="brand.name" nav
+        @click="goBrand(brand.brandName,index)">
         <v-list-item-title class="ml-4">{{brand.brandName}}</v-list-item-title>
       </v-list-item>
     </v-list>
-  </v-app>
 </template>
 
 <script>

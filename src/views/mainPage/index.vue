@@ -24,21 +24,26 @@
                 v-intersect="onIntersect2"
                 :src="bestList[index - 1].thumbnail"
                 class="white--text align-end"
-                height="auto" >
-                  <div class="rank-tag text-center">{{ index }}</div>
-                </v-img>
+                height="auto"
+              >
+                <div class="rank-tag text-center">{{ index }}</div>
+                <v-icon v-if="$store.getters['member/getWishList'].includes(bestList[index-1].productId)" color="red" class="ma-2" dense>mdi-heart</v-icon>
+                <v-icon v-if="!$store.getters['member/getWishList'].includes(bestList[index-1].productId)" dark class="ma-2" dense>mdi-heart-outline</v-icon>
+              </v-img>
               <v-img
                 v-if="index - 1 < bestList.length - 2"
                 :src="bestList[index - 1].thumbnail"
                 class="white--text align-end"
-                height="auto">
+                height="auto"
+              >
                 <div class="rank-tag text-center">{{ index }}</div>
+                <v-icon v-if="$store.getters['member/getWishList'].includes(bestList[index-1].productId)" color="red" class="ma-2" dense>mdi-heart</v-icon>
+                <v-icon v-if="!$store.getters['member/getWishList'].includes(bestList[index-1].productId)" dark class="ma-2" dense>mdi-heart-outline</v-icon>
               </v-img>
-
                 
                 <v-card-title class="py-1 px-3 pb-0">
                   <v-col class="best col-12" style="height: 20px">BEST</v-col>
-                  <v-col class="brandname col-12 text-truncate">{{ bestList[index - 1].brandName }}</v-col>
+                  <v-col class="brand-name col-12 text-truncate">{{ bestList[index - 1].brandName }}</v-col>
                 </v-card-title>
                 <v-card-subtitle class="px-3 py-3">
                   <div class="content text-truncate">{{ bestList[index - 1].name }}</div>
@@ -51,18 +56,14 @@
       </v-sheet>
     </v-container>
     
-    <v-card-title class="mainTitle d-flex justify-center mt-1 pa-1">신상품</v-card-title>
-    <v-sheet>
+    <v-card-title class="mainTitle d-flex justify-center pa-1 pt-3">신상품</v-card-title>
+    <v-sheet class="mx-2">
       <v-row dense>
-        <v-col cols="6" v-for="index in newList.length"
-          :key="index">
+        <v-col cols="6" v-for="index in newList.length" :key="index">
           <v-card
-            color="#E2E3DE"
-            class="ma-1"
-            height="280px"
-            width="150px"
+            height="auto"
+            width="auto"
             elevation="0"
-            tile
             @click="goProductDetail(newList[index - 1].productId)">
 
             <v-img
@@ -70,19 +71,31 @@
               v-intersect="onIntersect1"
               :src="newList[index - 1].thumbnail"
               class="white--text align-end"
-              height="200px"
-              width="150px" />
+              height="auto"
+              width="auto"
+            >
+              <v-icon v-if="$store.getters['member/getWishList'].includes(newList[index-1].productId)" color="red" class="ma-2" dense>mdi-heart</v-icon>
+              <v-icon v-if="!$store.getters['member/getWishList'].includes(newList[index-1].productId)" dark class="ma-2" dense>mdi-heart-outline</v-icon>
+            </v-img>
 
             <v-img
               v-if="index - 1 < newList.length - 2"
               :src="newList[index - 1].thumbnail"
               class="white--text align-end"
-              height="200px" />
-              
-            <v-card-title class="brandname body-2 pa-3 pb-1">{{ newList[index - 1].brandName }}</v-card-title>
-            <v-card-subtitle class="caption pa-3">
-              <div class="content text-truncate" style="max-width: 130px;">{{ newList[index - 1].name }}</div>
-              <div class="content">{{ newList[index - 1].price.toLocaleString() }} ₩</div>
+              height="auto"
+              width="auto"
+            >
+              <v-icon v-if="$store.getters['member/getWishList'].includes(newList[index-1].productId)" color="red" class="ma-2" dense>mdi-heart</v-icon>
+              <v-icon v-if="!$store.getters['member/getWishList'].includes(newList[index-1].productId)" dark class="ma-2" dense>mdi-heart-outline</v-icon>
+            </v-img>
+
+            <v-card-title class="py-0 px-3">
+              <v-col class="newLabel col-12" style="height: 20px">NEW</v-col>
+              <v-col class="brand-name col-12 text-truncate">{{ newList[index - 1].brandName }}</v-col>
+            </v-card-title>
+            <v-card-subtitle class="px-3 py-3">
+              <div class="content text-truncate">{{ newList[index - 1].name }}</div>
+              <div class="price">￦ {{ newList[index - 1].price.toLocaleString() }}</div>
             </v-card-subtitle>
           </v-card>
         </v-col>
@@ -96,6 +109,7 @@
 import PagerModule from "@/modules/pagerModule";
 import EventComponent from "./eventComponent.vue";
 import Navi from "./Navi.vue";
+import memberAPI from "@/apis/member";
 
 export default {
   name: "mainPage",
@@ -193,7 +207,7 @@ export default {
   font-size: 20px;
   font-weight: bold;
 }
-.brandname {
+.brand-name {
   font-size: 12px;
   font-weight: 600;
   color: black;
@@ -213,8 +227,14 @@ export default {
 }
 .rank-tag {
   background-color: #CF3705;
+  font-size: 15px;
   width: 25px;
-  height: 25px;
+  height: 30px;
+  padding-top: 3px;
   margin-bottom: 232px;
+}
+.newLabel {
+  font-size: 10px;
+  color: #EDDDB5;
 }
 </style>

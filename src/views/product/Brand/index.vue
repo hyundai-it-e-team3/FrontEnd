@@ -1,112 +1,105 @@
 <template>
-  <v-card class="mb-12">
-    <v-card class="mx-auto">
-      <v-img class="white--text align-end" height="auto" :src="brandList[index].mainImg">
-        <v-icon
-          v-if="$store.getters['category/getWishBrand'].includes(brandName)"
-          right
-          color="red"
-          x-large
-          class="pa-2"
-          @click="removeWish()"
-          >mdi-home-heart</v-icon>
-        <v-icon
-          v-if="!$store.getters['category/getWishBrand'].includes(brandName)"
-          right
-          dark
-          x-large
-          class="pa-2"
-          @click="addWish()"
-          >mdi-home-heart</v-icon>
-      </v-img>
-
-      <v-card-subtitle class="pb-0 black--text text-h6">{{ brandName }}</v-card-subtitle>
-      <v-card-text class="text--primary">
-        <v-row class="d-flex my-2 pl-1">
-          <v-btn
+  <v-container class="pa-0">
+    <v-container>
+      <v-row>
+        <v-col cols="9" class="font-weight-bold black--text px-4" style="font-size: 20px;">{{ brandName }}</v-col>
+        <v-col cols="3" class="d-flex align-center justify-end py-0">
+          <v-icon
+            v-if="$store.getters['category/getWishBrand'].includes(brandName)"
+            right
+            color="red"
+            x-large
+            @click="removeWish()"
+            >mdi-home-heart</v-icon>
+          <v-icon
+            v-if="!$store.getters['category/getWishBrand'].includes(brandName)"
+            right
             dark
-            x-small
-            elevation="0"
-            v-for="item in allCategoryList" :key="item"
-            class="ma-1"
-            color="#85A182"
-            >#{{ item }}</v-btn>
-        </v-row>
-      </v-card-text>
-    </v-card>
+            x-large
+            color="grey"
+            @click="addWish()"
+            >mdi-home-heart</v-icon>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-img class="white--text align-end" height="auto" :src="brandList[index].mainImg" />
+      </v-row>
+    </v-container>
     
-    <v-card elevation="0" >
-      <v-toolbar flat>
-        <v-toolbar-title>MD's Pick</v-toolbar-title>
-      </v-toolbar>
-      <v-card-text class="py-0">
-        <v-sheet class="mx-auto">
-          <v-row class="d-flex">
-            <v-col class="col-6" v-for="item in mdPickList" :key="item.productId">
-              <v-card class="pa-0" elevation="0" tile @click="goProductDetail(item.productId)">
-                <v-img
-                  :src="item.thumbnail"
-                  class="white--text align-end"
-                  gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                  height="auto">
-                  <v-icon v-if="$store.getters['member/getWishList'].includes(item.productId)" color="red" class="ml-2 mb-2" dense
-                    >mdi-heart</v-icon
-                  >
-                  <v-icon v-if="!$store.getters['member/getWishList'].includes(item.productId)" dark class="ml-2 mb-2" dense
-                    >mdi-heart-outline</v-icon
-                  >
-                </v-img>
+    <v-container class="black">
+      <v-row class="d-flex justify-center white--text font-weight-bold py-3 " style="font-size: 18px;">MD's Pick</v-row>
 
-                <v-card-title class="brandname body-2 pa-3 pb-1">{{ brandName }}</v-card-title>
-                <v-card-subtitle class="caption pa-3">
-                  <div class="content text-truncate" style="max-width: 130px;">{{ item.name }}</div>
-                  <div class="content">{{ item.price.toLocaleString() }} ₩</div>
-                </v-card-subtitle>
-              </v-card>
-            </v-col>
-          </v-row>
-        </v-sheet>
-      </v-card-text>
-    </v-card>
+      <v-row class="d-flex pb-5">
+        <v-card class="ml-3" width="170px" elevation="0" 
+          v-for="item in mdPickList" :key="item.productId" @click="goProductDetail(item.productId)">
+          <v-img
+            class="align-end"
+            :src="item.thumbnail"
+            height="auto"
+          >
+            <v-icon v-if="$store.getters['member/getWishList'].includes(item.productId)" 
+              color="red" class="ma-2" dense
+              >mdi-heart</v-icon
+            >
+            <v-icon v-if="!$store.getters['member/getWishList'].includes(item.productId)" 
+              dark class="ma-2" dense
+              >mdi-heart-outline</v-icon
+            >
+          </v-img>
 
-      <v-sheet>
-        <div class="d-flex mb-1">
+          <v-card-title class="pa-0">
+            <v-col class="col-12 pt-1" style="height: 20px; color: red; font-size: 10px;">MD's Pick</v-col>
+            <v-col class="col-12 pt-1 text-truncate font-weight-bold" style="font-size: 12px;">{{ brandName }}</v-col>
+          </v-card-title>
+          <v-card-subtitle class="px-3 pt-0 pb-2">
+            <div class="content pt-0 text-truncate" style="font-size: 14px;">{{ item.name }}</div>
+            <div class="price font-weight-bold black--text">￦ {{ item.price.toLocaleString() }}</div>
+          </v-card-subtitle>
+        </v-card>
+      </v-row>
+    </v-container>
+
+    <v-container>
+      <v-row class="d-flex justify-center font-weight-black py-4 " style="font-size: 18px;">카테고리</v-row>
+
+      <div class="d-flex mb-1">
+        <v-btn
+          dark
+          small
+          v-for="(item, index) in selectCategoryList" :key="item"
+          color="#425745"
+          elevation="0"
+          class="ml-2">{{ item }}
+          <v-icon
+            v-if="index == selectCategoryList.length - 1"
+            x-small
+            class="ml-1"
+            @click="deleteCategory" >mdi-window-close
+          </v-icon>
+        </v-btn>
+      </div>
+
+      <v-slide-group show-arrows>
+        <v-slide-item
+          v-for="category in categoryList" :key="category.name"
+          class="ma-0">
           <v-btn
-            dark
+            class="ml-2"
+            depressed
             small
-            v-for="(item, index) in selectCategoryList" :key="item"
-            color="#46614A"
-            elevation="0"
-            class="ml-2">{{ item }}
-            <v-icon
-              v-if="index == selectCategoryList.length - 1"
-              x-small
-              class="ml-1"
-              @click="deleteCategory" >mdi-window-close
-            </v-icon>
+            @click="goDetailCategory(category)">{{ category.name }}
           </v-btn>
-        </div>
+        </v-slide-item>
+      </v-slide-group>
+    </v-container>
 
-        <v-slide-group show-arrows>
-          <v-slide-item
-            v-for="category in categoryList" :key="category.name"
-            class="ma-0">
-            <v-btn
-              class="ml-2"
-              depressed
-              small
-              @click="goDetailCategory(category)">{{ category.name }}
-            </v-btn>
-          </v-slide-item>
-        </v-slide-group>
-      </v-sheet>
+    <product-list
+      listType="brandProductList"
+      :categoryId="categoryId"
+      :brandName="brandName"
+    />
 
-      <product-list
-        listType="brandProductList"
-        :categoryId="categoryId"
-        :brandName="brandName"
-      />
-  </v-card>
+  </v-container>
 </template>
 
 <script>

@@ -14,7 +14,7 @@ export default {
   data() {
     return {
       tab: '',
-      tabs: ['HOME', 'NEW', 'BEST', 'EVENT'],
+      tabs: ['HOME', 'NEW', 'BEST'],
     };
   },
   methods: {
