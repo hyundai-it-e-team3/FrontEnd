@@ -1,30 +1,32 @@
 <!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-  <v-card width="100%" class="pa-1">
-    <v-card flat class="pa-2">
-    <v-card-title @click="goDetail(`${orderId}`)">
-      No.{{ orderId }} <v-icon>mdi-chevron-right</v-icon>
-    </v-card-title>
-    <v-divider class="mb-3"/>
-    <v-card-subtitle>{{ orderDate }}</v-card-subtitle>
-    <div>주문 상태 : {{ state }}</div>
+  <v-container>
+    <v-card elevation="0" flat @click="goDetail(`${orderId}`)">
+      <v-card-title class="px-3 pt-1 pb-0 font-weight-bold" style="font-size: 15px;">
+        <div class="col-11">{{ new Date(orderDate).toLocaleDateString() }}</div>
+        <v-icon class="col-1" color="black">mdi-chevron-right</v-icon>
+      </v-card-title>
+
+      <v-card-text v-for="(orderDetail, i) in orderDetailList" :key="i">
+        <product-component
+          :orderDetail="orderDetail"
+        />
+      </v-card-text>
     </v-card>
-    <v-card-text v-for="(orderDetail, i) in orderDetailList" :key="i">
-      <product-component :orderDetail="orderDetail" />
-    </v-card-text>
+    
     <alert-dialog
       v-if="alertDialog"
       :loading="loading"
       :message="alertDialogMessage"
       @close="alertDialog = false"
     />
-  </v-card>
+  </v-container>
 </template>
 
 <script>
 import orderAPI from "@/apis/order";
 import ProductComponent from "./ProductComponent.vue";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 export default {
   //컴포넌트의 대표이름 (devtools에 나오는 이름)
   name: "",
@@ -74,7 +76,7 @@ export default {
   props: ["orderId", "orderDate", "totalPrice", "state"],
   created() {
     this.handleOrderProductList();
-    this.orderDate = dayjs(this.orderDate).format("YYYY.MM.DD. HH:MM")
+    this.orderDate = dayjs(this.orderDate).format("YYYY.MM.DD. HH:MM");
   },
 };
 </script>

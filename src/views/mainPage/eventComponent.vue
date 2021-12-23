@@ -1,7 +1,7 @@
 <template>
   <v-carousel 
     hide-delimiters
-    cycle="true"
+    cycle
   >
     <v-carousel-item
       v-for="(item,i) in items"

@@ -1,29 +1,42 @@
 <template>
   <v-app>
     <v-sheet>
-      <div class="d-flex ma-1 ml-2">
+      <div class="d-flex pa-2">
         <v-btn
-          dark small color="#46614A" elevation="0"
-          v-for="(item, index) in $store.getters['category/getSelectedCategory']" :key="index"
-          class="black mr-2">
-            {{ item.name }}
-          <v-icon 
-            v-if="index == $store.getters['category/getSelectedCategory'].length - 1"
+          dark
+          small
+          color="#46614A"
+          elevation="0"
+          v-for="(item, index) in $store.getters[
+            'category/getSelectedCategory'
+          ]"
+          :key="index"
+          class="mr-1"
+        >
+          {{ item.name }}
+          <v-icon
+            v-if="
+              index == $store.getters['category/getSelectedCategory'].length - 1
+            "
             x-small
-            class="ml-1"
-            @click="deleteCategory(item)">
-              mdi-window-close
+            class="ml-2"
+            @click="deleteCategory(item)"
+          >
+            mdi-window-close
           </v-icon>
         </v-btn>
       </div>
       <v-slide-group show-arrows>
         <v-slide-item
-          class="ma-0"
-          v-for="category in categoryList" :key="category.name" v-slot="{ active }">
+          v-for="category in categoryList"
+          :key="category.name"
+          v-slot="{ active }"
+        >
           <v-btn
             class="ml-2"
             :input-value="active"
-            active-class="purple white--text"
+            color="#AEA780"
+            dark
             depressed
             small
             @click="goDetailCategory(category)"
@@ -34,7 +47,7 @@
       </v-slide-group>
     </v-sheet>
 
-    <product-list listType="list" :categoryId="categoryId" :pSortId="sortId"/>
+    <product-list listType="list" :categoryId="categoryId" :pSortId="sortId" />
   </v-app>
 </template>
 
@@ -50,7 +63,7 @@ export default {
     categoryId: "KI",
     selectCategoryList: [],
     categoryList: [],
-    sortId:"",
+    sortId: "",
   }),
   methods: {
     deleteCategory(category) {
@@ -79,9 +92,8 @@ export default {
     console.log(this.$store.getters["category/getSelectedCategory"]);
     this.selectCategoryList = [];
 
-    if(this.$route.query.sortId!='')
-      this.sortId = this.$route.query.sortId;
-    
+    if (this.$route.query.sortId != "") this.sortId = this.$route.query.sortId;
+
     let curCategory = this.$store.getters["category/getCurCategory"];
     if (curCategory == null) {
       this.categoryId = "0";

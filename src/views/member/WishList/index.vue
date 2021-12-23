@@ -1,16 +1,19 @@
 <template>
-  <v-container class="pa-1">
-    <v-row dense>
-      <v-col cols="6" v-for="item in list" :key="item.productId">
+  <v-container>
+    <v-row class="font-weight-bold d-flex justify-center py-2" style="font-size: 20px;">
+      WISHLIST
+    </v-row>
+
+    <v-row class="px-3">
+      <v-col cols="6" class="pa-1"
+        v-for="item in list" :key="item.productId">
         <v-card
-          @click="goProductDetail(item.productId)"
           elevation="0"
-          tile
+          @click="goProductDetail(item.productId)"
         >
           <v-img
             :src="item.thumbnail"
             class="white--text align-end"
-            gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
             height="auto"
           >
             <v-icon
@@ -25,15 +28,12 @@
               >mdi-heart</v-icon
             >
           </v-img>
-          <v-card-title class="brandname body-2">{{
-            item.brandName
-          }}</v-card-title>
-          <v-card-subtitle class="caption">
-            <div class="content">{{ item.name }}</div>
-            <div class="content">
-              {{ item.price.toLocaleString() }}₩
-            </div>
-          </v-card-subtitle>
+
+          <v-card-title class="brandname pt-1 px-3">{{ item.brandName }}</v-card-title>
+            <v-card-subtitle class="px-3 pt-0 pb-2">
+              <div class="content">{{ item.name }}</div>
+              <div class="priceContent">￦ {{ item.price.toLocaleString() }}</div>
+            </v-card-subtitle>
         </v-card>
       </v-col>
     </v-row>
@@ -80,13 +80,18 @@ export default {
 
 <style scoped>
 .brandname {
-  font-weight: 500;
+  font-weight: bold;
+  font-size: 12px;
   color: black;
-  padding: 0,5em;
 }
 .content {
   font-weight: 500;
-  font-size: 11px;
+  font-size: 14px;
   color: black;
+}
+.priceContent {
+  color: black;
+  font-size: 14px;
+  font-weight: bold;
 }
 </style>
