@@ -25,7 +25,8 @@
       <v-row dense class="mt-3">
         <v-col cols="6" v-for="index in newList.length" :key="index">
           <v-card
-            v-if="index-1 >= newList.length -2"
+            tile
+            v-if="index-1 >= newList.length -1"
             @click="goProductDetail(newList[index-1].productId)"
             elevation="0">
             <v-img
@@ -45,6 +46,7 @@
           </v-card>
 
           <v-card
+            tile
             v-if="index-1 < newList.length -2"
             @click="goProductDetail(newList[index-1].productId)"
             elevation="0">
@@ -144,7 +146,7 @@ export default {
     let stSortId = this.$store.getters["pager/getSortId"];
     console.log("----------");
     console.log(this.pSortId);
-    console.log(stSortId+" "+this.sortId+" "+this.category+" "+stCategoryId);
+    console.log(stSortId+" "+this.sortId+" "+this.categoryId+" "+stCategoryId);
     if(this.pSortId===undefined){
       console.log(this.sortId);
       console.log("dcac");
@@ -180,6 +182,8 @@ export default {
     }
   },
   destroyed() {
+    console.log("afdaffdsfwe");
+    console.log(this.sortId);
     this.$store.commit("pager/setCategoryId",this.categoryId);
     this.$store.commit("pager/setBrandName",this.brandName);
     this.$store.commit("pager/setSortId",this.sortId);
@@ -194,15 +198,14 @@ export default {
         1,
         10,
         this.sortId
-      )
-        .then((response) => {
+      ).then((response) => {
           this.newList = response.data;
           this.$store.commit("pager/resetRowCount");
           this.$store.commit("pager/plusRowCount", 11);
-        })
-        .catch((error) => {
+          console.log(this.newList);
+      }).catch((error) => {
           console.log(error);
-        });
+      });
     }
   },
 };

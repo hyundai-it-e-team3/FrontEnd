@@ -55,6 +55,11 @@ export default[
     component: () => import(/* webpackChunkName: "about" */ '../views/member/Account')
   },
   {
+    path: "/member/promotion",
+    //lazyloding
+    component: () => import(/* webpackChunkName: "about" */ '../views/member/Promotion')
+  },
+  {
     path: "/member/account/insert",
     //lazyloding
     component: () => import(/* webpackChunkName: "about" */ '../views/member/Account/AccountInsert')

@@ -25,6 +25,8 @@ export default {
       }else if(tab=='BEST'){
         this.$store.commit("category/setSelectedCategory",[]);
         this.$router.push(`/product/categoryProduct?categoryId=&sortId=${3}`).catch(()=>{});
+      }else if(tab=='EVENT'){
+        this.$router.push(`/member/promotion`).catch(()=>{});
       }
     }
   }

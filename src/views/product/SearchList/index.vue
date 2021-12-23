@@ -36,7 +36,7 @@
         <v-col cols="6" v-for="index in newList.length" :key="index">
           <v-card
             tile
-            v-if="index-1 >= newList.length -2"
+            v-if="index-1 >= newList.length-3"
             @click="goProductDetail(newList[index-1].productId)"
             elevation="0">
             <v-img
@@ -55,7 +55,7 @@
           </v-card>
           <v-card
             tile
-            v-if="index-1 < newList.length -2"
+            v-if="index-1 < newList.length-3"
             @click="goProductDetail(newList[index-1].productId)"
             elevation="0">
             <v-img
@@ -107,7 +107,7 @@ export default {
         productModule.getProductListText(
           resText,
           startRow,
-          3,
+          4,
           this.sortId
         )
           .then((response) => {
@@ -119,7 +119,9 @@ export default {
                 this.newList.push(item);
               }
             }
-            this.$store.commit("pager/plusRowCount", 4);
+            this.$store.commit("pager/plusRowCount", 5);
+            console.log("endRow: "+(startRow+4));
+            console.log("startRow: "+this.$store.getters["pager/getRowCount"]);
           })
           .catch((error) => {
             console.log(error);
@@ -169,15 +171,18 @@ export default {
         1,
         10,
         this.sortId
-      )
-        .then((response) => {
+      ).then((response) => {
           this.newList = response.data;
+          console.log(this.newList);
+          console.log(this.newList.length);
           this.$store.commit("pager/resetRowCount");
+      }).then(()=>{
           this.$store.commit("pager/plusRowCount", 11);
-        })
-        .catch((error) => {
+          console.log(this.$store.getters["pager/getRowCount"])
+      }).catch((error) => {
+          console.log("-------");
           console.log(error);
-        });
+      });
     }
   },
   destroyed(){

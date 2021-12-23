@@ -47,7 +47,7 @@
       </v-slide-group>
     </v-sheet>
 
-    <product-list listType="list" :categoryId="categoryId" :pSortId="sortId" />
+    <product-list listType="list" :categoryId="categoryId" :pSortId="sortId"/>
   </v-app>
 </template>
 

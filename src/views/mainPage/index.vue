@@ -20,7 +20,7 @@
             >
               
               <v-img
-                v-if="index - 1 >= bestList.length - 2"
+                v-if="index - 1 >= bestList.length - 1"
                 v-intersect="onIntersect2"
                 :src="bestList[index - 1].thumbnail"
                 class="white--text align-end"
@@ -31,7 +31,7 @@
                 <v-icon v-if="!$store.getters['member/getWishList'].includes(bestList[index-1].productId)" dark class="ma-2" dense>mdi-heart-outline</v-icon>
               </v-img>
               <v-img
-                v-if="index - 1 < bestList.length - 2"
+                v-if="index - 1 < bestList.length - 1"
                 :src="bestList[index - 1].thumbnail"
                 class="white--text align-end"
                 height="auto"
@@ -67,7 +67,7 @@
             @click="goProductDetail(newList[index - 1].productId)">
 
             <v-img
-              v-if="index - 1 >= newList.length - 2"
+              v-if="index - 1 >= newList.length - 1"
               v-intersect="onIntersect1"
               :src="newList[index - 1].thumbnail"
               class="white--text align-end"
@@ -79,7 +79,7 @@
             </v-img>
 
             <v-img
-              v-if="index - 1 < newList.length - 2"
+              v-if="index - 1 < newList.length - 1"
               :src="newList[index - 1].thumbnail"
               class="white--text align-end"
               height="auto"
@@ -121,8 +121,8 @@ export default {
     return {
       newList: [],
       bestList: [],
-      newRowCount: 11,
-      bestRowCount: 11,
+      newRowCount: 12,
+      bestRowCount: 12,
     };
   },
   methods: {
@@ -178,8 +178,6 @@ export default {
     PagerModule.getProductList("list", "null", "null", 1, 10, 0)
       .then((response) => {
         this.newList = response.data;
-        this.$store.commit("pager/resetRowCount");
-        this.$store.commit("pager/plusRowCount", 11);
       })
       .catch((error) => {
         console.log(error);
@@ -188,8 +186,6 @@ export default {
     PagerModule.getProductList("list", "null", "null", 1, 10, 3)
       .then((response) => {
         this.bestList = response.data;
-        this.$store.commit("pager/resetRowCount");
-        this.$store.commit("pager/plusRowCount", 11);
       })
       .catch((error) => {
         console.log(error);
