@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-sheet>
-      <div class="d-flex pa-2">
+      <div class="d-flex pa-2 pt-0">
         <v-btn
           dark
           small
@@ -48,10 +48,9 @@
     </v-sheet>
 
     <div>
-      <v-row dense class="mt-3">
+      <v-row dense class="mt-1 mx-2">
         <v-col cols="6" v-for="index in newList.length" :key="index">
           <v-card
-            tile
             v-if="index-1 >= newList.length -1"
             @click="goProductDetail(newList[index-1].productId)"
             elevation="0">
@@ -72,7 +71,6 @@
           </v-card>
 
           <v-card
-            tile
             v-if="index-1 < newList.length -2"
             @click="goProductDetail(newList[index-1].productId)"
             elevation="0">
@@ -192,5 +190,19 @@ export default {
 </script>
 
 <style scoped>
-
+.brandname {
+  font-weight: bold;
+  font-size: 12px;
+  color: black;
+}
+.content {
+  font-weight: 500;
+  font-size: 14px;
+  color: black;
+}
+.priceContent {
+  color: black;
+  font-size: 14px;
+  font-weight: bold;
+}
 </style>

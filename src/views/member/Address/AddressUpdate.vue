@@ -8,7 +8,7 @@
       <form @submit.prevent="handleUpdate()">
         <validation-provider name="address.name" rules="required" v-slot="{ errors }">
           <v-row class="pa-3">
-            <v-col class="contentname col-3 d-flex justify-center align-center">수령인</v-col>
+            <v-col class="contentname col-3 d-flex justify-center align-center font-weight-bold">수령인</v-col>
             <v-text-field v-model="address.name"
                           outlined
                           hide-details>
@@ -19,7 +19,7 @@
 
         <validation-provider name="address.tel" rules="required|telType" v-slot="{ errors }">
           <v-row class="pa-3">
-            <v-col class="contentname col-3 d-flex justify-center align-center" >전화번호</v-col>
+            <v-col class="contentname col-3 d-flex justify-center align-center font-weight-bold" >전화번호</v-col>
             <v-text-field v-model="address.tel"
                           outlined
                           hide-details>
@@ -31,7 +31,7 @@
 
         <validation-provider name="address.zipCode" rules="required|integer" v-slot="{ errors }">
           <v-row class="pa-3">
-            <v-col class="contentname col-3 d-flex justify-center align-center">우편번호</v-col>
+            <v-col class="contentname col-3 d-flex justify-center align-center font-weight-bold">우편번호</v-col>
             <v-text-field v-model="address.zipCode"
                           outlined
                           hide-details>
@@ -42,7 +42,7 @@
 
         <validation-provider name="address.address1" rules="required" v-slot="{ errors }">
           <v-row class="pa-3">
-            <v-col class="contentname col-3 d-flex justify-center align-center">주소</v-col>
+            <v-col class="contentname col-3 d-flex justify-center align-center font-weight-bold">주소</v-col>
             <v-text-field v-model="address.address1"
                           outlined
                           hide-details>
@@ -53,7 +53,7 @@
 
         <validation-provider name="address.address2" rules="required" v-slot="{ errors }">
           <v-row class="pa-3">
-            <v-col class="contentname col-3 d-flex justify-center align-center">상세주소</v-col>
+            <v-col class="contentname col-3 d-flex justify-center align-center font-weight-bold">상세주소</v-col>
             <v-text-field v-model="address.address2"
                           outlined
                           hide-details>
@@ -64,7 +64,7 @@
         
         <validation-provider name="address.defaultAddress" rules="required">
           <v-row class="pa-0">
-            <v-col class="contentname col-4 d-flex justify-center align-center">기본 배송지</v-col>
+            <v-col class="contentname col-4 d-flex justify-center align-center font-weight-bold">기본 배송지</v-col>
             <v-radio-group v-model="address.defaultAddress" row>
               <v-radio name="address.defaultAddress" label="Yes" :value="'1'"></v-radio>
               <v-radio name="address.defaultAddress" label="No" :value="'0'"></v-radio>
@@ -73,8 +73,8 @@
         </validation-provider>
 
         <v-row class="justify-center mt-5 mb-3 mr-1">
-          <v-btn large depressed tile outlined @click="goBack">취소</v-btn>
-          <v-btn class="ml-1 black white--text" large depressed tile :disabled="invalid" type="submit">수정</v-btn>
+          <v-btn large depressed outlined @click="goBack">취소</v-btn>
+          <v-btn class="ml-1" dark large depressed color="#425745" :disabled="invalid" type="submit">수정</v-btn>
         </v-row>
       </form>
 
@@ -181,7 +181,7 @@ export default {
 <style scoped>
 .addressupdatetitle {
   font-size: 25px;
-  font-weight: 500;
+  font-weight: bold;
 }
 .contentname {
   font-size: 15px;

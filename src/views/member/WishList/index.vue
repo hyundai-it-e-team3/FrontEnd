@@ -42,6 +42,7 @@
 
 <script>
 import ProductModule from "@/modules/productModule";
+
 export default {
   name: "wishList",
   components: {},
@@ -72,8 +73,8 @@ export default {
       })
       .catch((error) => {
         console.log(error);
+        this.$router.push("/member/mypage");
       });
-    console.log(this.list);
   },
 };
 </script>

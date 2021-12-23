@@ -7,13 +7,13 @@
     <validation-observer ref="observer" v-slot="{ invalid }">
       <form @submit.prevent="handleUpdate()">
         <v-row class="contentname pa-3">
-          <v-col class="col-3 d-flex justify-center align-center">아이디</v-col>
+          <v-col class="col-3 d-flex justify-center align-center font-weight-bold">아이디</v-col>
           <v-card class="content col-9 d-flex align-center" min-height="55" outlined>{{member.memberId}}</v-card>
         </v-row>
 
         <validation-provider name="member.password" rules="passwordRequired|passwordMin:8" v-slot="{ errors }">
           <v-row class="contentname pa-3">
-            <v-col class="col-3 d-flex justify-center align-center">비밀번호</v-col>
+            <v-col class="col-3 d-flex justify-center align-center font-weight-bold">비밀번호</v-col>
             <v-text-field v-model="member.password"
                           type="password"
                           outlined
@@ -24,13 +24,13 @@
         </validation-provider>
 
         <v-row class="contentname pa-3">
-          <v-col class="col-3 d-flex justify-center align-center">이름</v-col>
+          <v-col class="col-3 d-flex justify-center align-center font-weight-bold">이름</v-col>
           <v-card class="content col-9 d-flex align-center" min-height="55" outlined>{{member.name}}</v-card>
         </v-row>
 
         <validation-provider name="member.nickname" rules="nicknameMin:10" v-slot="{ errors }">
           <v-row class="contentname pa-3">
-            <v-col class="col-3 d-flex justify-center align-center">닉네임</v-col>
+            <v-col class="col-3 d-flex justify-center align-center font-weight-bold">닉네임</v-col>
             <v-text-field v-model="member.nickname"
                           outlined
                           hide-details>
@@ -40,13 +40,13 @@
         </validation-provider>
 
         <v-row class="contentname pa-3">
-          <v-col class="col-3 d-flex justify-center align-center">이메일</v-col>
+          <v-col class="col-3 d-flex justify-center align-center font-weight-bold">이메일</v-col>
           <v-card class="content col-9 d-flex align-center" min-height="55" outlined>{{member.email}}</v-card>
         </v-row>
 
         <validation-provider name="member.tel" rules="telRequired|telType" v-slot="{ errors }">
           <v-row class="contentname pa-3">
-            <v-col class="col-3 d-flex justify-center align-center">전화번호</v-col>
+            <v-col class="col-3 d-flex justify-center align-center font-weight-bold">전화번호</v-col>
             <v-text-field v-model="member.tel"
                           outlined
                           hide-details>
@@ -57,13 +57,13 @@
         </validation-provider>
 
         <v-row class="contentname pa-3">
-          <v-col class="col-3 d-flex justify-center align-center">생년월일</v-col>
+          <v-col class="col-3 d-flex justify-center align-center font-weight-bold">생년월일</v-col>
           <v-card class="content col-9 d-flex align-center" min-height="55" outlined>{{member.birthday}}</v-card>
         </v-row>
 
         <v-row class="justify-center mt-5 mb-3 mr-1">
-          <v-btn large depressed tile outlined @click="goBack">취소</v-btn>
-          <v-btn class="ml-1 black white--text" large depressed tile :disabled="invalid" type="submit">수정</v-btn>
+          <v-btn large depressed outlined @click="goBack">취소</v-btn>
+          <v-btn class="ml-1" dark color="#425745" large depressed :disabled="invalid" type="submit">수정</v-btn>
         </v-row>
       </form>
     </validation-observer>

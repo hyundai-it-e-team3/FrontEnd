@@ -5,7 +5,7 @@
         :account=account />
     </v-row>
     <v-row class="d-flex justify-center mt-4">
-      <v-btn large outlined to="/member/account/insert">결제수단 추가</v-btn>
+      <v-btn color="#425745" large dark to="/member/account/insert">결제수단 추가</v-btn>
     </v-row>
   </v-container>
 </template>
