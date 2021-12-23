@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pa-0">
+  <v-container class="py-0">
     <div v-if="$store.getters.getMemberId === ''">
       <before-login />
     </div>

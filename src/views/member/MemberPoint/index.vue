@@ -1,9 +1,10 @@
-<!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
-  <v-card elevation="0">
-    <v-app-bar class="mb-1" elevation="0">
-      <v-tabs v-model="tab" background-color="white" color="black" slider-color="black" centered>
-        <v-tab v-for="tabs in tabs" :key="tabs">{{tabs}}</v-tab>
+  <v-container class="pa-0">
+    <v-app-bar class="mb-1" dense elevation="0">
+      <v-tabs v-model="tab"
+        background-color="white" color="#425745" slider-color="#425745" centered grow>
+        <v-tab class="ma-0 font-weight-bold" width="100%" 
+          v-for="tabs in tabs" :key="tabs">{{tabs}}</v-tab>
       </v-tabs>
     </v-app-bar>
 
@@ -16,7 +17,7 @@
         v-if="pointList.type == tabs[tab]" 
         :pointList=pointList />
     </v-tabs-items>
-  </v-card>
+  </v-container>
 </template>
 
 <script>
