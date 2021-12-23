@@ -1,36 +1,31 @@
 <template>
-  <v-container fluid>
+  <v-container class="py-5 px-0">
     <v-row>
-      <v-col>
-        <v-row class="ml-1 mt-1">
-          <v-col class="memberName pb-0 d-flex align-end col-4">{{member.name}}</v-col>
-          <v-col class="col-8 pb-0 d-flex align-end" @click="goMemberUpdate"><v-icon size="40">mdi-chevron-right</v-icon></v-col>
-        </v-row>
-
-        <v-row class="ml-1 mb-2">
-          <v-col class="level col-2 d-flex pl-4 pt-0 pr-0">{{member.memberLevel}} Lv. </v-col>
-          <v-col class="col-8 d-flex pt-0 pr-0 pl-0" @click="goLevel(member.memberLevel)"><v-icon size="21">mdi-information-outline</v-icon></v-col>
+      <v-col class="col-3 d-flex justify-center py-0 pr-0" style="font-size: 60px; font-weight: bold; color: #417D58;">H</v-col>
+      <v-col class="col-4 py-0 d-flex align-center">
+        <v-row>
+          <v-col class="col-12 py-0" style="font-size: 25px; font-weight: bold; ">{{member.name}}</v-col>
+          <v-col class="col-8 py-0">Level {{member.memberLevel}}</v-col>
+          <v-col class="col-4 pa-0 d-flex align-center" @click="goLevel(member.memberLevel)"><v-icon size="17" color="#AEA780">mdi-information-outline</v-icon></v-col>
         </v-row>
       </v-col>
+      <v-col class="col-5 py-0 d-flex align-center justify-end" @click="goMemberUpdate"><v-icon size="40">mdi-chevron-right</v-icon></v-col>
     </v-row>
 
-    <v-divider class="mb-4" />
+    <v-divider class="my-4" />
 
     <v-row class="d-flex pl-4 pr-4">
       <v-col class="col-4 d-flex flex-column" @click="goOrderList">
-        <!-- <v-icon size="50" color="black">mdi-truck-outline</v-icon> -->
-        <img src="@/assets/images/truck.png" />
-        <v-row class="menu3">주문내역</v-row>
+        <img src="@/assets/images/truck.png" width="80%" style="margin: auto;" />
+        <v-row class="menu3">ORDER</v-row>
       </v-col>
       <v-col class="col-4 d-flex flex-column" @click="goMemberCoupon">
-        <!-- <v-icon size="50" color="black">mdi-ticket-percent-outline</v-icon> -->
-        <img src="@/assets/images/coupon.png" />
-        <v-row class="menu3">쿠폰</v-row>
+        <img src="@/assets/images/coupon.png" width="80%" style="margin: auto;" />
+        <v-row class="menu3">COUPON</v-row>
       </v-col>
       <v-col class="col-4 d-flex flex-column" @click="goMemberPoint">
-        <!-- <v-icon size="50" color="black">mdi-alpha-p-circle-outline</v-icon> -->
-        <img class="ma-3" src="@/assets/images/letter.png" height="65px" width="65px" />
-        <v-row class="menu3">{{member.point}} 점</v-row>
+        <img src="@/assets/images/letter.png" class="py-2" width="60%" style="margin: auto;" />
+        <v-row class="menu3">{{member.point}} Point</v-row>
       </v-col>
     </v-row>
 
@@ -160,20 +155,18 @@ export default {
 </script>
 
 <style scoped>
-.memberName {
-  font-size: 30px;
-  font-weight: 550;
-}
 .level {
   font-size:20px;
 }
 .menu3 {
   color: black;
   justify-content: center;
+  font-weight: bold;
   padding: 12px 10px 15px 10px;
 }
 .memberMenu {
   color: black;
-  font-size: 17px;
+  font-size: 15px;
+  font-weight: bold;
 }
 </style>

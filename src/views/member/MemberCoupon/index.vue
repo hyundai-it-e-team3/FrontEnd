@@ -1,8 +1,10 @@
 <template>
   <v-card elevation="0" tile>
-    <v-app-bar>
-      <v-tabs v-model="tab" background-color="white" color="black" slider-color="black" centered>
-        <v-tab v-for="tabs in tabs" :key="tabs">{{tabs}}</v-tab>
+    <v-app-bar dense>
+      <v-tabs v-model="tab" 
+        background-color="white" color="#425745" slider-color="#425745" centered grow>
+        <v-tab class="ma-0 font-weight-bold" width="100%" 
+          v-for="tabs in tabs" :key="tabs">{{tabs}}</v-tab>
       </v-tabs>
     </v-app-bar>
 
