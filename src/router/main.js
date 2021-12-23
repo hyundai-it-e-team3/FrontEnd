@@ -5,10 +5,10 @@ export default[
   },
   {
     path: "/mainpage/bestitem",
-    component: () => import(/* webpackChunkName: "about" */ '../views/mainPage/bestItem')
+    component: () => import(/* webpackChunkName: "about" */ '../views/mainPage/BestItem')
   },
   {
     path: "/mainpage/eventpage",
-    component: () => import(/* webpackChunkName: "about" */ '../views/mainPage/eventPage')
+    component: () => import(/* webpackChunkName: "about" */ '../views/mainPage/EventPage')
   },
 ]

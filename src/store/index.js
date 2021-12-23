@@ -15,9 +15,13 @@ export default new Vuex.Store({
     memberId: "",
     authToken: "",
     pageFlag:'main',
-    text:""
+    text:"",
+    mainFlag:0
   },
   getters:{
+    getMainFlag(state) {
+      return state.mainFlag;
+    },
     getMemberId(state) {
       return state.memberId;
     },
@@ -39,10 +43,13 @@ export default new Vuex.Store({
       state.authToken = payload;
     },
     setPageFlag(state, payload){
-      state.pageFlag = payload
+      state.pageFlag = payload;
     },
     setTextFlag(state,payload){
-      state.text = payload
+      state.text = payload;
+    },
+    setMainFlag(state,payload){
+      state.text = payload;
     }
   },
   actions: {
