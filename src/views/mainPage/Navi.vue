@@ -21,12 +21,12 @@ export default {
     goTab(tab){
       if(tab=='NEW'){
         this.$store.commit("category/setSelectedCategory",[]);
-        this.$router.push(`/product/categoryProduct?categoryId=&sortId=${0}`).catch(()=>{});
+        this.$emit("setMainFlag",1);
       }else if(tab=='BEST'){
         this.$store.commit("category/setSelectedCategory",[]);
-        this.$router.push(`/product/categoryProduct?categoryId=&sortId=${3}`).catch(()=>{});
-      }else if(tab=='EVENT'){
-        this.$router.push(`/member/promotion`).catch(()=>{});
+        this.$emit("setMainFlag",2);
+      }else{
+        this.$emit("setMainFlag",0);
       }
     }
   }

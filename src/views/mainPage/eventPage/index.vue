@@ -1,6 +1,5 @@
 <template>
   <v-container class="pt-0">
-    <navi />
 
     <v-col class="mt-1 mb-2">
       <v-row>
@@ -21,12 +20,10 @@
 </template>
 
 <script>
-import Navi from '../Navi.vue';
 
 export default {
   name:"eventPage",
   components: {
-    Navi,
   },
   data() {
     return {

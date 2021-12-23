@@ -140,7 +140,7 @@ export default {
           this.categoryId,
           startRow,
           5,
-          3
+          0
         )
           .then((response) => {
             let resList = response.data;
@@ -172,7 +172,7 @@ export default {
         this.categoryId,
         1,
         10,
-        3
+        0
       )
         .then((response) => {
           console.log(response.data);
