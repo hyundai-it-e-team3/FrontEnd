@@ -52,7 +52,9 @@
 import { extend } from 'vee-validate';
 import { required } from 'vee-validate/dist/rules';
 import memberAPI from '@/apis/member';
+import orderAPI from '@/apis/order';
 import AlertDialog from "@/components/alert/AlertDialog.vue";
+
 
 extend('memberIdRequired', {
   ...required,
@@ -90,6 +92,8 @@ export default {
             memberId: response.data.memberId,
             authToken: response.data.jwt
           });
+          memberAPI.addAuthHeader(response.data.jwt);
+          orderAPI.addAuthHeader(response.data.jwt);
         } else if(response.data.result === 'disabledMember') {
           this.alertDialog = true;
           this.alertDialogMessage = "탈퇴한 회원의 계정입니다.";

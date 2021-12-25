@@ -51,7 +51,9 @@
 
 <script>
 import memberAPI from '@/apis/member';
+import orderAPI from '@/apis/order';
 import CategoryModule from "@/modules/categoryModule";
+
 
 export default {
   name: "AfterLogin",
@@ -75,7 +77,7 @@ export default {
         })
         .catch(error => {
           if(error.response) {
-            if(error.response.status === 403) {
+            if(error.response.status === 403||error.response.status === 401) {
               this.$router.push("/member/mypage");
             }
           } else {
@@ -102,6 +104,8 @@ export default {
       this.$router.push("/member/account");
     },
     handleLogout() {
+      memberAPI.removeAuthHeader();
+      orderAPI.removeAuthHeader();
       this.$store.dispatch("deleteAuth");
     },
     async handleMemberDelete() {
