@@ -3,11 +3,11 @@
   <v-list class="pa-0">
     <div class="d-flex">
       <v-list-item @click="favClick">
-        <v-list-item-title class="d-flex justify-center font-weight-black">선호 브랜드</v-list-item-title>
+        <v-list-item-title class="d-flex justify-center font-weight-bold">선호 브랜드</v-list-item-title>
       </v-list-item>
 
       <v-list-item @click="brandClick">
-        <v-list-item-title class="d-flex justify-center font-weight-black">브랜드</v-list-item-title>
+        <v-list-item-title class="d-flex justify-center font-weight-bold">브랜드</v-list-item-title>
       </v-list-item>
     </div>
     

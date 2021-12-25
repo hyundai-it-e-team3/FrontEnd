@@ -2,8 +2,8 @@
   <v-container>
     <v-card elevation="0">
       <v-row>
-        <v-col cols="6" class="font-weight-bold pl-4 py-2" style="font-size: 15px;">주문번호 {{ this.$route.query.orderNo }}</v-col>
-        <v-col cols="6" class="pr-4 pt-2 d-flex justify-end" style="font-size: 15px;">{{ new Date(order.orderDate).toLocaleDateString() }}</v-col>
+        <v-col cols="6" class="font-weight-medium pl-4 py-2" style="font-size: 15px;">주문번호 {{ this.$route.query.orderNo }}</v-col>
+        <v-col cols="6" class="pr-4 pt-3 d-flex justify-end" style="font-size: 13px;">{{ new Date(order.orderDate).toLocaleDateString() }}</v-col>
       </v-row>
       
       <v-divider />
@@ -20,7 +20,7 @@
 
     <v-expansion-panels accordion multiple>
       <v-expansion-panel>
-        <v-expansion-panel-header class="font-weight-bold">최종 결제 정보</v-expansion-panel-header>
+        <v-expansion-panel-header class="font-weight-bold px-3">최종 결제 정보</v-expansion-panel-header>
 
         <v-expansion-panel-content>
           <v-row v-for="(payment, index) in paymentList" :key="index">
@@ -31,7 +31,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="font-weight-bold">배송지 정보</v-expansion-panel-header>
+        <v-expansion-panel-header class="font-weight-bold px-3">배송지 정보</v-expansion-panel-header>
 
         <v-expansion-panel-content>
           <v-row>
@@ -492,6 +492,6 @@ export default {
   padding: 0px;
 }
 .v-expansion-panel::before {
-   box-shadow: none !important;
+  box-shadow: none !important;
 }
 </style>

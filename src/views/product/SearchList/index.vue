@@ -1,79 +1,73 @@
-<!-- 컴포넌트 UI 정의 -->
 <template>
-  <v-app class="pa-0">
+  <v-container>
     
-      <v-text-field
-            label="Keyword"
-            hide-details="auto"
-            v-model="text"
-            class="mx-2 mt-2"
-            ></v-text-field>
-    
-    <v-row class="mt-4">
-      <v-col cols="8"></v-col>
-      <v-col cols="4" @click="sortList"
-        ><v-icon>mdi-swap-vertical</v-icon>
-        <v-bottom-sheet v-model="sortSheet" width="100%">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn color="red" dark v-bind="attrs" v-on="on" small>
-              {{ sortList[sortId] }}
-            </v-btn>
-          </template>
-          <v-list width="100%">
-            <v-list-item v-for="sort in sortList" :key="sort">
-              <v-list-item-title @click="sortSelect(sort)">{{
-                sort
-              }}</v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-bottom-sheet>
+    <v-text-field
+      label="검색어를 입력하세요."
+      hide-details="auto"
+      v-model="text"
+      clearable
+      color="#425745"
+    ></v-text-field>
+  
+    <v-col @click="sortList" class="d-flex justify-end px-0">
+      <v-icon small>mdi-swap-vertical</v-icon>
+      <v-bottom-sheet v-model="sortSheet" width="100%">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn color="black" dark v-bind="attrs" v-on="on" small>
+            {{ sortList[sortId] }}
+          </v-btn>
+        </template>
+        <v-list width="100%">
+          <v-list-item v-for="sort in sortList" :key="sort">
+            <v-list-item-title @click="sortSelect(sort)" class="font-weight-bold">{{ sort }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-bottom-sheet>
+    </v-col>
+
+    <v-row dense class="">
+      <v-col cols="6" v-for="index in newList.length" :key="index">
+        <v-card
+          v-if="index-1 >= newList.length-3"
+          @click="goProductDetail(newList[index-1].productId)"
+          elevation="0">
+          <v-img
+            v-intersect="onIntersect"
+            :src="newList[index-1].thumbnail"
+            class="white--text align-end"
+            height="auto">
+            <v-icon v-if="$store.getters['member/getWishList'].includes(newList[index-1].productId)" color="red" class="ma-2" dense>mdi-heart</v-icon>
+            <v-icon v-if="!$store.getters['member/getWishList'].includes(newList[index-1].productId)" dark class="ma-2" dense>mdi-heart-outline</v-icon>
+          </v-img>
+
+          <v-card-title class="brandname pt-1 px-3">{{ newList[index-1].brandName }}</v-card-title>
+          <v-card-subtitle class="px-3 pt-0 pb-2">
+            <div class="content">{{ newList[index-1].name }}</div>
+            <div class="priceContent">￦ {{ newList[index-1].price.toLocaleString() }}</div>
+          </v-card-subtitle>
+        </v-card>
+        <v-card
+          v-if="index-1 < newList.length-3"
+          @click="goProductDetail(newList[index-1].productId)"
+          elevation="0">
+          <v-img
+            v-bind:src="newList[index-1].thumbnail"
+            class="white--text align-end"
+            height="auto">
+            <v-icon v-if="$store.getters['member/getWishList'].includes(newList[index-1].productId)" color="red" class="ma-2" dense>mdi-heart</v-icon>
+            <v-icon v-if="!$store.getters['member/getWishList'].includes(newList[index-1].productId)"  dark class="ma-2" dense>mdi-heart-outline</v-icon>
+          </v-img>
+          
+          <v-card-title class="brandname pt-1 px-3">{{ newList[index-1].brandName }}</v-card-title>
+          <v-card-subtitle class="px-3 pt-0 pb-2">
+            <div class="content">{{ newList[index-1].name }}</div>
+            <div class="priceContent">￦ {{ newList[index-1].price.toLocaleString() }}</div>
+          </v-card-subtitle>
+        </v-card>
       </v-col>
     </v-row>
-    <template>
-      <div class="text-center"></div>
-    </template>
-    <v-row dense class="mt-3">
-        <v-col cols="6" v-for="index in newList.length" :key="index">
-          <v-card
-            tile
-            v-if="index-1 >= newList.length-3"
-            @click="goProductDetail(newList[index-1].productId)"
-            elevation="0">
-            <v-img
-              v-intersect="onIntersect"
-              :src="newList[index-1].thumbnail"
-              class="white--text align-end"
-              height="auto">
-              <v-icon v-if="$store.getters['member/getWishList'].includes(newList[index-1].productId)" color="red" class="ma-2" dense>mdi-heart</v-icon>
-              <v-icon v-if="!$store.getters['member/getWishList'].includes(newList[index-1].productId)" dark class="ma-2" dense>mdi-heart-outline</v-icon>
-            </v-img>
-            <v-card-title class="brandname body-2">{{ newList[index-1].brandName }}</v-card-title>
-            <v-card-subtitle class="caption">
-              <div class="content">{{ newList[index-1].name }}</div>
-              <div class="content">{{ newList[index-1].price.toLocaleString() }}₩</div>
-            </v-card-subtitle>
-          </v-card>
-          <v-card
-            tile
-            v-if="index-1 < newList.length-3"
-            @click="goProductDetail(newList[index-1].productId)"
-            elevation="0">
-            <v-img
-              v-bind:src="newList[index-1].thumbnail"
-              class="white--text align-end"
-              height="auto">
-              <v-icon v-if="$store.getters['member/getWishList'].includes(newList[index-1].productId)" color="red" class="ma-2" dense>mdi-heart</v-icon>
-              <v-icon v-if="!$store.getters['member/getWishList'].includes(newList[index-1].productId)"  dark class="ma-2" dense>mdi-heart-outline</v-icon>
-            </v-img>
-            <v-card-title class="brandname body-2">{{ newList[index-1].brandName }}</v-card-title>
-            <v-card-subtitle class="caption">
-              <div class="content">{{ newList[index-1].name }}</div>
-              <div class="content">{{ newList[index-1].price.toLocaleString() }}₩</div>
-            </v-card-subtitle>
-          </v-card>
-        </v-col>
-      </v-row>
-  </v-app>
+
+  </v-container>
 </template>
 
 <script>
@@ -190,7 +184,21 @@ export default {
   }
 }
 </script>
-<!-- 컴포넌트 스타일 정의 -->
-<style scoped>
 
+<style scoped>
+.brandname {
+  font-weight: bold;
+  font-size: 12px;
+  color: black;
+}
+.content {
+  font-weight: 500;
+  font-size: 14px;
+  color: black;
+}
+.priceContent {
+  color: black;
+  font-size: 14px;
+  font-weight: bold;
+}
 </style>

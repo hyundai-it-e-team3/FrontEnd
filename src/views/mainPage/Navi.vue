@@ -1,6 +1,6 @@
 <template>
   <v-app-bar height="40">
-    <v-tabs v-model="tab" class="white" color="black" slider-color="#425745" centered>
+    <v-tabs v-model="tab" class="white" color="black" slider-color="#425745" centered grow>
       <v-tab v-for="tab in tabs" :key="tab" class="black--text" @click="goTab(tab)">{{tab}}</v-tab>
     </v-tabs>
   </v-app-bar>
@@ -14,7 +14,7 @@ export default {
   data() {
     return {
       tab: '',
-      tabs: ['HOME', 'NEW', 'BEST'],
+      tabs: ['HOME', 'NEW', 'BEST', 'EVENT'],
     };
   },
   methods: {
@@ -25,6 +25,9 @@ export default {
       }else if(tab=='BEST'){
         this.$store.commit("category/setSelectedCategory",[]);
         this.$emit("setMainFlag",2);
+      }else if(tab=='EVENT'){
+        this.$store.commit("category/setSelectedCategory",[]);
+        this.$emit("setMainFlag",3);
       }else{
         this.$emit("setMainFlag",0);
       }

@@ -1,4 +1,3 @@
-<!-- 컴포넌트 UI 정의, root element가 하나만 존재해야한다 -->
 <template>
   <v-container>
     <v-row>
@@ -16,7 +15,7 @@
 
             <v-divider class="my-1" />
 
-            <div class="font-weight-bold pb-1" style="font-size: 15px; color: #CF3705;">처리 상태 : <span class="black--text">{{ orderDetail.state }}</span></div>
+            <div class="pb-1" style="font-size: 15px; color: #CF3705; font-weight: 600;">처리 상태 : <span class="black--text">{{ orderDetail.state }}</span></div>
 
             <v-row v-if="orderDetail.state == '배송완료'">
               <v-col cols="6" class="pr-1">

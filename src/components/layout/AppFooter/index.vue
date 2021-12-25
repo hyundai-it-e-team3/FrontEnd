@@ -37,7 +37,7 @@ export default {
   },
   beforeUpdate() {
     if (this.pageFlag === 'cart') {
-      this.bgcolor = '#377C59'; 
+      this.bgcolor = '#425745'; 
     } else {
       this.bgcolor = 'white'; 
     }

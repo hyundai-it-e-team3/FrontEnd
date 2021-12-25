@@ -69,6 +69,6 @@ beforeCreate() {
 * {
   padding : 0;
   margin : 0;
-  font-family: 'Noto Sans', sans-serif;
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
 }
 </style>

@@ -9,58 +9,39 @@
         @check-checkbox="handleCheckbox"
       />
     </v-row>
-
-    <alert-dialog
-    v-if="alertDialog"
-    :loading="loading"
-    :message="alertDialogMessage"
-    @close="alertDialog = false"
-  />
   </v-container>
 </template>
 
 <script>
 import orderAPI from "@/apis/order";
 import CartComponent from "./CartComponent.vue";
-import AlertDialog from "@/components/alert/AlertDialog";
 
 export default {
   name: "cart",
   components: {
     CartComponent,
-    AlertDialog,
   },
   data() {
     return {
       cartList: null,
-      alertDialog: false,
-      alertDialogMessage: "",
-      loading: false,
       cartLength: null,
       cartIdList: [],
     };
   },
   methods: {
     handleCartList() {
-      this.loading = true;
-      this.alertDialog = true;
       orderAPI
         .getCartList(this.$store.state.memberId)
         .then((response) => {
           console.log(response.data);
           this.cartList = response.data;
-          this.loading = false;
-          this.alertDialog = false;
         })
         .catch((error) => {
           if (error.response) {
             if (error.response.status === 403) {
-              this.loading = false;
-              this.alertDialog = false;
               this.$router.push("/member/mypage");
             }
           } else {
-            this.loading = false;
             this.alertDialogMessage = "네트워크 통신 오류";
           }
         });
