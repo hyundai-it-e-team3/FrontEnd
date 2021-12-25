@@ -1,9 +1,9 @@
 <template>
   <v-container class="pa-0">
     <v-app-bar class="mb-1" dense elevation="0">
-      <v-tabs v-model="tab"
-        background-color="white" color="#425745" slider-color="#425745" centered grow>
-        <v-tab class="ma-0 font-weight-bold" width="100%" 
+      <v-tabs v-model="tab" show-arrows
+        background-color="white" color="#425745" slider-color="#425745">
+        <v-tab class="font-weight-bold" width="100%" 
           v-for="tabs in tabs" :key="tabs">{{tabs}}</v-tab>
       </v-tabs>
     </v-app-bar>
@@ -32,7 +32,7 @@ export default {
   data: function () {
     return {
       tab: '',
-      tabs: ['전체', '적립', '사용', '소멸'],
+      tabs: ['전체', '적립', '사용', '환불', '소멸'],
       pointList: {
         pointSeq: '',
         memberId: '',
@@ -62,4 +62,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>
