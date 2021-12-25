@@ -11,4 +11,8 @@ export default[
     path: "/mainpage/eventpage",
     component: () => import(/* webpackChunkName: "about" */ '../views/mainPage/EventPage')
   },
+  {
+    path: "/mainpage/eventpage/eventdetailpage",
+    component: () => import(/* webpackChunkName: "about" */ '../views/mainPage/EventPage/EventDetailPage.vue')
+  },
 ]

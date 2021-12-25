@@ -217,11 +217,13 @@ export default {
 }
 .rank-tag {
   background-color: #CF3705;
+  font-weight: 400;
   font-size: 15px;
-  width: 25px;
-  height: 30px;
-  padding-top: 3px;
-  margin-bottom: 232px;
+  width: 23px;
+  height: 28px;
+  margin-bottom: 200px;
+  padding-top: 2px;
+  border-radius: 0px 0px 20px 20px;
 }
 .newLabel {
   font-size: 10px;

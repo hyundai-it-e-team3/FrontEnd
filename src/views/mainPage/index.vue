@@ -2,9 +2,10 @@
   <v-container>
     <Navi @setMainFlag="setMainFlag"/>
     
-    <Homepage v-if="mainFlag==0"/>
-    <NewItem v-if="mainFlag==1"/>
-    <BestItem v-if="mainFlag==2"/>
+    <Homepage v-if="mainFlag==0" />
+    <NewItem v-if="mainFlag==1" />
+    <BestItem v-if="mainFlag==2" />
+    <EventPage v-if="mainFlag==3" />
   </v-container>
 </template>
 
@@ -14,6 +15,7 @@ import Homepage from "./Homepage";
 import NewItem from "./NewItem";
 import BestItem from "./BestItem";
 import main from '@/router/main';
+import EventPage from "./EventPage";
 
 export default {
   name: "mainPage",
@@ -21,7 +23,8 @@ export default {
     Navi,
     Homepage,
     NewItem,
-    BestItem
+    BestItem,
+    EventPage
   },
   data:()=> ({
     mainFlag:0
@@ -40,7 +43,6 @@ export default {
   },
   watch:{
     mainFlag (to, from) {
-      // Our fancy notification (2).
       console.log(`${to}`)
     }
   }

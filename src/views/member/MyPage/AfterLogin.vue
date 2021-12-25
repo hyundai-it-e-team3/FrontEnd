@@ -16,16 +16,16 @@
 
     <v-row class="d-flex pl-4 pr-4">
       <v-col class="col-4 d-flex flex-column" @click="goOrderList">
-        <img src="@/assets/images/truck.png" width="80%" style="margin: auto;" />
+        <img src="@/assets/images/truck.png" width="70%" style="margin: auto;" />
         <v-row class="menu3">ORDER</v-row>
       </v-col>
       <v-col class="col-4 d-flex flex-column" @click="goMemberCoupon">
-        <img src="@/assets/images/coupon.png" width="80%" style="margin: auto;" />
+        <img src="@/assets/images/coupon.png" width="70%" style="margin: auto;" />
         <v-row class="menu3">COUPON</v-row>
       </v-col>
       <v-col class="col-4 d-flex flex-column" @click="goMemberPoint">
-        <img src="@/assets/images/letter.png" class="py-2" width="60%" style="margin: auto;" />
-        <v-row class="menu3">{{member.point}} Point</v-row>
+        <img src="@/assets/images/letter.png" class="py-2" width="50%" style="margin: auto;" />
+        <v-row class="menu3">{{member.point.toLocaleString() }} Point</v-row>
       </v-col>
     </v-row>
 
@@ -162,11 +162,12 @@ export default {
   color: black;
   justify-content: center;
   font-weight: bold;
+  font-size: 15px;
   padding: 12px 10px 15px 10px;
 }
 .memberMenu {
   color: black;
   font-size: 15px;
-  font-weight: bold;
+  font-weight: 500;
 }
 </style>
