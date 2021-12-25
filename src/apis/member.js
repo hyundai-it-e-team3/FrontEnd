@@ -5,6 +5,17 @@ const memberAPI = axios.create({
   baseURL: "http://kosa1.iptime.org:50303/member-api",
 });
 
+
+// 요청 http에 Authorization 헤더 추가, 값은 JWT로 설정
+function addAuthHeader(authToken){
+  memberAPI.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
+}
+
+// 요청 http에 Authorization 헤더 제거
+function removeAuthHeader(){
+delete memberAPI.defaults.headers.common['Authorization'];
+}
+
 function joinMember(member) {
   return memberAPI.post("/member/join", {
     memberId: member.memberId,
@@ -171,5 +182,7 @@ export default {
   addWishList,
   getWishList,
   removeWishList,
-  getDefaultAddress
+  getDefaultAddress,
+  addAuthHeader,
+  removeAuthHeader
 };

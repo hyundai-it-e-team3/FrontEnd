@@ -14,6 +14,11 @@ function addAuthHeader(authToken){
     orderAPI.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
 }
 
+// 요청 http에 Authorization 헤더 제거
+function removeAuthHeader(){
+    delete orderAPI.defaults.headers.common['Authorization'];
+}
+
 function getOrderList(memberId) {
     return orderAPI.get("/order/list", {params:{memberId}});
 }
@@ -93,6 +98,7 @@ export default {
     updateCart,
     deleteCart,
     addAuthHeader,
+    removeAuthHeader,
     insertOrderDetail,
     insertOrderPayment,
     getCartInfo,
