@@ -65,7 +65,8 @@ export default {
       idStr = idStr + this.box[i];
     }
     console.log(idStr);
-
+    if(this.$store.getters["getAuthToken"]=="")
+      idStr = "";
     ProductModule.getProductWishList(idStr)
       .then((response) => {
         console.log(response.data);
