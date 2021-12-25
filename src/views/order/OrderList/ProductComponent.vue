@@ -10,10 +10,10 @@
       <v-col cols="9" class="pa-2">
         <v-row>
           <v-col>
-            <div class="font-weight-bold" style="font-size: 15px; color: #CF3705;">주문상태</div>
+            <div class="font-weight-bold" style="font-size: 15px; color: #CF3705;">{{orderDetail.state}}</div>
             <div class="font-weight-bold black--text" style="font-size: 12px;">[{{ product.brandName }}]</div>
             <div style="font-size: 14px; color: black;">{{ product.name }}</div>
-            <div class="mt-5" style="font-size: 12px;">컬러코드 / {{ orderDetail.psize }} / {{ orderDetail.amount }}개</div>
+            <div class="mt-5" style="font-size: 12px;">{{colorCode}} / {{ orderDetail.psize }} / {{ orderDetail.amount }}개</div>
           </v-col>
         </v-row>
 
@@ -73,6 +73,11 @@ export default {
   created() {
     this.handleProductInfo();
   },
+  computed: {
+      colorCode: function () {
+        return this.orderDetail.productDetailId.slice(-2);
+      }
+  }
 };
 </script>
 

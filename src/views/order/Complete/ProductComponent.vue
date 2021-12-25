@@ -12,7 +12,7 @@
             <div class="font-weight-bold black--text">{{ productDetail.brandName }}</div>
             <div class="black--text">{{ productDetail.name }}</div>
             <div class="font-weight-medium black--text">{{ orderDetail.price.toLocaleString() }}원</div>
-            <div class="mt-6"> 컬러코드 / {{ orderDetail.psize }} / {{ orderDetail.amount }} 개</div>
+            <div class="mt-6"> {{colorCode}} / {{ orderDetail.psize }} / {{ orderDetail.amount }} 개</div>
 
             <v-divider class="my-1" />
 
@@ -107,6 +107,11 @@ export default {
   created() {
     this.handleProductInfo();
   },
+  computed: {
+      colorCode: function () {
+        return this.orderDetail.productDetailId.slice(-2);
+      }
+  }
 };
 </script>
 
