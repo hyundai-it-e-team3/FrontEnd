@@ -48,7 +48,7 @@
           <v-row class="d-flex align-center">
             <v-col cols="12">
               <div class="text-right pt-1" style="font-size: 14px">
-                사이즈 : {{ psize }} / 컬러 : CO
+                사이즈 : {{ psize }} / 컬러 : {{colorCode}}
               </div>
             </v-col>
           </v-row>
@@ -287,6 +287,11 @@ export default {
       this.handleUpdateAmount(to);
     },
   },
+  computed: {
+      colorCode: function () {
+        return this.productDetailId.slice(-2);
+      }
+  }
 };
 </script>
 
