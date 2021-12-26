@@ -25,7 +25,7 @@
       <v-row dense class="mt-3">
         <v-col cols="6" v-for="index in newList.length" :key="index">
           <v-card
-            v-if="index-1 >= newList.length -1"
+            v-if="index-1 >= newList.length -5"
             @click="goProductDetail(newList[index-1].productId)"
             elevation="0">
             <v-img
@@ -45,7 +45,7 @@
           </v-card>
 
           <v-card
-            v-if="index-1 < newList.length -2"
+            v-if="index-1 < newList.length -6"
             @click="goProductDetail(newList[index-1].productId)"
             elevation="0">
             <v-img
@@ -92,7 +92,7 @@ export default {
           this.brandName,
           this.categoryId,
           startRow,
-          5,
+          6,
           this.sortId
         )
           .then((response) => {
@@ -101,7 +101,7 @@ export default {
                 this.newList.push(item);
             }
             
-            this.$store.commit("pager/plusRowCount", 6);
+            this.$store.commit("pager/plusRowCount", 7);
           })
           .catch((error) => {
             console.log(error);
