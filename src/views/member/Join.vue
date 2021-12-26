@@ -1,5 +1,7 @@
 <template>
-  <v-container>
+  <v-container class="px-6">
+    <v-col class="d-flex justify-center" style="font-weight: bold; font-size: 20px; letter-spacing: 4px;">회원가입</v-col>
+
     <validation-observer ref="observer" v-slot="{ invalid }">
       <form @submit.prevent="handleJoin()">
         <validation-provider name="member.memberId" rules="memberIdRequired|memberIdType|memberIdMin:5" v-slot="{ errors }">
@@ -7,6 +9,8 @@
           <v-text-field placeholder="아이디"
                         v-model="member.memberId"
                         outlined
+                        dense
+                        color="#425745"
                         hide-details>
           </v-text-field>
           <span>{{ errors[0] }}</span>
@@ -18,6 +22,8 @@
                         v-model="member.password"
                         type="password"
                         outlined
+                        dense
+                        color="#425745"
                         hide-details>
           </v-text-field>
           <span>{{ errors[0] }}</span>
@@ -28,6 +34,8 @@
           <v-text-field placeholder="이름"
                         v-model="member.name"
                         outlined
+                        dense
+                        color="#425745"
                         hide-details>
           </v-text-field>
           <span>{{ errors[0] }}</span>
@@ -38,6 +46,8 @@
           <v-text-field placeholder="닉네임"
                         v-model="member.nickname"
                         outlined
+                        dense
+                        color="#425745"
                         hide-details>
           </v-text-field>
           <span>{{ errors[0] }}</span>
@@ -48,6 +58,8 @@
           <v-text-field placeholder="이메일"
                         v-model="member.email"
                         outlined
+                        dense
+                        color="#425745"
                         hide-details>
           </v-text-field>
           <span>{{ errors[0] }}</span>
@@ -58,6 +70,8 @@
           <v-text-field placeholder="전화번호"
                         v-model="member.tel"
                         outlined
+                        dense
+                        color="#425745"
                         hide-details>
           </v-text-field>
           <span>{{ errors[0] }}</span>
@@ -69,6 +83,8 @@
                         v-model="member.birthday"
                         class="mr-2"
                         outlined
+                        dense
+                        color="#425745"
                         hide-details>
           </v-text-field>
           <span>{{ errors[0] }}</span>
@@ -80,14 +96,15 @@
           <v-checkbox label="(필수) 개인정보 이용 동의"
                       v-model="checkbox"
                       required
+                      color="#425745"
                       hide-details>
           </v-checkbox>
           <span>{{ errors[0] }}</span>
         </validation-provider>
 
         <v-row class="justify-center mt-2 mb-10">
-          <v-btn x-large depressed tile outlined @click="goBack">취소</v-btn>
-          <v-btn class="ml-2 black white--text" x-large depressed tile :disabled="invalid" type="submit">회원가입</v-btn>
+          <v-btn large depressed  outlined @click="goBack">취소</v-btn>
+          <v-btn class="ml-2 white--text" large depressed color="#425745" :disabled="invalid" type="submit">회원가입</v-btn>
         </v-row>
       </form>
     </validation-observer>
@@ -242,10 +259,17 @@ export default {
   padding: 1%;
 }
 .v-text-field >>> input {
-  font-size: 1.3em;
+  font-size: 14px;
 }
 form > span > span {
   color: red;
   margin: 10px 10px 10px 10px;
+}
+span > span {
+  font-size: 12px;
+}
+.col {
+  font-size: 15px;
+  font-weight: 500;
 }
 </style>

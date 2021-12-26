@@ -15,7 +15,7 @@
           <span>{{ errors[0] }}</span>
         </validation-provider>
       </v-col>
-      <v-col class="col-12 pl-5 pr-5 pt-0" style="height: 130px;">
+      <v-col class="col-12 pl-5 pr-5 pt-0" style="height: 110px;">
         <validation-provider name="password" rules="passwordRequired" v-slot="{ errors }">
           <v-text-field label="비밀번호 입력"
                         v-model="member.password"
@@ -31,8 +31,8 @@
       </v-col>
     </v-row>
     <v-row class="justify-center mb-4">
-        <v-btn class="black white--text" depressed large color="black" :disabled="disableButton" @click="handleLogin">로그인</v-btn>
-        <v-btn class="ml-2" depressed large color="#fae100">카카오로 로그인</v-btn>
+        <v-btn class="black white--text" depressed large color="black" style="width: 130px;"
+          :disabled="disableButton" @click="handleLogin">로그인</v-btn>
     </v-row>
 
     <v-divider class="my-4" />

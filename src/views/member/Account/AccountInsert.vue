@@ -20,10 +20,10 @@
           <v-row class="pa-3">
             <v-col class="contentname col-3 pb-0 d-flex justify-center align-center font-weight-bold">은행<br/>/카드사</v-col>
             <v-col class="col-9 pa-0" v-if="account.payType === '1'">
-              <v-select :items="bankType1" outlined hide-details v-model="account.bank"></v-select>
+              <v-select :items="bankType1" outlined hide-details v-model="account.bank" color="#425745"></v-select>
             </v-col>
             <v-col class="col-9 pa-0" v-if="account.payType === '2'">
-              <v-select :items="bankType2" outlined hide-details v-model="account.bank"></v-select>
+              <v-select :items="bankType2" outlined hide-details v-model="account.bank" color="#425745"></v-select>
             </v-col>
             <span class="errormessage mt-0 ml-15 pl-9 mb-0">{{ errors[0] }}</span>
           </v-row>
@@ -33,6 +33,7 @@
           <v-row class="pa-3">
             <v-col class="contentname col-3 pb-0 d-flex justify-center align-center font-weight-bold">계좌번호<br/>/카드번호</v-col>
             <v-text-field v-model="account.accountNo"
+                          color="#425745"
                           outlined
                           hide-details>
             </v-text-field>
@@ -42,7 +43,7 @@
 
         <v-row class="justify-center mt-5 mb-3 mr-1">
           <v-btn large depressed outlined @click="goBack">취소</v-btn>
-          <v-btn class="ml-1" dark large depressed color="#425745" :disabled="invalid" type="submit">추가</v-btn>
+          <v-btn class="ml-1 white--text" large depressed color="#425745" :disabled="invalid" type="submit">추가</v-btn>
         </v-row>
       </form>
 
