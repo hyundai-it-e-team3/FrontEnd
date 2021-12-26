@@ -3,13 +3,13 @@
     <v-col class="pointRegDate col-4">
       {{new Date(pointList.regDate).toLocaleDateString()}}
     </v-col>
-    <v-col class="col-5 d-flex justify-end">
+    <v-col class="col-4 d-flex justify-end">
       <span class="pointTypeSave" v-if="pointList.type === '적립'">{{pointList.type}}</span>
       <span class="pointTypeUse" v-if="pointList.type === '사용'">{{pointList.type}}</span>
       <span class="pointTypeRefund" v-if="pointList.type === '환불'">{{pointList.type}}</span>
     </v-col>
-    <v-col class="point col-3 d-flex justify-end">
-      {{pointList.point}} 점
+    <v-col class="point col-4 d-flex justify-end">
+      {{pointList.point.toLocaleString()}} 점
     </v-col>
   </v-card>
 </template>

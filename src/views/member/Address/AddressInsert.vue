@@ -11,6 +11,7 @@
             <v-col class="contentname col-3 d-flex justify-center align-center">수령인</v-col>
             <v-text-field v-model="address.name"
                           outlined
+                          color="#425745"
                           hide-details>
             </v-text-field>
             <span class="errormessage col-9 mt-0 ml-15 pl-9 mb-0">{{ errors[0] }}</span>
@@ -22,6 +23,7 @@
             <v-col class="contentname col-3 d-flex justify-center align-center" >전화번호</v-col>
             <v-text-field v-model="address.tel"
                           outlined
+                          color="#425745"
                           hide-details>
             </v-text-field>
             <span class="telComment ml-15 pl-9">'-'를 포함해 입력바랍니다.</span>
@@ -34,6 +36,7 @@
             <v-col class="contentname col-3 d-flex justify-center align-center">우편번호</v-col>
             <v-text-field v-model="address.zipCode"
                           outlined
+                          color="#425745"
                           hide-details>
             </v-text-field>
             <span class="errormessage col-9 mt-0 ml-15 pl-9 mb-0">{{ errors[0] }}</span>
@@ -45,6 +48,7 @@
             <v-col class="contentname col-3 d-flex justify-center align-center">주소</v-col>
             <v-text-field v-model="address.address1"
                           outlined
+                          color="#425745"
                           hide-details>
             </v-text-field>
             <span class="errormessage col-9 mt-0 ml-15 pl-9 mb-0">{{ errors[0] }}</span>
@@ -56,6 +60,7 @@
             <v-col class="contentname col-3 d-flex justify-center align-center">상세주소</v-col>
             <v-text-field v-model="address.address2"
                           outlined
+                          color="#425745"
                           hide-details>
             </v-text-field>
             <span class="errormessage col-9 mt-0 ml-15 pl-9 mb-0">{{ errors[0] }}</span>
@@ -65,16 +70,16 @@
         <validation-provider name="address.defaultAddress" rules="required">
           <v-row class="pa-0">
             <v-col class="contentname col-4 d-flex justify-center align-center">기본 배송지</v-col>
-            <v-radio-group v-model="address.defaultAddress" row>
-              <v-radio name="address.defaultAddress" label="Yes" :value="1"></v-radio>
-              <v-radio name="address.defaultAddress" label="No" :value="0"></v-radio>
+            <v-radio-group v-model="address.defaultAddress" row >
+              <v-radio name="address.defaultAddress" label="Yes" :value="1" color="#425745"></v-radio>
+              <v-radio name="address.defaultAddress" label="No" :value="0" color="#425745"></v-radio>
             </v-radio-group>
           </v-row>
         </validation-provider>
 
         <v-row class="justify-center mt-5 mb-3 mr-1">
-          <v-btn large depressed tile outlined @click="goBack">취소</v-btn>
-          <v-btn class="ml-1 black white--text" large depressed tile :disabled="invalid" type="submit">추가</v-btn>
+          <v-btn large depressed outlined @click="goBack">취소</v-btn>
+          <v-btn class="ml-1 white--text" large depressed color="#425745" :disabled="invalid" type="submit">추가</v-btn>
         </v-row>
       </form>
 

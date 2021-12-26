@@ -17,6 +17,7 @@
             <v-text-field v-model="member.password"
                           type="password"
                           outlined
+                          color="#425745"
                           hide-details>
             </v-text-field>
             <span class="errormessage col-12 mt-0 ml-15 pl-9 mb-0">{{ errors[0] }}</span>
@@ -33,6 +34,7 @@
             <v-col class="col-3 d-flex justify-center align-center font-weight-bold">닉네임</v-col>
             <v-text-field v-model="member.nickname"
                           outlined
+                          color="#425745"
                           hide-details>
             </v-text-field>
             <span class="errormessage col-12 mt-0 ml-15 pl-9 mb-0">{{ errors[0] }}</span>
@@ -49,6 +51,7 @@
             <v-col class="col-3 d-flex justify-center align-center font-weight-bold">전화번호</v-col>
             <v-text-field v-model="member.tel"
                           outlined
+                          color="#425745"
                           hide-details>
             </v-text-field>
             <span class="telComment ml-15 pl-9">'-'를 포함해 입력바랍니다.</span>
