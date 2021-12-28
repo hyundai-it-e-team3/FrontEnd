@@ -38,8 +38,10 @@
           class="pl-2"
           v-for="(colorChip, index) in colorChips"
           :key="index"
+          
         >
-          <img :src="colorChip" width="30" @click="goProductDetail(index)" />
+          <img v-if="index==selectIndex" :src="colorChip" width="30" style="border-bottom:2px solid #377C59; padding-bottom: 2px" @click="goProductDetail(index)" />
+          <img v-if="index!=selectIndex" :src="colorChip" width="30" @click="goProductDetail(index)" />
         </v-col>
       </v-row>
       <v-row>
@@ -123,7 +125,7 @@
 
     <v-card-text>
       <v-row>
-        <v-col class="col-4 py-2 pb-0" style="font-size: 12px;">포인트 적립</v-col>
+        <v-col class="col-4 py-2 pb-0" style="font-size: 12px;">포인트적립</v-col>
         <v-col class="py-2 pb-0" style="font-size: 12px;">{{ (product.price * 0.05).toLocaleString() }}  (5%)</v-col>
       </v-row>
       <v-row>
@@ -191,6 +193,8 @@ export default {
       amount: "0",
     },
     alertFlag: 0,
+    selectColorChip: "",
+    selectIndex : 0
   }),
   //컴포넌트 메소드 정의
   methods: {
@@ -222,8 +226,10 @@ export default {
       }
     },
     goProductDetail(index) {
+
       this.productDetail = this.product.productDetailList[index];
       console.log(this.productDetail.productDetailId);
+      this.selectIndex = index;
       this.sizeIdx = -1;
       this.cart.productDetailId = this.productDetail.productDetailId;
       this.alertFlag = 0;
