@@ -159,6 +159,14 @@ function getDefaultAddress(memberId) {
   return memberAPI.get(`/address/member/${memberId}`)
 }
 
+function insertMemberCoupon(memberCoupon) {
+  return memberAPI.post("/member/coupon", {
+    memberId: memberCoupon.memberId,
+    couponId: memberCoupon.couponId,
+    expDate: memberCoupon.expDate
+  })
+}
+
 export default {
   joinMember,
   login,
@@ -184,5 +192,6 @@ export default {
   removeWishList,
   getDefaultAddress,
   addAuthHeader,
-  removeAuthHeader
+  removeAuthHeader,
+  insertMemberCoupon
 };
