@@ -10,6 +10,7 @@
                         v-model="member.memberId"
                         outlined
                         color="#425745"
+                        value="user"
                         hide-details>
           </v-text-field>
           <span>{{ errors[0] }}</span>
@@ -21,6 +22,7 @@
                         v-model="member.password"
                         type="password"
                         color="#425745"
+                        
                         @click:append="passwordIconShow = !passwordIconShow"
                         oninput="javascript: this.value = this.value.replace(/[\s]/g, '' );"
                         hide-details
@@ -73,8 +75,8 @@ export default {
   data: function () {
     return {
       member: {
-        memberId: '',
-        password: ''
+        memberId: 'user',
+        password: '12345'
       },
       alertDialog: false,
       alertDialogMessage: "",
