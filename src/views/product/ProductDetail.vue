@@ -162,6 +162,11 @@
         </v-item-group>
       </v-card-text>
     </v-card>
+
+
+
+
+
   </v-card>
 </template>
 
@@ -181,9 +186,9 @@ export default {
     stock: -1,
     sizeIdx: -1,
     cart: {
-      productDetailId: "",
-      psize: "-1",
-      amount: "1",
+      productDetailId: null,
+      psize: null,
+      amount: "0",
     },
     alertFlag: 0,
   }),

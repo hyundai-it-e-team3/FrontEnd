@@ -20,6 +20,28 @@
             구매하기
         </v-col>
       </v-row>
+
+      <v-dialog
+      v-model="dialog"
+      persistent
+      max-width="290"
+    >
+      <v-card>
+        <v-card-title>
+          색상 / 사이즈를 선택하세요
+        </v-card-title>
+       <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="green darken-1"
+            text
+            @click="dialog = false"
+          >
+            닫기
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -31,47 +53,57 @@ export default {
   name: "ProductFooter",
   components: {},
   data: function () {
-    return {};
+    return {
+      dialog:false
+    };
   },
   methods: {
     getProduct() {
       return this.$store.getters["product/getProduct"];
     },
     handleOrder() {
-      this.$router.push("/order/orderForm?link=product");
+      let cart = this.$store.getters["product/getProduct"];
+      if(cart.amount > 0  && cart.productDetailId != null && cart.psize !=  null ) {
+        this.$router.push("/order/orderForm?link=product");
+      } else {
+        this.dialog = true;
+      }
     },
     async handleInsertCart() {
       let cart = this.$store.getters["product/getProduct"];
-      this.loading = true;
-      this.alertDialog = true;
-      console.log(cart);
-      try {
-        const multipartFormData = new FormData();
-        multipartFormData.append("productDetailId", cart.productDetailId);
-        multipartFormData.append("psize", cart.psize);
-        multipartFormData.append("amount", cart.amount);
-        multipartFormData.append("memberId", this.$store.state.memberId);
-        console.log(multipartFormData);
 
-        const response = await orderAPI.insertCart(multipartFormData);
-        console.log(response);
-        this.loading = false;
-        this.alertDialog = false;
-      } catch (error) {
-        if (error.response) {
-          if (error.response.status === 403) {
-            this.loading = false;
-            this.alertDialog = false;
-            this.$router.push("/menu07/auth/jwtauth");
-          } else {
-            this.loading = false;
-            this.alertDialogMessage = "네트워크 통신 오류";
+      if(cart.amount > 0  && cart.productDetailId != null && cart.psize !=  null ) {
+        this.loading = true;
+        this.alertDialog = true;
+        console.log(cart);
+        try {
+          const multipartFormData = new FormData();
+          multipartFormData.append("productDetailId", cart.productDetailId);
+          multipartFormData.append("psize", cart.psize);
+          multipartFormData.append("amount", cart.amount);
+          multipartFormData.append("memberId", this.$store.state.memberId);
+          console.log(multipartFormData);
+
+          const response = await orderAPI.insertCart(multipartFormData);
+          console.log(response);
+          this.loading = false;
+          this.alertDialog = false;
+          this.$router.push("/order/cart");
+        } catch (error) {
+          if (error.response) {
+            if (error.response.status === 403) {
+              this.loading = false;
+              this.alertDialog = false;
+              this.$router.push("/menu07/auth/jwtauth");
+            } else {
+              this.loading = false;
+              this.alertDialogMessage = "네트워크 통신 오류";
+            }
           }
         }
+      } else {
+        this.dialog = true;
       }
-    },
-    insertCart() {
-      this.$router.push("/member/cart");
     },
     async addWishList() {
       let productId = this.$store.getters[
