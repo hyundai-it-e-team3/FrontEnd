@@ -125,7 +125,7 @@
 
     <v-card-text>
       <v-row>
-        <v-col class="col-4 py-2 pb-0" style="font-size: 12px;">포인트 적립</v-col>
+        <v-col class="col-4 py-2 pb-0" style="font-size: 12px;">포인트적립</v-col>
         <v-col class="py-2 pb-0" style="font-size: 12px;">{{ (product.price * 0.05).toLocaleString() }}  (5%)</v-col>
       </v-row>
       <v-row>
